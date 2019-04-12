@@ -1,0 +1,16 @@
+sudo: false
+language: node_js
+cache:
+  directories:
+    - ~/.npm
+notifications:
+  email: false
+node_js:
+  - 8
+  - 10
+after_success:
+  - npm run ts-build
+#   - npm run travis-deploy-once "npm run semantic-release"
+branches:
+  only:
+    - master
