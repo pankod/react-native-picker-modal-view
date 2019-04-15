@@ -1,13 +1,37 @@
-// Local Imports
+// Global Imports
 import * as React from 'react';
-import { View, Text } from 'react-native';
+import { Text, View, ScrollView, TouchableOpacity } from 'react-native';
 
-export class AlphabetComponent extends React.PureComponent {
+// Local Imports
+import { AlphabetStyle } from '@Styles';
+import { IAlphabetsInDto } from '@Interfaces';
+
+export class AlphabetComponent extends React.PureComponent<IAlphabetsInDto, {}> {
+
+	public static defaultProps = {
+		alphaBets: ['A', 'B', 'C', 'Ç', 'D', 'E', 'F', 'G', 'H', 'I', 'İ', 'J', 'K', 'L', 'M', 'N', 'O', 'Ö', 'P', 'Q', 'R', 'S', 'Ş', 'T', 'U', 'Ü', 'V', 'W', 'X', 'Y', 'Z']
+	};
 
 	public render(): JSX.Element {
+		const { alphaBets, setAlphabet, selectedAlpha } = this.props;
 		return (
-			<View>
-				<Text>A</Text>
+			<View style={AlphabetStyle.container}>
+				<ScrollView
+					showsVerticalScrollIndicator={false}
+					keyboardShouldPersistTaps="always">
+					{
+						alphaBets.map((a: string, index: number) =>
+							<TouchableOpacity onPress={() => setAlphabet(a)} key={index}
+								style={AlphabetStyle.alphabetButton}>
+								<Text
+									style={[AlphabetStyle.alphabetText, selectedAlpha === a && AlphabetStyle.selected]}
+								>
+									{a}
+								</Text>
+							</TouchableOpacity>,
+						)
+					}
+				</ScrollView>
 			</View>
 		);
 	}

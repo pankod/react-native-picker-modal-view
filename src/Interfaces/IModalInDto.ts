@@ -1,12 +1,33 @@
+// Global Imports
+import { FlatListProps } from 'react-native';
+
 // Local Imports
-import { AnimationTypeEnum } from '@Enum';
+import { AnimationTypeEnum, LanguagesEnum } from '@Enum';
 import { IModalListInDto } from '@Interfaces';
 
-export interface IModalInDto {
+export interface IModalInDtoProps {
 	animationType: AnimationTypeEnum;
 	hideAlphabetFilter: boolean;
 	onRequestClosed: () => void;
-	onChange: (selected: IModalListInDto) => IModalListInDto;
+	onSelected: (selected: IModalListInDto) => IModalListInDto;
 	closeable: boolean;
 	list: IModalListInDto[];
+	alphaBets?: string[];
+	placeholderTextColor?: string;
+	modalVisible: boolean;
+	_keyExtractor?: (key: any) => string;
+	autoGenerateAlphabet?: boolean;
+	sortingLanguage?: LanguagesEnum;
+	showToTopButton?: boolean;
+	onEndReached: () => void;
+	removeClippedSubviews: boolean;
+	flatListProps: FlatListProps<any>;
+}
+
+export interface IModalInDtoState {
+	modalVisible: boolean;
+	searchText: string;
+	alphaBets?: string[];
+	stickyBottomButton?: boolean;
+	selectedAlpha?: string;
 }

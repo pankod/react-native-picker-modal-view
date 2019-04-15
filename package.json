@@ -1,9 +1,11 @@
 {
 	"name": "react-native-picker-modal-view",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "React Native Modal Picker",
 	"scripts": {
-		"build": "rm -rf ./dist/** && tsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./dist",
+		"build": "rm -rf ./dist/** && tsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./dist && npm run copy-assets && npm run copy",
+		"copy": "rm -rf /Users/selcuk/Documents/projects/react-native-boilerplate/node_modules/react-native-picker-modal-view/dist/** && cp -R /Users/selcuk/Documents/projects/react-native-picker/dist /Users/selcuk/Documents/projects/react-native-boilerplate/node_modules/react-native-picker-modal-view",
+		"copy-assets": "cp -R src/Assets/Images dist/Assets/",
 		"travis-deploy-once": "travis-deploy-once",
 		"semantic-release": "semantic-release",
 		"watch": "tsc -- --watch",
@@ -11,14 +13,15 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/pankod/react-native-picker"
+		"url": "https://github.com/pankod/react-native-picker-modal-view"
 	},
 	"bugs": {
-		"url": "https://github.com/pankod/react-native-picker/issues"
+		"url": "https://github.com/pankod/react-native-picker-modal-view/issues"
 	},
-	"homepage": "https://github.com/pankod/react-native-picker",
+	"homepage": "https://github.com/pankod/react-native-picker-modal-view",
 	"files": [
-		"dist"
+		"dist",
+		"src"
 	],
 	"types": "dist/index.d.ts",
 	"main": "dist/index.js",

@@ -1,13 +1,15 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const tslib_1 = require("tslib");
-const React = tslib_1.__importStar(require("react"));
-const react_native_1 = require("react-native");
-class AlphabetComponent extends React.PureComponent {
+import * as React from 'react';
+import { Text, View, ScrollView, TouchableOpacity } from 'react-native';
+import { AlphabetStyle } from '../Assets/Styles';
+export class AlphabetComponent extends React.PureComponent {
     render() {
-        return (React.createElement(react_native_1.View, null,
-            React.createElement(react_native_1.Text, null, "A")));
+        const { alphaBets, setAlphabet, selectedAlpha } = this.props;
+        return (React.createElement(View, { style: AlphabetStyle.container },
+            React.createElement(ScrollView, { showsVerticalScrollIndicator: false, keyboardShouldPersistTaps: "always" }, alphaBets.map((a, index) => React.createElement(TouchableOpacity, { onPress: () => setAlphabet(a), key: index, style: AlphabetStyle.alphabetButton },
+                React.createElement(Text, { style: [AlphabetStyle.alphabetText, selectedAlpha === a && AlphabetStyle.selected] }, a))))));
     }
 }
-exports.AlphabetComponent = AlphabetComponent;
+AlphabetComponent.defaultProps = {
+    alphaBets: ['A', 'B', 'C', 'Ç', 'D', 'E', 'F', 'G', 'H', 'I', 'İ', 'J', 'K', 'L', 'M', 'N', 'O', 'Ö', 'P', 'Q', 'R', 'S', 'Ş', 'T', 'U', 'Ü', 'V', 'W', 'X', 'Y', 'Z']
+};
 //# sourceMappingURL=Alphabet.js.map

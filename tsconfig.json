@@ -5,7 +5,7 @@
 			"src/**",
 			"src/Components",
 			"src/Interfaces",
-			"src/Styles",
+			"src/Assets",
 			"src/Enum"
 		],
 		"importHelpers": true,
@@ -23,10 +23,10 @@
 				"src/Interfaces/*"
 			],
 			"@Styles": [
-				"src/Styles"
+				"src/Assets/Styles"
 			],
 			"@Styles/*": [
-				"src/Styles/*"
+				"src/Assets/Styles/*"
 			],
 			"@Enum": [
 				"src/Enum"
@@ -39,8 +39,8 @@
 			"es2015",
 			"es2016"
 		],
-		"target": "es6",
-		"module": "commonjs",
+		"target": "es2016",
+		"module": "esnext",
 		"moduleResolution": "node",
 		"jsx": "react",
 		"declaration": true,
