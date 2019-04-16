@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { IModalInDtoProps, IModalInDtoState } from '../Interfaces';
-export declare class ModalComponent extends React.PureComponent<IModalInDtoProps, IModalInDtoState> {
+export declare class ModalComponent extends React.Component<IModalInDtoProps, IModalInDtoState> {
     private flatListRef;
     state: IModalInDtoState;
     static defaultProps: {
@@ -12,8 +12,13 @@ export declare class ModalComponent extends React.PureComponent<IModalInDtoProps
         autoGenerateAlphabet: boolean;
         sortingLanguage: string;
         removeClippedSubviews: boolean;
+        chooseText: string;
+        searchText: string;
+        autoCorrect: boolean;
     };
     constructor(props: IModalInDtoProps);
+    componentWillUnmount(): void;
+    private clearComponent;
     componentWillMount(): void;
     componentWillReceiveProps(nextProps: any, nextState: any): void;
     private openModal;

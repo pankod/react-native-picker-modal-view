@@ -23,7 +23,7 @@ import { IModalInDtoProps, IModalListInDto, IModalInDtoState } from '@Interfaces
 import { ModalStyles } from '@Styles';
 
 const { height } = Dimensions.get('window');
-export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModalInDtoState> {
+export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDtoState> {
 
 	private flatListRef = null;
 
@@ -32,6 +32,7 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 		searchText: '',
 		stickyBottomButton: false,
 		selectedAlpha: null,
+		selectedObject: null,
 	};
 
 	public static defaultProps = {
@@ -43,6 +44,9 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 		autoGenerateAlphabet: false,
 		sortingLanguage: 'tr',
 		removeClippedSubviews: true,
+		chooseText: 'Seçim yapınız',
+		searchText: 'Arama yapın',
+		autoCorrect: true,
 	};
 
 	constructor(props: IModalInDtoProps) {
@@ -50,8 +54,19 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 		this._onViewableItemsChanged = this._onViewableItemsChanged.bind(this);
 	}
 
+	public componentWillUnmount(): void {
+		this.clearComponent();
+	}
+
+	private clearComponent(): void {
+		this.setState({
+			searchText: '',
+			selectedAlpha: null,
+		});
+	}
+
 	public componentWillMount(): void {
-		const { autoGenerateAlphabet, alphaBets, modalVisible } = this.props;
+		const { autoGenerateAlphabet, alphaBets, modalVisible, defaultSelected } = this.props;
 		if (autoGenerateAlphabet) {
 			this.generateAlphabet();
 		} else if (alphaBets) {
@@ -91,22 +106,33 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 			showToTopButton,
 			onEndReached,
 			removeClippedSubviews,
-			flatListProps,
+			FlatListProps,
+			chooseText,
+			searchText,
+			autoCorrect,
+			SearchInputProps,
 		} = this.props;
-		const { modalVisible, alphaBets, stickyBottomButton, selectedAlpha } = this.state;
+		const { modalVisible, alphaBets, stickyBottomButton, selectedAlpha, selectedObject } = this.state;
 		return (
 			<React.Fragment>
-				<SelectBoxComponent openModal={this.openModal.bind(this)} />
+				<SelectBoxComponent
+					selectedObject={selectedObject}
+					chooseText={chooseText}
+					openModal={this.openModal.bind(this)}
+				/>
 				<Modal
 					animationType={animationType}
 					visible={modalVisible}
 					onRequestClose={() => onRequestClosed}>
 					<SafeAreaView style={ModalStyles.container}>
 						<SearchComponent
+							autoCorrect={autoCorrect}
+							searchText={searchText}
 							placeholderTextColor={placeholderTextColor}
 							onClose={this.onClose.bind(this)}
 							closeable={closeable}
 							setText={(text: string) => this.setText(text)}
+							{...SearchInputProps}
 						/>
 						<KeyboardAvoidingView style={ModalStyles.keyboardContainer} behavior="padding" enabled>
 							<View style={ModalStyles.listArea}>
@@ -118,6 +144,8 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 									renderItem={({ item, index }) => this.renderItem(item, index)}
 									onScroll={showToTopButton && this.onScrolling.bind(this)}
 									initialNumToRender={20}
+									keyboardShouldPersistTaps={'always'}
+									keyboardDismissMode={'on-drag'}
 									onEndReached={onEndReached}
 									removeClippedSubviews={removeClippedSubviews}
 									viewabilityConfig={{
@@ -126,7 +154,7 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 										waitForInteraction: true,
 									}}
 									onViewableItemsChanged={this._onViewableItemsChanged}
-									{...flatListProps}
+									{...FlatListProps}
 								/>
 
 								{
@@ -160,6 +188,7 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 		this.setState({
 			modalVisible: !modalVisible,
 		});
+		this.clearComponent();
 		onRequestClosed();
 	}
 
@@ -188,7 +217,12 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 	}
 
 	private renderItem(item: IModalListInDto, index: number): JSX.Element {
-		return <ListItemComponent list={item} onSelectMethod={this.onSelectMethod.bind(this)} />;
+		const { defaultSelected } = this.props;
+		return <ListItemComponent
+			defaultSelected={defaultSelected}
+			list={item}
+			onSelectMethod={this.onSelectMethod.bind(this)}
+		/>;
 	}
 
 	private generateAlphabet(): void {
@@ -219,13 +253,18 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 	}
 
 	private getFilteredData(): IModalListInDto[] {
-		const { list } = this.props;
+		const { list, defaultSelected } = this.props;
 		const { searchText } = this.state;
 		return list.filter((l: IModalListInDto) => l.Name.toLocaleLowerCase().indexOf(searchText.toLocaleLowerCase()) > -1);
 	}
 
 	private onSelectMethod(key: IModalListInDto): IModalListInDto {
 		const { onSelected } = this.props;
+		this.setState({
+			selectedObject: key,
+		});
+		console.log(key);
+		this.clearComponent();
 		return onSelected(key);
 	}
 

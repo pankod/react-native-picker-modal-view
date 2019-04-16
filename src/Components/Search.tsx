@@ -8,15 +8,17 @@ import { ISearch } from '@Interfaces';
 
 export class SearchComponent extends React.PureComponent<ISearch, {}> {
 	public render(): JSX.Element {
-		const { placeholderTextColor, onClose, setText, closeable } = this.props;
+		const { SearchInputProps, autoCorrect, placeholderTextColor, onClose, setText, closeable, searchText } = this.props;
 		return (
 			<View style={SearchStyle.searchArea}>
 				<TextInput
-					placeholder={'Search...'}
+					placeholder={searchText}
 					placeholderTextColor={placeholderTextColor}
 					style={SearchStyle.textInput}
 					underlineColorAndroid={'transparent'}
 					onChangeText={(text: string) => setText(text)}
+					autoCorrect={autoCorrect}
+					{...SearchInputProps}
 				/>
 				{closeable &&
 					<TouchableOpacity onPress={() => onClose()}>

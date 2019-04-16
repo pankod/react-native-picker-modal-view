@@ -3,7 +3,7 @@ import { Modal, SafeAreaView, View, FlatList, KeyboardAvoidingView, Dimensions, 
 import { AlphabetComponent, ListItemComponent, SearchComponent, ScrollToTopComponent, SelectBoxComponent, } from './';
 import { ModalStyles } from '../Assets/Styles';
 const { height } = Dimensions.get('window');
-export class ModalComponent extends React.PureComponent {
+export class ModalComponent extends React.Component {
     constructor(props) {
         super(props);
         this.flatListRef = null;
@@ -12,11 +12,21 @@ export class ModalComponent extends React.PureComponent {
             searchText: '',
             stickyBottomButton: false,
             selectedAlpha: null,
+            selectedObject: null,
         };
         this._onViewableItemsChanged = this._onViewableItemsChanged.bind(this);
     }
+    componentWillUnmount() {
+        this.clearComponent();
+    }
+    clearComponent() {
+        this.setState({
+            searchText: '',
+            selectedAlpha: null,
+        });
+    }
     componentWillMount() {
-        const { autoGenerateAlphabet, alphaBets, modalVisible } = this.props;
+        const { autoGenerateAlphabet, alphaBets, modalVisible, defaultSelected } = this.props;
         if (autoGenerateAlphabet) {
             this.generateAlphabet();
         }
@@ -43,20 +53,20 @@ export class ModalComponent extends React.PureComponent {
         });
     }
     render() {
-        const { animationType, onRequestClosed, closeable, hideAlphabetFilter, placeholderTextColor, keyExtractor, showToTopButton, onEndReached, removeClippedSubviews, flatListProps, } = this.props;
-        const { modalVisible, alphaBets, stickyBottomButton, selectedAlpha } = this.state;
+        const { animationType, onRequestClosed, closeable, hideAlphabetFilter, placeholderTextColor, keyExtractor, showToTopButton, onEndReached, removeClippedSubviews, FlatListProps, chooseText, searchText, autoCorrect, SearchInputProps, } = this.props;
+        const { modalVisible, alphaBets, stickyBottomButton, selectedAlpha, selectedObject } = this.state;
         return (React.createElement(React.Fragment, null,
-            React.createElement(SelectBoxComponent, { openModal: this.openModal.bind(this) }),
+            React.createElement(SelectBoxComponent, { selectedObject: selectedObject, chooseText: chooseText, openModal: this.openModal.bind(this) }),
             React.createElement(Modal, { animationType: animationType, visible: modalVisible, onRequestClose: () => onRequestClosed },
                 React.createElement(SafeAreaView, { style: ModalStyles.container },
-                    React.createElement(SearchComponent, { placeholderTextColor: placeholderTextColor, onClose: this.onClose.bind(this), closeable: closeable, setText: (text) => this.setText(text) }),
+                    React.createElement(SearchComponent, Object.assign({ autoCorrect: autoCorrect, searchText: searchText, placeholderTextColor: placeholderTextColor, onClose: this.onClose.bind(this), closeable: closeable, setText: (text) => this.setText(text) }, SearchInputProps)),
                     React.createElement(KeyboardAvoidingView, { style: ModalStyles.keyboardContainer, behavior: "padding", enabled: true },
                         React.createElement(View, { style: ModalStyles.listArea },
-                            React.createElement(FlatList, Object.assign({ ref: (ref) => this.flatListRef = ref, data: this.getFilteredData(), keyExtractor: keyExtractor ? keyExtractor : this._keyExtractor.bind(this), renderItem: ({ item, index }) => this.renderItem(item, index), onScroll: showToTopButton && this.onScrolling.bind(this), initialNumToRender: 20, onEndReached: onEndReached, removeClippedSubviews: removeClippedSubviews, viewabilityConfig: {
+                            React.createElement(FlatList, Object.assign({ ref: (ref) => this.flatListRef = ref, data: this.getFilteredData(), keyExtractor: keyExtractor ? keyExtractor : this._keyExtractor.bind(this), renderItem: ({ item, index }) => this.renderItem(item, index), onScroll: showToTopButton && this.onScrolling.bind(this), initialNumToRender: 20, keyboardShouldPersistTaps: 'always', keyboardDismissMode: 'on-drag', onEndReached: onEndReached, removeClippedSubviews: removeClippedSubviews, viewabilityConfig: {
                                     minimumViewTime: 1000,
                                     viewAreaCoveragePercentThreshold: 50,
                                     waitForInteraction: true,
-                                }, onViewableItemsChanged: this._onViewableItemsChanged }, flatListProps)),
+                                }, onViewableItemsChanged: this._onViewableItemsChanged }, FlatListProps)),
                             !hideAlphabetFilter &&
                                 React.createElement(AlphabetComponent, { setAlphabet: (alphabet) => this.setAlphabet(alphabet), alphaBets: alphaBets, selectedAlpha: selectedAlpha }))),
                     stickyBottomButton && React.createElement(ScrollToTopComponent, { goToUp: () => this.scrollToUp() })))));
@@ -74,6 +84,7 @@ export class ModalComponent extends React.PureComponent {
         this.setState({
             modalVisible: !modalVisible,
         });
+        this.clearComponent();
         onRequestClosed();
     }
     scrollToUp() {
@@ -98,7 +109,8 @@ export class ModalComponent extends React.PureComponent {
         }
     }
     renderItem(item, index) {
-        return React.createElement(ListItemComponent, { list: item, onSelectMethod: this.onSelectMethod.bind(this) });
+        const { defaultSelected } = this.props;
+        return React.createElement(ListItemComponent, { defaultSelected: defaultSelected, list: item, onSelectMethod: this.onSelectMethod.bind(this) });
     }
     generateAlphabet() {
         const { list, sortingLanguage } = this.props;
@@ -122,12 +134,17 @@ export class ModalComponent extends React.PureComponent {
         });
     }
     getFilteredData() {
-        const { list } = this.props;
+        const { list, defaultSelected } = this.props;
         const { searchText } = this.state;
         return list.filter((l) => l.Name.toLocaleLowerCase().indexOf(searchText.toLocaleLowerCase()) > -1);
     }
     onSelectMethod(key) {
         const { onSelected } = this.props;
+        this.setState({
+            selectedObject: key,
+        });
+        console.log(key);
+        this.clearComponent();
         return onSelected(key);
     }
     getIndex(alphabet) {
@@ -157,5 +174,8 @@ ModalComponent.defaultProps = {
     autoGenerateAlphabet: false,
     sortingLanguage: 'tr',
     removeClippedSubviews: true,
+    chooseText: 'Seçim yapınız',
+    searchText: 'Arama yapın',
+    autoCorrect: true,
 };
 //# sourceMappingURL=Modal.js.map

@@ -1,5 +1,5 @@
 // Global Imports
-import { FlatListProps } from 'react-native';
+import { FlatListProps, TextInputProps } from 'react-native';
 
 // Local Imports
 import { AnimationTypeEnum, LanguagesEnum } from '@Enum';
@@ -21,7 +21,12 @@ export interface IModalInDtoProps {
 	showToTopButton?: boolean;
 	onEndReached: () => void;
 	removeClippedSubviews: boolean;
-	flatListProps: FlatListProps<any>;
+	FlatListProps: FlatListProps<any>;
+	chooseText: string;
+	defaultSelected?: IModalListInDto;
+	searchText: 'string';
+	autoCorrect: boolean;
+	SearchInputProps?: TextInputProps;
 }
 
 export interface IModalInDtoState {

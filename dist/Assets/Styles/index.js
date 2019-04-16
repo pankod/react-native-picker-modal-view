@@ -3,4 +3,5 @@ export { AlphabetStyle } from './AlphabetStyle';
 export { ListItemStyle } from './ListItemStyle';
 export { SearchStyle } from './SearchStyle';
 export { ScrollToTopStyle } from './ScrollToTopStyle';
+export { SelectBoxStyle } from './SelectBoxStyle';
 //# sourceMappingURL=index.js.map
