@@ -56,7 +56,8 @@
 		"typeRoots": [
 			"node_modules/@types"
 		],
-		"plugins": []
+		"plugins": [],
+		"resolveJsonModule": true
 	},
 	"files": [
 		"src/index.ts"
