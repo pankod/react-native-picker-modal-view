@@ -8,4 +8,4 @@ export class ScrollToTopComponent extends React.PureComponent {
             React.createElement(Image, { source: require('../Assets/Images/up.png'), style: ScrollToTopStyle.upBtn })));
     }
 }
-//# sourceMappingURL=ScrollToTopComponent.js.map
+//# sourceMappingURL=ScrollToTop.js.map

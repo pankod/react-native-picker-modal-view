@@ -11,4 +11,4 @@ export class SearchComponent extends React.PureComponent {
                     React.createElement(Image, { source: require('../Assets/Images/close.png'), style: SearchStyle.closeButton }))));
     }
 }
-//# sourceMappingURL=SearchComponent.js.map
+//# sourceMappingURL=Search.js.map

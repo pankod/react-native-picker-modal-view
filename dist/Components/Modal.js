@@ -32,19 +32,20 @@ export class ModalComponent extends React.Component {
     render() {
         const { animationType, onRequestClosed, closeable, hideAlphabetFilter, placeholderTextColor, keyExtractor, showToTopButton, onEndReached, removeClippedSubviews, flatListProps, } = this.props;
         const { modalVisible, alphaBets, stickyBottomButton, selectedAlpha } = this.state;
-        return (React.createElement(Modal, { animationType: animationType, visible: modalVisible, onRequestClose: () => onRequestClosed },
-            React.createElement(SafeAreaView, { style: ModalStyles.container },
-                React.createElement(SearchComponent, { placeholderTextColor: placeholderTextColor, onClose: this.onClose.bind(this), closeable: closeable, setText: (text) => this.setText(text) }),
-                React.createElement(KeyboardAvoidingView, { style: ModalStyles.keyboardContainer, behavior: "padding", enabled: true },
-                    React.createElement(View, { style: ModalStyles.listArea },
-                        React.createElement(FlatList, Object.assign({ ref: (ref) => this.flatListRef = ref, data: this.getFilteredData(), keyExtractor: keyExtractor ? keyExtractor : this._keyExtractor.bind(this), renderItem: ({ item, index }) => this.renderItem(item, index), onScroll: showToTopButton && this.onScrolling.bind(this), initialNumToRender: 20, onEndReached: onEndReached, removeClippedSubviews: removeClippedSubviews, viewabilityConfig: {
-                                minimumViewTime: 1000,
-                                viewAreaCoveragePercentThreshold: 50,
-                                waitForInteraction: true,
-                            }, onViewableItemsChanged: this._onViewableItemsChanged }, flatListProps)),
-                        !hideAlphabetFilter &&
-                            React.createElement(AlphabetComponent, { setAlphabet: (alphabet) => this.setAlphabet(alphabet), alphaBets: alphaBets, selectedAlpha: selectedAlpha }))),
-                stickyBottomButton && React.createElement(ScrollToTopComponent, { goToUp: () => this.scrollToUp() }))));
+        return (React.createElement(React.Fragment, null,
+            React.createElement(Modal, { animationType: animationType, visible: modalVisible, onRequestClose: () => onRequestClosed },
+                React.createElement(SafeAreaView, { style: ModalStyles.container },
+                    React.createElement(SearchComponent, { placeholderTextColor: placeholderTextColor, onClose: this.onClose.bind(this), closeable: closeable, setText: (text) => this.setText(text) }),
+                    React.createElement(KeyboardAvoidingView, { style: ModalStyles.keyboardContainer, behavior: "padding", enabled: true },
+                        React.createElement(View, { style: ModalStyles.listArea },
+                            React.createElement(FlatList, Object.assign({ ref: (ref) => this.flatListRef = ref, data: this.getFilteredData(), keyExtractor: keyExtractor ? keyExtractor : this._keyExtractor.bind(this), renderItem: ({ item, index }) => this.renderItem(item, index), onScroll: showToTopButton && this.onScrolling.bind(this), initialNumToRender: 20, onEndReached: onEndReached, removeClippedSubviews: removeClippedSubviews, viewabilityConfig: {
+                                    minimumViewTime: 1000,
+                                    viewAreaCoveragePercentThreshold: 50,
+                                    waitForInteraction: true,
+                                }, onViewableItemsChanged: this._onViewableItemsChanged }, flatListProps)),
+                            !hideAlphabetFilter &&
+                                React.createElement(AlphabetComponent, { setAlphabet: (alphabet) => this.setAlphabet(alphabet), alphaBets: alphaBets, selectedAlpha: selectedAlpha }))),
+                    stickyBottomButton && React.createElement(ScrollToTopComponent, { goToUp: () => this.scrollToUp() })))));
     }
     _onViewableItemsChanged({ viewableItems, changed }) {
         if (viewableItems && viewableItems[0]) {

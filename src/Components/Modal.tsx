@@ -74,51 +74,53 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 		} = this.props;
 		const { modalVisible, alphaBets, stickyBottomButton, selectedAlpha } = this.state;
 		return (
-			<Modal
-				animationType={animationType}
-				visible={modalVisible}
-				onRequestClose={() => onRequestClosed}>
-				<SafeAreaView style={ModalStyles.container}>
-					<SearchComponent
-						placeholderTextColor={placeholderTextColor}
-						onClose={this.onClose.bind(this)}
-						closeable={closeable}
-						setText={(text: string) => this.setText(text)}
-					/>
-					<KeyboardAvoidingView style={ModalStyles.keyboardContainer} behavior="padding" enabled>
-						<View style={ModalStyles.listArea}>
+			<React.Fragment>
+				<Modal
+					animationType={animationType}
+					visible={modalVisible}
+					onRequestClose={() => onRequestClosed}>
+					<SafeAreaView style={ModalStyles.container}>
+						<SearchComponent
+							placeholderTextColor={placeholderTextColor}
+							onClose={this.onClose.bind(this)}
+							closeable={closeable}
+							setText={(text: string) => this.setText(text)}
+						/>
+						<KeyboardAvoidingView style={ModalStyles.keyboardContainer} behavior="padding" enabled>
+							<View style={ModalStyles.listArea}>
 
-							<FlatList
-								ref={(ref) => this.flatListRef = ref}
-								data={this.getFilteredData()}
-								keyExtractor={keyExtractor ? keyExtractor : this._keyExtractor.bind(this)}
-								renderItem={({ item, index }) => this.renderItem(item, index)}
-								onScroll={showToTopButton && this.onScrolling.bind(this)}
-								initialNumToRender={20}
-								onEndReached={onEndReached}
-								removeClippedSubviews={removeClippedSubviews}
-								viewabilityConfig={{
-									minimumViewTime: 1000,
-									viewAreaCoveragePercentThreshold: 50,
-									waitForInteraction: true,
-								}}
-								onViewableItemsChanged={this._onViewableItemsChanged}
-								{...flatListProps}
-							/>
-
-							{
-								!hideAlphabetFilter &&
-								<AlphabetComponent
-									setAlphabet={(alphabet: string) => this.setAlphabet(alphabet)}
-									alphaBets={alphaBets}
-									selectedAlpha={selectedAlpha}
+								<FlatList
+									ref={(ref) => this.flatListRef = ref}
+									data={this.getFilteredData()}
+									keyExtractor={keyExtractor ? keyExtractor : this._keyExtractor.bind(this)}
+									renderItem={({ item, index }) => this.renderItem(item, index)}
+									onScroll={showToTopButton && this.onScrolling.bind(this)}
+									initialNumToRender={20}
+									onEndReached={onEndReached}
+									removeClippedSubviews={removeClippedSubviews}
+									viewabilityConfig={{
+										minimumViewTime: 1000,
+										viewAreaCoveragePercentThreshold: 50,
+										waitForInteraction: true,
+									}}
+									onViewableItemsChanged={this._onViewableItemsChanged}
+									{...flatListProps}
 								/>
-							}
-						</View>
-					</KeyboardAvoidingView>
-					{stickyBottomButton && <ScrollToTopComponent goToUp={() => this.scrollToUp()} />}
-				</SafeAreaView>
-			</Modal>
+
+								{
+									!hideAlphabetFilter &&
+									<AlphabetComponent
+										setAlphabet={(alphabet: string) => this.setAlphabet(alphabet)}
+										alphaBets={alphaBets}
+										selectedAlpha={selectedAlpha}
+									/>
+								}
+							</View>
+						</KeyboardAvoidingView>
+						{stickyBottomButton && <ScrollToTopComponent goToUp={() => this.scrollToUp()} />}
+					</SafeAreaView>
+				</Modal>
+			</React.Fragment>
 		);
 	}
 
