@@ -8,13 +8,13 @@ import { ListItemStyle } from '@Styles';
 
 export class ListItemComponent extends React.Component<IListItemInDto, {}> {
 	public render(): JSX.Element {
-		const { onChangeMethod } = this.props;
+		const { onSelectMethod } = this.props;
 		const { Name } = this.props.list;
 		return (
 			<TouchableOpacity
 				style={ListItemStyle.container}
 				activeOpacity={0.7}
-				onPress={() => onChangeMethod(this.props.list)}
+				onPress={() => onSelectMethod(this.props.list)}
 			>
 				<View style={ListItemStyle.btnContainer}>
 					<Text>{Name}</Text>

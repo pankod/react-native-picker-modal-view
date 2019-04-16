@@ -12,12 +12,18 @@ import {
 } from 'react-native';
 
 // Local Imports
-import { AlphabetComponent, ListItemComponent, SearchComponent, ScrollToTopComponent } from '@Components';
+import {
+	AlphabetComponent,
+	ListItemComponent,
+	SearchComponent,
+	ScrollToTopComponent,
+	SelectBoxComponent,
+} from '@Components';
 import { IModalInDtoProps, IModalListInDto, IModalInDtoState } from '@Interfaces';
 import { ModalStyles } from '@Styles';
 
 const { height } = Dimensions.get('window');
-export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDtoState> {
+export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModalInDtoState> {
 
 	private flatListRef = null;
 
@@ -59,6 +65,21 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 		});
 	}
 
+	public componentWillReceiveProps(nextProps, nextState): void {
+		const { modalVisible } = this.state;
+		if (modalVisible !== nextProps.modalVisible) {
+			this.setState({
+				modalVisible: !modalVisible,
+			});
+		}
+	}
+
+	private openModal(): void {
+		this.setState({
+			modalVisible: true,
+		});
+	}
+
 	public render(): JSX.Element {
 		const {
 			animationType,
@@ -75,6 +96,7 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 		const { modalVisible, alphaBets, stickyBottomButton, selectedAlpha } = this.state;
 		return (
 			<React.Fragment>
+				<SelectBoxComponent openModal={this.openModal.bind(this)} />
 				<Modal
 					animationType={animationType}
 					visible={modalVisible}
@@ -120,7 +142,7 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 						{stickyBottomButton && <ScrollToTopComponent goToUp={() => this.scrollToUp()} />}
 					</SafeAreaView>
 				</Modal>
-			</React.Fragment>
+			</React.Fragment >
 		);
 	}
 
@@ -166,7 +188,7 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 	}
 
 	private renderItem(item: IModalListInDto, index: number): JSX.Element {
-		return <ListItemComponent list={item} onChangeMethod={this.onChangeMethod.bind(this)} />;
+		return <ListItemComponent list={item} onSelectMethod={this.onSelectMethod.bind(this)} />;
 	}
 
 	private generateAlphabet(): void {
@@ -202,7 +224,7 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 		return list.filter((l: IModalListInDto) => l.Name.toLocaleLowerCase().indexOf(searchText.toLocaleLowerCase()) > -1);
 	}
 
-	private onChangeMethod(key: IModalListInDto): IModalListInDto {
+	private onSelectMethod(key: IModalListInDto): IModalListInDto {
 		const { onSelected } = this.props;
 		return onSelected(key);
 	}

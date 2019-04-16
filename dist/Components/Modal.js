@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Modal, SafeAreaView, View, FlatList, KeyboardAvoidingView, Dimensions, } from 'react-native';
-import { AlphabetComponent, ListItemComponent, SearchComponent, ScrollToTopComponent } from './';
+import { AlphabetComponent, ListItemComponent, SearchComponent, ScrollToTopComponent, SelectBoxComponent, } from './';
 import { ModalStyles } from '../Assets/Styles';
 const { height } = Dimensions.get('window');
-export class ModalComponent extends React.Component {
+export class ModalComponent extends React.PureComponent {
     constructor(props) {
         super(props);
         this.flatListRef = null;
@@ -29,10 +29,24 @@ export class ModalComponent extends React.Component {
             modalVisible,
         });
     }
+    componentWillReceiveProps(nextProps, nextState) {
+        const { modalVisible } = this.state;
+        if (modalVisible !== nextProps.modalVisible) {
+            this.setState({
+                modalVisible: !modalVisible,
+            });
+        }
+    }
+    openModal() {
+        this.setState({
+            modalVisible: true,
+        });
+    }
     render() {
         const { animationType, onRequestClosed, closeable, hideAlphabetFilter, placeholderTextColor, keyExtractor, showToTopButton, onEndReached, removeClippedSubviews, flatListProps, } = this.props;
         const { modalVisible, alphaBets, stickyBottomButton, selectedAlpha } = this.state;
         return (React.createElement(React.Fragment, null,
+            React.createElement(SelectBoxComponent, { openModal: this.openModal.bind(this) }),
             React.createElement(Modal, { animationType: animationType, visible: modalVisible, onRequestClose: () => onRequestClosed },
                 React.createElement(SafeAreaView, { style: ModalStyles.container },
                     React.createElement(SearchComponent, { placeholderTextColor: placeholderTextColor, onClose: this.onClose.bind(this), closeable: closeable, setText: (text) => this.setText(text) }),
@@ -84,7 +98,7 @@ export class ModalComponent extends React.Component {
         }
     }
     renderItem(item, index) {
-        return React.createElement(ListItemComponent, { list: item, onChangeMethod: this.onChangeMethod.bind(this) });
+        return React.createElement(ListItemComponent, { list: item, onSelectMethod: this.onSelectMethod.bind(this) });
     }
     generateAlphabet() {
         const { list, sortingLanguage } = this.props;
@@ -112,7 +126,7 @@ export class ModalComponent extends React.Component {
         const { searchText } = this.state;
         return list.filter((l) => l.Name.toLocaleLowerCase().indexOf(searchText.toLocaleLowerCase()) > -1);
     }
-    onChangeMethod(key) {
+    onSelectMethod(key) {
         const { onSelected } = this.props;
         return onSelected(key);
     }

@@ -25,4 +25,5 @@ export interface IModalInDtoState {
     alphaBets?: string[];
     stickyBottomButton?: boolean;
     selectedAlpha?: string;
+    selectedObject?: IModalListInDto;
 }

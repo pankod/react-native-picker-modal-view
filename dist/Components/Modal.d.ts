@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { IModalInDtoProps, IModalInDtoState } from '../Interfaces';
-export declare class ModalComponent extends React.Component<IModalInDtoProps, IModalInDtoState> {
+export declare class ModalComponent extends React.PureComponent<IModalInDtoProps, IModalInDtoState> {
     private flatListRef;
     state: IModalInDtoState;
     static defaultProps: {
@@ -15,6 +15,8 @@ export declare class ModalComponent extends React.Component<IModalInDtoProps, IM
     };
     constructor(props: IModalInDtoProps);
     componentWillMount(): void;
+    componentWillReceiveProps(nextProps: any, nextState: any): void;
+    private openModal;
     render(): JSX.Element;
     private _onViewableItemsChanged;
     private onClose;
@@ -25,7 +27,7 @@ export declare class ModalComponent extends React.Component<IModalInDtoProps, IM
     private _keyExtractor;
     private setText;
     private getFilteredData;
-    private onChangeMethod;
+    private onSelectMethod;
     private getIndex;
     private setAlphabet;
 }
