@@ -44,8 +44,8 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 		autoGenerateAlphabet: false,
 		sortingLanguage: 'tr',
 		removeClippedSubviews: true,
-		chooseText: 'Seçim yapınız',
-		searchText: 'Arama yapın',
+		chooseText: 'Choose one...',
+		searchText: 'Search anything...',
 		autoCorrect: true,
 	};
 
