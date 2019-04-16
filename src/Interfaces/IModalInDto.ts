@@ -15,7 +15,7 @@ export interface IModalInDtoProps {
 	alphaBets?: string[];
 	placeholderTextColor?: string;
 	modalVisible: boolean;
-	_keyExtractor?: (key: any) => string;
+	keyExtractor?: (key: any) => string;
 	autoGenerateAlphabet?: boolean;
 	sortingLanguage?: LanguagesEnum;
 	showToTopButton?: boolean;

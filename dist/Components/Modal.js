@@ -30,14 +30,14 @@ export class ModalComponent extends React.Component {
         });
     }
     render() {
-        const { animationType, onRequestClosed, closeable, hideAlphabetFilter, placeholderTextColor, _keyExtractor, showToTopButton, onEndReached, removeClippedSubviews, flatListProps, } = this.props;
+        const { animationType, onRequestClosed, closeable, hideAlphabetFilter, placeholderTextColor, keyExtractor, showToTopButton, onEndReached, removeClippedSubviews, flatListProps, } = this.props;
         const { modalVisible, alphaBets, stickyBottomButton, selectedAlpha } = this.state;
         return (React.createElement(Modal, { animationType: animationType, visible: modalVisible, onRequestClose: () => onRequestClosed },
             React.createElement(SafeAreaView, { style: ModalStyles.container },
                 React.createElement(SearchComponent, { placeholderTextColor: placeholderTextColor, onClose: this.onClose.bind(this), closeable: closeable, setText: (text) => this.setText(text) }),
                 React.createElement(KeyboardAvoidingView, { style: ModalStyles.keyboardContainer, behavior: "padding", enabled: true },
                     React.createElement(View, { style: ModalStyles.listArea },
-                        React.createElement(FlatList, Object.assign({ ref: (ref) => this.flatListRef = ref, data: this.getFilteredData(), keyExtractor: _keyExtractor ? _keyExtractor : this._keyExtractor.bind(this), renderItem: ({ item, index }) => this.renderItem(item, index), onScroll: showToTopButton && this.onScrolling.bind(this), initialNumToRender: 20, onEndReached: onEndReached, removeClippedSubviews: removeClippedSubviews, viewabilityConfig: {
+                        React.createElement(FlatList, Object.assign({ ref: (ref) => this.flatListRef = ref, data: this.getFilteredData(), keyExtractor: keyExtractor ? keyExtractor : this._keyExtractor.bind(this), renderItem: ({ item, index }) => this.renderItem(item, index), onScroll: showToTopButton && this.onScrolling.bind(this), initialNumToRender: 20, onEndReached: onEndReached, removeClippedSubviews: removeClippedSubviews, viewabilityConfig: {
                                 minimumViewTime: 1000,
                                 viewAreaCoveragePercentThreshold: 50,
                                 waitForInteraction: true,

@@ -66,7 +66,7 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 			closeable,
 			hideAlphabetFilter,
 			placeholderTextColor,
-			_keyExtractor,
+			keyExtractor,
 			showToTopButton,
 			onEndReached,
 			removeClippedSubviews,
@@ -91,7 +91,7 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 							<FlatList
 								ref={(ref) => this.flatListRef = ref}
 								data={this.getFilteredData()}
-								keyExtractor={_keyExtractor ? _keyExtractor : this._keyExtractor.bind(this)}
+								keyExtractor={keyExtractor ? keyExtractor : this._keyExtractor.bind(this)}
 								renderItem={({ item, index }) => this.renderItem(item, index)}
 								onScroll={showToTopButton && this.onScrolling.bind(this)}
 								initialNumToRender={20}
