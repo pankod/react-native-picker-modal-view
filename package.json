@@ -47,6 +47,7 @@
 		"@types/react-native": "^0.57.43",
 		"jest": "^24.7.1",
 		"jest-cli": "^24.7.1",
+		"react-testing-library": "^6.1.2",
 		"ts-jest": "^24.0.2",
 		"ts-lib": "0.0.5",
 		"tscpaths": "0.0.7",
