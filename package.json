@@ -45,6 +45,7 @@
 	"devDependencies": {
 		"@types/react": "^16.8.13",
 		"@types/react-native": "^0.57.43",
+		"enzyme": "^3.9.0",
 		"jest": "^24.7.1",
 		"jest-cli": "^24.7.1",
 		"react-testing-library": "^6.1.2",
