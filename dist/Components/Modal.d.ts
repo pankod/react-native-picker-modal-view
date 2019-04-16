@@ -2,6 +2,7 @@ import * as React from 'react';
 import { IModalInDtoProps, IModalInDtoState } from '../Interfaces';
 export declare class ModalComponent extends React.Component<IModalInDtoProps, IModalInDtoState> {
     private flatListRef;
+    private numToRender;
     state: IModalInDtoState;
     static defaultProps: {
         animationType: string;
@@ -15,6 +16,7 @@ export declare class ModalComponent extends React.Component<IModalInDtoProps, IM
         chooseText: string;
         searchText: string;
         autoCorrect: boolean;
+        autoSort: boolean;
     };
     constructor(props: IModalInDtoProps);
     componentWillUnmount(): void;
@@ -31,6 +33,7 @@ export declare class ModalComponent extends React.Component<IModalInDtoProps, IM
     private generateAlphabet;
     private _keyExtractor;
     private setText;
+    private compare;
     private getFilteredData;
     private onSelectMethod;
     private getIndex;

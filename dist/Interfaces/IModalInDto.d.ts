@@ -23,6 +23,7 @@ export interface IModalInDtoProps {
     searchText: 'string';
     autoCorrect: boolean;
     SearchInputProps?: TextInputProps;
+    autoSort?: boolean;
 }
 export interface IModalInDtoState {
     modalVisible: boolean;

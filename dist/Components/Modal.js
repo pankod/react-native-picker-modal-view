@@ -7,6 +7,7 @@ export class ModalComponent extends React.Component {
     constructor(props) {
         super(props);
         this.flatListRef = null;
+        this.numToRender = 20;
         this.state = {
             modalVisible: false,
             searchText: '',
@@ -21,6 +22,7 @@ export class ModalComponent extends React.Component {
     }
     clearComponent() {
         this.setState({
+            stickyBottomButton: false,
             searchText: '',
             selectedAlpha: null,
         });
@@ -62,9 +64,9 @@ export class ModalComponent extends React.Component {
                     React.createElement(SearchComponent, Object.assign({ autoCorrect: autoCorrect, searchText: searchText, placeholderTextColor: placeholderTextColor, onClose: this.onClose.bind(this), closeable: closeable, setText: (text) => this.setText(text) }, SearchInputProps)),
                     React.createElement(KeyboardAvoidingView, { style: ModalStyles.keyboardContainer, behavior: "padding", enabled: true },
                         React.createElement(View, { style: ModalStyles.listArea },
-                            React.createElement(FlatList, Object.assign({ ref: (ref) => this.flatListRef = ref, data: this.getFilteredData(), keyExtractor: keyExtractor ? keyExtractor : this._keyExtractor.bind(this), renderItem: ({ item, index }) => this.renderItem(item, index), onScroll: showToTopButton && this.onScrolling.bind(this), initialNumToRender: 20, keyboardShouldPersistTaps: 'always', keyboardDismissMode: 'on-drag', onEndReached: onEndReached, removeClippedSubviews: removeClippedSubviews, viewabilityConfig: {
-                                    minimumViewTime: 1000,
-                                    viewAreaCoveragePercentThreshold: 50,
+                            React.createElement(FlatList, Object.assign({ ref: (ref) => this.flatListRef = ref, data: this.getFilteredData(), keyExtractor: keyExtractor ? keyExtractor : this._keyExtractor.bind(this), renderItem: ({ item, index }) => this.renderItem(item, index), onScroll: showToTopButton && this.onScrolling.bind(this), initialNumToRender: this.numToRender, keyboardShouldPersistTaps: 'always', keyboardDismissMode: 'on-drag', onEndReached: onEndReached, removeClippedSubviews: removeClippedSubviews, viewabilityConfig: {
+                                    minimumViewTime: 100,
+                                    viewAreaCoveragePercentThreshold: 100,
                                     waitForInteraction: true,
                                 }, onViewableItemsChanged: this._onViewableItemsChanged }, FlatListProps)),
                             !hideAlphabetFilter &&
@@ -89,9 +91,10 @@ export class ModalComponent extends React.Component {
     }
     scrollToUp() {
         if (this.flatListRef) {
-            this.flatListRef.scrollToIndex({ animated: true, index: 0 });
             this.setState({
                 selectedAlpha: null,
+            }, () => {
+                this.flatListRef.scrollToOffset({ animated: true, offset: 0 });
             });
         }
     }
@@ -133,9 +136,24 @@ export class ModalComponent extends React.Component {
             searchText: text,
         });
     }
+    compare(a, b) {
+        const aName = a.Name.toLocaleLowerCase();
+        const bName = b.Name.toLocaleLowerCase();
+        let comparison = 0;
+        if (aName > bName) {
+            comparison = 1;
+        }
+        else if (aName < bName) {
+            comparison = -1;
+        }
+        return comparison;
+    }
     getFilteredData() {
-        const { list, defaultSelected } = this.props;
+        const { list, autoSort } = this.props;
         const { searchText } = this.state;
+        if (autoSort) {
+            list.sort(this.compare);
+        }
         return list.filter((l) => l.Name.toLocaleLowerCase().indexOf(searchText.toLocaleLowerCase()) > -1);
     }
     onSelectMethod(key) {
@@ -143,7 +161,6 @@ export class ModalComponent extends React.Component {
         this.setState({
             selectedObject: key,
         });
-        console.log(key);
         this.clearComponent();
         return onSelected(key);
     }
@@ -158,9 +175,13 @@ export class ModalComponent extends React.Component {
         this.setState({
             selectedAlpha: alphabet,
         }, () => {
+            const list = this.getFilteredData();
             const findIndex = this.getIndex(alphabet);
-            if (findIndex >= 0) {
+            if (findIndex >= 0 && findIndex <= (list.length - (this.numToRender / 2))) {
                 this.flatListRef.scrollToIndex({ animated: true, index: findIndex, viewPosition: 0 });
+            }
+            else {
+                this.flatListRef.scrollToEnd();
             }
         });
     }
@@ -177,5 +198,6 @@ ModalComponent.defaultProps = {
     chooseText: 'Choose one...',
     searchText: 'Search anything...',
     autoCorrect: true,
+    autoSort: false,
 };
 //# sourceMappingURL=Modal.js.map

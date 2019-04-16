@@ -21,11 +21,13 @@ import {
 } from '@Components';
 import { IModalInDtoProps, IModalListInDto, IModalInDtoState } from '@Interfaces';
 import { ModalStyles } from '@Styles';
+import { LanguagesEnum } from '@Enum';
 
 const { height } = Dimensions.get('window');
 export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDtoState> {
 
 	private flatListRef = null;
+	private numToRender: number = 20;
 
 	public state: IModalInDtoState = {
 		modalVisible: false,
@@ -47,6 +49,7 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 		chooseText: 'Choose one...',
 		searchText: 'Search anything...',
 		autoCorrect: true,
+		autoSort: false,
 	};
 
 	constructor(props: IModalInDtoProps) {
@@ -60,6 +63,7 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 
 	private clearComponent(): void {
 		this.setState({
+			stickyBottomButton: false,
 			searchText: '',
 			selectedAlpha: null,
 		});
@@ -143,14 +147,14 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 									keyExtractor={keyExtractor ? keyExtractor : this._keyExtractor.bind(this)}
 									renderItem={({ item, index }) => this.renderItem(item, index)}
 									onScroll={showToTopButton && this.onScrolling.bind(this)}
-									initialNumToRender={20}
+									initialNumToRender={this.numToRender}
 									keyboardShouldPersistTaps={'always'}
 									keyboardDismissMode={'on-drag'}
 									onEndReached={onEndReached}
 									removeClippedSubviews={removeClippedSubviews}
 									viewabilityConfig={{
-										minimumViewTime: 1000,
-										viewAreaCoveragePercentThreshold: 50,
+										minimumViewTime: 100,
+										viewAreaCoveragePercentThreshold: 100,
 										waitForInteraction: true,
 									}}
 									onViewableItemsChanged={this._onViewableItemsChanged}
@@ -194,16 +198,16 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 
 	private scrollToUp(): void {
 		if (this.flatListRef) {
-			this.flatListRef.scrollToIndex({ animated: true, index: 0 });
 			this.setState({
 				selectedAlpha: null,
+			}, () => {
+				this.flatListRef.scrollToOffset({ animated: true, offset: 0 });
 			});
 		}
 	}
 
 	private onScrolling(e: NativeSyntheticEvent<NativeScrollEvent>): void {
 		const { contentOffset } = e.nativeEvent;
-		// const { stickyBottomButton } = this.state;
 
 		if (contentOffset.y > 100) {
 			this.setState({
@@ -228,7 +232,6 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 	private generateAlphabet(): void {
 		const { list, sortingLanguage } = this.props;
 		const singularAlpha = [];
-		// tslint:disable-next-line: max-line-length
 		list.map((x: IModalListInDto) => {
 			if (singularAlpha.indexOf(x.Name.charAt(0)) === -1) {
 				singularAlpha.push(x.Name.charAt(0));
@@ -252,9 +255,27 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 		});
 	}
 
+	private compare(a: any, b: any): number {
+		const aName = a.Name.toLocaleLowerCase();
+		const bName = b.Name.toLocaleLowerCase();
+
+		let comparison = 0;
+		if (aName > bName) {
+			comparison = 1;
+		} else if (aName < bName) {
+			comparison = -1;
+		}
+		return comparison;
+	}
+
 	private getFilteredData(): IModalListInDto[] {
-		const { list, defaultSelected } = this.props;
+		const { list, autoSort } = this.props;
 		const { searchText } = this.state;
+
+		if (autoSort) {
+			list.sort(this.compare);
+		}
+
 		return list.filter((l: IModalListInDto) => l.Name.toLocaleLowerCase().indexOf(searchText.toLocaleLowerCase()) > -1);
 	}
 
@@ -263,7 +284,6 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 		this.setState({
 			selectedObject: key,
 		});
-		console.log(key);
 		this.clearComponent();
 		return onSelected(key);
 	}
@@ -281,9 +301,12 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 		this.setState({
 			selectedAlpha: alphabet,
 		}, () => {
+			const list = this.getFilteredData();
 			const findIndex = this.getIndex(alphabet);
-			if (findIndex >= 0) {
+			if (findIndex >= 0 && findIndex <= (list.length - (this.numToRender / 2))) {
 				this.flatListRef.scrollToIndex({ animated: true, index: findIndex, viewPosition: 0 });
+			} else {
+				this.flatListRef.scrollToEnd();
 			}
 		});
 	}
