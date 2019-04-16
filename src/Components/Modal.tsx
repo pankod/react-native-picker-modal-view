@@ -21,7 +21,6 @@ import {
 } from '@Components';
 import { IModalInDtoProps, IModalListInDto, IModalInDtoState } from '@Interfaces';
 import { ModalStyles } from '@Styles';
-import { LanguagesEnum } from '@Enum';
 
 const { height } = Dimensions.get('window');
 export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDtoState> {

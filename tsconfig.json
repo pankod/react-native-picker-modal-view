@@ -65,10 +65,12 @@
 	"exclude": [
 		"node_modules",
 		"dist",
-		"__tests__"
+		"__tests__",
+		"src/Example/**"
 	],
 	"include": [
 		"src/**/*.tsx",
-		"src/**/*.ts"
+		"src/**/*.ts",
+		"src/**/*.d.ts"
 	]
 }

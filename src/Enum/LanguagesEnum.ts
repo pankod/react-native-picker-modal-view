@@ -1,4 +1,4 @@
-export enum LanguagesEnum {
+export declare enum LanguagesEnum {
 	af,
 	am,
 	ar,

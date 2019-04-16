@@ -20,7 +20,7 @@ export interface IModalInDtoProps {
     FlatListProps: FlatListProps<any>;
     chooseText: string;
     defaultSelected?: IModalListInDto;
-    searchText: 'string';
+    searchText: string;
     autoCorrect: boolean;
     SearchInputProps?: TextInputProps;
     autoSort?: boolean;
