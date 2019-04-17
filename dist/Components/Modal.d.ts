@@ -17,6 +17,7 @@ export declare class ModalComponent extends React.Component<IModalInDtoProps, IM
         autoCorrect: boolean;
         autoSort: boolean;
         list: any[];
+        disabled: boolean;
     };
     constructor(props: IModalInDtoProps);
     componentWillUnmount(): void;

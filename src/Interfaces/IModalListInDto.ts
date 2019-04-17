@@ -1,8 +1,8 @@
 
-export interface IModalListInDto {
+export interface IModalListInDto<T = object> {
 	Id: string | number;
 	Name: string;
-	Value?: string;
+	Value: string | T;
 	[key: string]: any;
 	CountryId?: ICity;
 	CityId?: ITown;

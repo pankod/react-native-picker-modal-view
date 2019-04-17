@@ -47,21 +47,21 @@ export class ModalComponent extends React.Component {
         }
     }
     openModal() {
-        const { list, autoGenerateAlphabet } = this.props;
+        const { list, autoGenerateAlphabet, disabled } = this.props;
         if (autoGenerateAlphabet) {
             this.generateAlphabet();
         }
-        if (list.length > 0) {
+        if (list.length > 0 && !disabled) {
             this.setState({
                 modalVisible: true,
             });
         }
     }
     render() {
-        const { animationType, onRequestClosed, closeable, hideAlphabetFilter, placeholderTextColor, keyExtractor, showToTopButton, onEndReached, removeClippedSubviews, FlatListProps, chooseText, searchText, autoCorrect, SearchInputProps, defaultSelected, list, style, } = this.props;
+        const { animationType, onRequestClosed, closeable, hideAlphabetFilter, placeholderTextColor, keyExtractor, showToTopButton, onEndReached, removeClippedSubviews, FlatListProps, chooseText, searchText, autoCorrect, SearchInputProps, defaultSelected, disabled, list, } = this.props;
         const { modalVisible, alphaBets, stickyBottomButton, selectedAlpha, selectedObject } = this.state;
         return (React.createElement(React.Fragment, null,
-            React.createElement(SelectBoxComponent, { disabled: (list.length === 0 || !list), selectedObject: selectedObject, chooseText: (defaultSelected && defaultSelected.Name) ? defaultSelected.Name : chooseText, openModal: this.openModal.bind(this) }),
+            React.createElement(SelectBoxComponent, { disabled: (disabled || !list || list.length === 0), selectedObject: selectedObject, chooseText: (defaultSelected && defaultSelected.Name) ? defaultSelected.Name : chooseText, openModal: this.openModal.bind(this) }),
             React.createElement(Modal, { animationType: animationType, visible: modalVisible, onRequestClose: () => onRequestClosed },
                 React.createElement(View, { style: ModalStyles.container },
                     React.createElement(SearchComponent, Object.assign({ autoCorrect: autoCorrect, searchText: searchText, placeholderTextColor: placeholderTextColor, onClose: this.onClose.bind(this), onBackRequest: this.onBackRequest.bind(this), closeable: closeable, setText: (text) => this.setText(text) }, SearchInputProps)),
@@ -219,5 +219,6 @@ ModalComponent.defaultProps = {
     autoCorrect: true,
     autoSort: false,
     list: [],
+    disabled: false,
 };
 //# sourceMappingURL=Modal.js.map

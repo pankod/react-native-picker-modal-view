@@ -48,6 +48,7 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 		autoCorrect: true,
 		autoSort: false,
 		list: [],
+		disabled: false,
 	};
 
 	constructor(props: IModalInDtoProps) {
@@ -91,13 +92,13 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 	}
 
 	private openModal(): void {
-		const { list, autoGenerateAlphabet } = this.props;
+		const { list, autoGenerateAlphabet, disabled } = this.props;
 
 		if (autoGenerateAlphabet) {
 			this.generateAlphabet();
 		}
 
-		if (list.length > 0) {
+		if (list.length > 0 && !disabled) {
 			this.setState({
 				modalVisible: true,
 			});
@@ -121,14 +122,14 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 			autoCorrect,
 			SearchInputProps,
 			defaultSelected,
+			disabled,
 			list,
-			style,
 		} = this.props;
 		const { modalVisible, alphaBets, stickyBottomButton, selectedAlpha, selectedObject } = this.state;
 		return (
 			<React.Fragment>
 				<SelectBoxComponent
-					disabled={(list.length === 0 || !list)}
+					disabled={(disabled || !list || list.length === 0)}
 					selectedObject={selectedObject}
 					chooseText={(defaultSelected && defaultSelected.Name) ? defaultSelected.Name : chooseText}
 					openModal={this.openModal.bind(this)}

@@ -14,6 +14,8 @@ import { IModalListInDto } from '@Interfaces';
 
 type ModalProps = ModalBaseProps | ModalPropsIOS | ModalPropsAndroid;
 
+type ListType = IModalListInDto[];
+
 export interface IModalInDtoProps {
 	animationType: AnimationTypeEnum;
 	hideAlphabetFilter: boolean;
@@ -21,7 +23,7 @@ export interface IModalInDtoProps {
 	onBackRequest?: () => void;
 	onSelected: (selected: IModalListInDto) => IModalListInDto;
 	closeable: boolean;
-	list: IModalListInDto[];
+	list: ListType;
 	alphaBets?: string[];
 	placeholderTextColor?: string;
 	keyExtractor?: (key: any) => string;
@@ -39,6 +41,7 @@ export interface IModalInDtoProps {
 	ModalProps?: ModalProps;
 	autoSort?: boolean;
 	style?: ViewStyle;
+	disabled: boolean;
 }
 
 export interface IModalInDtoState {
