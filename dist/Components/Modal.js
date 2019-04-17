@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Modal, SafeAreaView, View, FlatList, KeyboardAvoidingView, Dimensions, } from 'react-native';
+import { Modal, View, FlatList, KeyboardAvoidingView, Dimensions, StatusBar } from 'react-native';
 import { AlphabetComponent, ListItemComponent, SearchComponent, ScrollToTopComponent, SelectBoxComponent, } from './';
 import { ModalStyles } from '../Assets/Styles';
 const { height } = Dimensions.get('window');
@@ -34,6 +34,7 @@ export class ModalComponent extends React.Component {
             searchText: '',
             selectedAlpha: null,
         });
+        StatusBar.setTranslucent(false);
     }
     componentWillMount() {
         const { autoGenerateAlphabet, alphaBets } = this.props;
@@ -47,6 +48,7 @@ export class ModalComponent extends React.Component {
         }
     }
     openModal() {
+        StatusBar.setTranslucent(true);
         const { list, autoGenerateAlphabet } = this.props;
         if (autoGenerateAlphabet) {
             this.generateAlphabet();
@@ -63,7 +65,7 @@ export class ModalComponent extends React.Component {
         return (React.createElement(React.Fragment, null,
             React.createElement(SelectBoxComponent, { disabled: (list.length === 0 || !list), selectedObject: selectedObject, chooseText: (defaultSelected && defaultSelected.Name) ? defaultSelected.Name : chooseText, openModal: this.openModal.bind(this) }),
             React.createElement(Modal, { animationType: animationType, visible: modalVisible, onRequestClose: () => onRequestClosed },
-                React.createElement(SafeAreaView, { style: ModalStyles.container },
+                React.createElement(View, { style: ModalStyles.container },
                     React.createElement(SearchComponent, Object.assign({ autoCorrect: autoCorrect, searchText: searchText, placeholderTextColor: placeholderTextColor, onClose: this.onClose.bind(this), closeable: closeable, setText: (text) => this.setText(text) }, SearchInputProps)),
                     React.createElement(KeyboardAvoidingView, { style: ModalStyles.keyboardContainer, behavior: "padding", enabled: true },
                         React.createElement(View, { style: ModalStyles.listArea },

@@ -1,4 +1,5 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform, NativeModules } from 'react-native';
+const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : NativeModules.StatusBarManager.HEIGHT;
 export const SearchStyle = StyleSheet.create({
     closeButton: {
         width: 10,
@@ -10,7 +11,8 @@ export const SearchStyle = StyleSheet.create({
         alignContent: 'center',
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingVertical: 10,
+        paddingTop: STATUSBAR_HEIGHT,
+        paddingBottom: 10,
         backgroundColor: 'rgba(0,0,0,.01)',
         paddingHorizontal: 20,
     },
