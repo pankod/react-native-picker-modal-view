@@ -8,19 +8,18 @@ import { SelectBoxStyle } from '@Styles';
 
 export class SelectBoxComponent extends React.PureComponent<ISelectBoxProps, {}> {
 	public render(): JSX.Element {
-		const { openModal, selectedObject, chooseText } = this.props;
+		const { openModal, selectedObject, chooseText, disabled } = this.props;
 		return (
 			<TouchableOpacity
 				activeOpacity={0.7}
 				onPress={() => openModal()}
+				style={[SelectBoxStyle.pressBtn, disabled && SelectBoxStyle.disabledBtn]}
 			>
 				<View style={SelectBoxStyle.container}>
-					{
-						!selectedObject ?
-							<Text style={SelectBoxStyle.chooseText}>{chooseText}</Text> :
-							<Text style={SelectBoxStyle.chooseText}>{selectedObject.Name}</Text>
-					}
-					<Image source={require('../Assets/Images/down.png')} style={SelectBoxStyle.downBtn} />
+					<Text style={[disabled ? SelectBoxStyle.disabledTxt : SelectBoxStyle.chooseText]}>{
+						(selectedObject && selectedObject.Name) ? selectedObject.Name : chooseText
+					}</Text>
+					<Image source={require('../Assets/Images/down.png')} style={[SelectBoxStyle.downBtn, disabled && SelectBoxStyle.disabledImage]} />
 				</View>
 			</TouchableOpacity>
 		);

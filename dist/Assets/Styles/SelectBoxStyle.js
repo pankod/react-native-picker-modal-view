@@ -19,5 +19,17 @@ export const SelectBoxStyle = StyleSheet.create({
         width: 10,
         height: 10,
     },
+    pressBtn: {
+        marginVertical: 10,
+    },
+    disabledBtn: {
+        borderColor: '#ddd',
+    },
+    disabledTxt: {
+        color: '#ddd',
+    },
+    disabledImage: {
+        opacity: 0.2,
+    },
 });
 //# sourceMappingURL=SelectBoxStyle.js.map

@@ -33,7 +33,7 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 		searchText: '',
 		stickyBottomButton: false,
 		selectedAlpha: null,
-		selectedObject: null,
+		selectedObject: {} as IModalListInDto,
 	};
 
 	public static defaultProps = {
@@ -41,7 +41,6 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 		closeable: true,
 		hideAlphabetFilter: false,
 		placeholderTextColor: '#252525',
-		modalVisible: false,
 		autoGenerateAlphabet: false,
 		sortingLanguage: 'tr',
 		removeClippedSubviews: true,
@@ -49,6 +48,7 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 		searchText: 'Search anything...',
 		autoCorrect: true,
 		autoSort: false,
+		list: [],
 	};
 
 	constructor(props: IModalInDtoProps) {
@@ -60,6 +60,18 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 		this.clearComponent();
 	}
 
+	public componentWillReceiveProps(nextProps, nextState): void {
+		if (
+			// tslint:disable-next-line: max-line-length
+			(this.props.defaultSelected && nextProps.defaultSelected) && this.props.defaultSelected.Name !== nextProps.defaultSelected.Name &&
+			this.props.defaultSelected.Id !== nextProps.defaultSelected.Id
+		) {
+			this.setState({
+				selectedObject: {} as IModalListInDto,
+			});
+		}
+	}
+
 	private clearComponent(): void {
 		this.setState({
 			stickyBottomButton: false,
@@ -69,7 +81,7 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 	}
 
 	public componentWillMount(): void {
-		const { autoGenerateAlphabet, alphaBets, modalVisible, defaultSelected } = this.props;
+		const { autoGenerateAlphabet, alphaBets } = this.props;
 		if (autoGenerateAlphabet) {
 			this.generateAlphabet();
 		} else if (alphaBets) {
@@ -77,25 +89,20 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 				alphaBets,
 			});
 		}
-
-		this.setState({
-			modalVisible,
-		});
-	}
-
-	public componentWillReceiveProps(nextProps, nextState): void {
-		const { modalVisible } = this.state;
-		if (modalVisible !== nextProps.modalVisible) {
-			this.setState({
-				modalVisible: !modalVisible,
-			});
-		}
 	}
 
 	private openModal(): void {
-		this.setState({
-			modalVisible: true,
-		});
+		const { list, autoGenerateAlphabet } = this.props;
+
+		if (autoGenerateAlphabet) {
+			this.generateAlphabet();
+		}
+
+		if (list.length > 0) {
+			this.setState({
+				modalVisible: true,
+			});
+		}
 	}
 
 	public render(): JSX.Element {
@@ -114,13 +121,17 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 			searchText,
 			autoCorrect,
 			SearchInputProps,
+			defaultSelected,
+			list,
+			style,
 		} = this.props;
 		const { modalVisible, alphaBets, stickyBottomButton, selectedAlpha, selectedObject } = this.state;
 		return (
 			<React.Fragment>
 				<SelectBoxComponent
+					disabled={(list.length === 0 || !list)}
 					selectedObject={selectedObject}
-					chooseText={chooseText}
+					chooseText={(defaultSelected && defaultSelected.Name) ? defaultSelected.Name : chooseText}
 					openModal={this.openModal.bind(this)}
 				/>
 				<Modal
@@ -179,7 +190,7 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 
 	private _onViewableItemsChanged({ viewableItems, changed }): void {
 		if (viewableItems && viewableItems[0]) {
-			const firstLetter = viewableItems[0].item.Name.charAt(0) || viewableItems[0].item.Value.charAt(0);
+			const firstLetter = viewableItems[0].item.Name.charAt(0);
 			this.setState({
 				selectedAlpha: firstLetter,
 			});
@@ -187,7 +198,8 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 	}
 
 	private onClose(): void {
-		const { onRequestClosed, modalVisible } = this.props;
+		const { onRequestClosed } = this.props;
+		const { modalVisible } = this.state;
 		this.setState({
 			modalVisible: !modalVisible,
 		});
@@ -274,14 +286,14 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 		if (autoSort) {
 			list.sort(this.compare);
 		}
-
 		return list.filter((l: IModalListInDto) => l.Name.toLocaleLowerCase().indexOf(searchText.toLocaleLowerCase()) > -1);
 	}
 
 	private onSelectMethod(key: IModalListInDto): IModalListInDto {
 		const { onSelected } = this.props;
 		this.setState({
-			selectedObject: key,
+			modalVisible: false,
+			selectedObject: key as IModalListInDto,
 		});
 		this.clearComponent();
 		return onSelected(key);
@@ -290,7 +302,7 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 	private getIndex(alphabet: string): number {
 		const list = this.getFilteredData();
 		const findIndex = list.findIndex((x: IModalListInDto) => {
-			return x.Name.charAt(0) === alphabet || x.Value.charAt(0) === alphabet;
+			return x.Name.charAt(0) === alphabet;
 		});
 		return findIndex;
 	}

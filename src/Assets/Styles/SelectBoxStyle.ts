@@ -1,5 +1,5 @@
 // Global Imports
-import { StyleSheet, ViewStyle, TextStyle, ImageStyle } from 'react-native';
+import { StyleSheet, ViewStyle, TextStyle, ImageStyle, View } from 'react-native';
 
 export const SelectBoxStyle = StyleSheet.create({
 	container: {
@@ -20,5 +20,17 @@ export const SelectBoxStyle = StyleSheet.create({
 	downBtn: {
 		width: 10,
 		height: 10,
+	} as ImageStyle,
+	pressBtn: {
+		marginVertical: 10,
+	} as ViewStyle,
+	disabledBtn: {
+		borderColor: '#ddd',
+	} as ViewStyle,
+	disabledTxt: {
+		color: '#ddd',
+	} as TextStyle,
+	disabledImage: {
+		opacity: 0.2,
 	} as ImageStyle,
 });

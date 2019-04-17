@@ -3,4 +3,5 @@ export interface ISelectBoxProps {
     selectedObject?: IModalListInDto;
     openModal: any;
     chooseText: string;
+    disabled?: boolean;
 }

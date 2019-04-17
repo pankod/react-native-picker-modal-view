@@ -13,12 +13,20 @@ export class ModalComponent extends React.Component {
             searchText: '',
             stickyBottomButton: false,
             selectedAlpha: null,
-            selectedObject: null,
+            selectedObject: {},
         };
         this._onViewableItemsChanged = this._onViewableItemsChanged.bind(this);
     }
     componentWillUnmount() {
         this.clearComponent();
+    }
+    componentWillReceiveProps(nextProps, nextState) {
+        if ((this.props.defaultSelected && nextProps.defaultSelected) && this.props.defaultSelected.Name !== nextProps.defaultSelected.Name &&
+            this.props.defaultSelected.Id !== nextProps.defaultSelected.Id) {
+            this.setState({
+                selectedObject: {},
+            });
+        }
     }
     clearComponent() {
         this.setState({
@@ -28,7 +36,7 @@ export class ModalComponent extends React.Component {
         });
     }
     componentWillMount() {
-        const { autoGenerateAlphabet, alphaBets, modalVisible, defaultSelected } = this.props;
+        const { autoGenerateAlphabet, alphaBets } = this.props;
         if (autoGenerateAlphabet) {
             this.generateAlphabet();
         }
@@ -37,28 +45,23 @@ export class ModalComponent extends React.Component {
                 alphaBets,
             });
         }
-        this.setState({
-            modalVisible,
-        });
     }
-    componentWillReceiveProps(nextProps, nextState) {
-        const { modalVisible } = this.state;
-        if (modalVisible !== nextProps.modalVisible) {
+    openModal() {
+        const { list, autoGenerateAlphabet } = this.props;
+        if (autoGenerateAlphabet) {
+            this.generateAlphabet();
+        }
+        if (list.length > 0) {
             this.setState({
-                modalVisible: !modalVisible,
+                modalVisible: true,
             });
         }
     }
-    openModal() {
-        this.setState({
-            modalVisible: true,
-        });
-    }
     render() {
-        const { animationType, onRequestClosed, closeable, hideAlphabetFilter, placeholderTextColor, keyExtractor, showToTopButton, onEndReached, removeClippedSubviews, FlatListProps, chooseText, searchText, autoCorrect, SearchInputProps, } = this.props;
+        const { animationType, onRequestClosed, closeable, hideAlphabetFilter, placeholderTextColor, keyExtractor, showToTopButton, onEndReached, removeClippedSubviews, FlatListProps, chooseText, searchText, autoCorrect, SearchInputProps, defaultSelected, list, style, } = this.props;
         const { modalVisible, alphaBets, stickyBottomButton, selectedAlpha, selectedObject } = this.state;
         return (React.createElement(React.Fragment, null,
-            React.createElement(SelectBoxComponent, { selectedObject: selectedObject, chooseText: chooseText, openModal: this.openModal.bind(this) }),
+            React.createElement(SelectBoxComponent, { disabled: (list.length === 0 || !list), selectedObject: selectedObject, chooseText: (defaultSelected && defaultSelected.Name) ? defaultSelected.Name : chooseText, openModal: this.openModal.bind(this) }),
             React.createElement(Modal, { animationType: animationType, visible: modalVisible, onRequestClose: () => onRequestClosed },
                 React.createElement(SafeAreaView, { style: ModalStyles.container },
                     React.createElement(SearchComponent, Object.assign({ autoCorrect: autoCorrect, searchText: searchText, placeholderTextColor: placeholderTextColor, onClose: this.onClose.bind(this), closeable: closeable, setText: (text) => this.setText(text) }, SearchInputProps)),
@@ -75,14 +78,15 @@ export class ModalComponent extends React.Component {
     }
     _onViewableItemsChanged({ viewableItems, changed }) {
         if (viewableItems && viewableItems[0]) {
-            const firstLetter = viewableItems[0].item.Name.charAt(0) || viewableItems[0].item.Value.charAt(0);
+            const firstLetter = viewableItems[0].item.Name.charAt(0);
             this.setState({
                 selectedAlpha: firstLetter,
             });
         }
     }
     onClose() {
-        const { onRequestClosed, modalVisible } = this.props;
+        const { onRequestClosed } = this.props;
+        const { modalVisible } = this.state;
         this.setState({
             modalVisible: !modalVisible,
         });
@@ -159,6 +163,7 @@ export class ModalComponent extends React.Component {
     onSelectMethod(key) {
         const { onSelected } = this.props;
         this.setState({
+            modalVisible: false,
             selectedObject: key,
         });
         this.clearComponent();
@@ -167,7 +172,7 @@ export class ModalComponent extends React.Component {
     getIndex(alphabet) {
         const list = this.getFilteredData();
         const findIndex = list.findIndex((x) => {
-            return x.Name.charAt(0) === alphabet || x.Value.charAt(0) === alphabet;
+            return x.Name.charAt(0) === alphabet;
         });
         return findIndex;
     }
@@ -191,7 +196,6 @@ ModalComponent.defaultProps = {
     closeable: true,
     hideAlphabetFilter: false,
     placeholderTextColor: '#252525',
-    modalVisible: false,
     autoGenerateAlphabet: false,
     sortingLanguage: 'tr',
     removeClippedSubviews: true,
@@ -199,5 +203,6 @@ ModalComponent.defaultProps = {
     searchText: 'Search anything...',
     autoCorrect: true,
     autoSort: false,
+    list: [],
 };
 //# sourceMappingURL=Modal.js.map

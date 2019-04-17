@@ -9,7 +9,6 @@ export declare class ModalComponent extends React.Component<IModalInDtoProps, IM
         closeable: boolean;
         hideAlphabetFilter: boolean;
         placeholderTextColor: string;
-        modalVisible: boolean;
         autoGenerateAlphabet: boolean;
         sortingLanguage: string;
         removeClippedSubviews: boolean;
@@ -17,12 +16,13 @@ export declare class ModalComponent extends React.Component<IModalInDtoProps, IM
         searchText: string;
         autoCorrect: boolean;
         autoSort: boolean;
+        list: any[];
     };
     constructor(props: IModalInDtoProps);
     componentWillUnmount(): void;
+    componentWillReceiveProps(nextProps: any, nextState: any): void;
     private clearComponent;
     componentWillMount(): void;
-    componentWillReceiveProps(nextProps: any, nextState: any): void;
     private openModal;
     render(): JSX.Element;
     private _onViewableItemsChanged;
