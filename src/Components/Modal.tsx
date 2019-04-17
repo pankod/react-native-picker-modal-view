@@ -8,6 +8,7 @@ import {
 	Dimensions,
 	NativeSyntheticEvent,
 	NativeScrollEvent,
+	StatusBar
 } from 'react-native';
 
 // Local Imports
@@ -77,6 +78,7 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 			searchText: '',
 			selectedAlpha: null,
 		});
+		StatusBar.setTranslucent(false);
 	}
 
 	public componentWillMount(): void {
@@ -91,6 +93,7 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 	}
 
 	private openModal(): void {
+		StatusBar.setTranslucent(true);
 		const { list, autoGenerateAlphabet } = this.props;
 
 		if (autoGenerateAlphabet) {
