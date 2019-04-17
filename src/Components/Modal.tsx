@@ -2,7 +2,6 @@
 import * as React from 'react';
 import {
 	Modal,
-	SafeAreaView,
 	View,
 	FlatList,
 	KeyboardAvoidingView,
@@ -138,7 +137,7 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 					animationType={animationType}
 					visible={modalVisible}
 					onRequestClose={() => onRequestClosed}>
-					<SafeAreaView style={ModalStyles.container}>
+					<View style={ModalStyles.container}>
 						<SearchComponent
 							autoCorrect={autoCorrect}
 							searchText={searchText}
@@ -182,7 +181,7 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 							</View>
 						</KeyboardAvoidingView>
 						{stickyBottomButton && <ScrollToTopComponent goToUp={() => this.scrollToUp()} />}
-					</SafeAreaView>
+					</View>
 				</Modal>
 			</React.Fragment >
 		);
