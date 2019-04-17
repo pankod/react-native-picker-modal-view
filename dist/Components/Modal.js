@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Modal, View, FlatList, KeyboardAvoidingView, Dimensions, StatusBar } from 'react-native';
+import { Modal, View, FlatList, KeyboardAvoidingView, Dimensions, } from 'react-native';
 import { AlphabetComponent, ListItemComponent, SearchComponent, ScrollToTopComponent, SelectBoxComponent, } from './';
 import { ModalStyles } from '../Assets/Styles';
 const { height } = Dimensions.get('window');
@@ -34,7 +34,6 @@ export class ModalComponent extends React.Component {
             searchText: '',
             selectedAlpha: null,
         });
-        StatusBar.setTranslucent(false);
     }
     componentWillMount() {
         const { autoGenerateAlphabet, alphaBets } = this.props;
@@ -48,7 +47,6 @@ export class ModalComponent extends React.Component {
         }
     }
     openModal() {
-        StatusBar.setTranslucent(true);
         const { list, autoGenerateAlphabet } = this.props;
         if (autoGenerateAlphabet) {
             this.generateAlphabet();
@@ -66,7 +64,7 @@ export class ModalComponent extends React.Component {
             React.createElement(SelectBoxComponent, { disabled: (list.length === 0 || !list), selectedObject: selectedObject, chooseText: (defaultSelected && defaultSelected.Name) ? defaultSelected.Name : chooseText, openModal: this.openModal.bind(this) }),
             React.createElement(Modal, { animationType: animationType, visible: modalVisible, onRequestClose: () => onRequestClosed },
                 React.createElement(View, { style: ModalStyles.container },
-                    React.createElement(SearchComponent, Object.assign({ autoCorrect: autoCorrect, searchText: searchText, placeholderTextColor: placeholderTextColor, onClose: this.onClose.bind(this), closeable: closeable, setText: (text) => this.setText(text) }, SearchInputProps)),
+                    React.createElement(SearchComponent, Object.assign({ autoCorrect: autoCorrect, searchText: searchText, placeholderTextColor: placeholderTextColor, onClose: this.onClose.bind(this), onBackRequest: this.onBackRequest.bind(this), closeable: closeable, setText: (text) => this.setText(text) }, SearchInputProps)),
                     React.createElement(KeyboardAvoidingView, { style: ModalStyles.keyboardContainer, behavior: "padding", enabled: true },
                         React.createElement(View, { style: ModalStyles.listArea },
                             React.createElement(FlatList, Object.assign({ ref: (ref) => this.flatListRef = ref, data: this.getFilteredData(), keyExtractor: keyExtractor ? keyExtractor : this._keyExtractor.bind(this), renderItem: ({ item, index }) => this.renderItem(item, index), onScroll: showToTopButton && this.onScrolling.bind(this), initialNumToRender: this.numToRender, keyboardShouldPersistTaps: 'always', keyboardDismissMode: 'on-drag', onEndReached: onEndReached, removeClippedSubviews: removeClippedSubviews, viewabilityConfig: {
@@ -87,13 +85,28 @@ export class ModalComponent extends React.Component {
         }
     }
     onClose() {
-        const { onRequestClosed } = this.props;
+        const { onRequestClosed, onSelected } = this.props;
+        const { modalVisible } = this.state;
+        this.setState({
+            selectedObject: {},
+            modalVisible: !modalVisible,
+        });
+        this.clearComponent();
+        onSelected({});
+        if (onRequestClosed) {
+            onRequestClosed();
+        }
+    }
+    onBackRequest() {
+        const { onBackRequest, onSelected } = this.props;
         const { modalVisible } = this.state;
         this.setState({
             modalVisible: !modalVisible,
         });
         this.clearComponent();
-        onRequestClosed();
+        if (onBackRequest) {
+            onBackRequest();
+        }
     }
     scrollToUp() {
         if (this.flatListRef) {

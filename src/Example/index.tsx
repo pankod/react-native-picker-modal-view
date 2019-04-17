@@ -30,6 +30,10 @@ export class Example extends React.PureComponent<{}, IState> {
 		return selected;
 	}
 
+	private onBackRequest(): void {
+		console.log('back key pressed');
+	}
+
 	public render(): JSX.Element {
 		return (
 			<PickerModal
@@ -43,6 +47,7 @@ export class Example extends React.PureComponent<{}, IState> {
 				// 	CityId?: ITown;
 				// }
 				onRequestClosed={this.close.bind(this)} // close request
+				onBackRequest={this.onBackRequest.bind(this)} // back key press trigger
 				closeable={true}
 				modalVisible={this.state.modalVisible}
 				list={data}

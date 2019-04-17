@@ -27,6 +27,7 @@ export declare class ModalComponent extends React.Component<IModalInDtoProps, IM
     render(): JSX.Element;
     private _onViewableItemsChanged;
     private onClose;
+    private onBackRequest;
     private scrollToUp;
     private onScrolling;
     private renderItem;

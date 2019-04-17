@@ -8,7 +8,6 @@ import {
 	Dimensions,
 	NativeSyntheticEvent,
 	NativeScrollEvent,
-	StatusBar
 } from 'react-native';
 
 // Local Imports
@@ -78,7 +77,6 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 			searchText: '',
 			selectedAlpha: null,
 		});
-		StatusBar.setTranslucent(false);
 	}
 
 	public componentWillMount(): void {
@@ -93,7 +91,6 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 	}
 
 	private openModal(): void {
-		StatusBar.setTranslucent(true);
 		const { list, autoGenerateAlphabet } = this.props;
 
 		if (autoGenerateAlphabet) {
@@ -146,6 +143,7 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 							searchText={searchText}
 							placeholderTextColor={placeholderTextColor}
 							onClose={this.onClose.bind(this)}
+							onBackRequest={this.onBackRequest.bind(this)}
 							closeable={closeable}
 							setText={(text: string) => this.setText(text)}
 							{...SearchInputProps}
@@ -200,13 +198,29 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 	}
 
 	private onClose(): void {
-		const { onRequestClosed } = this.props;
+		const { onRequestClosed, onSelected } = this.props;
+		const { modalVisible } = this.state;
+		this.setState({
+			selectedObject: {} as IModalListInDto,
+			modalVisible: !modalVisible,
+		});
+		this.clearComponent();
+		onSelected({} as IModalListInDto);
+		if (onRequestClosed) {
+			onRequestClosed();
+		}
+	}
+
+	private onBackRequest(): void {
+		const { onBackRequest, onSelected } = this.props;
 		const { modalVisible } = this.state;
 		this.setState({
 			modalVisible: !modalVisible,
 		});
 		this.clearComponent();
-		onRequestClosed();
+		if (onBackRequest) {
+			onBackRequest();
+		}
 	}
 
 	private scrollToUp(): void {

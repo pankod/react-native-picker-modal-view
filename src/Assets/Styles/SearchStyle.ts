@@ -5,9 +5,14 @@ const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : NativeModules.StatusBarMan
 
 export const SearchStyle = StyleSheet.create({
 	closeButton: {
-		width: 10,
-		height: 10,
+		width: 13,
+		height: 13,
 		marginLeft: 20,
+	} as ImageStyle,
+	backButton: {
+		width: 15,
+		height: 15,
+		marginRight: 20,
 	} as ImageStyle,
 	searchArea: {
 		flexDirection: 'row',

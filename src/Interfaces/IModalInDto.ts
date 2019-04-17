@@ -18,6 +18,7 @@ export interface IModalInDtoProps {
 	animationType: AnimationTypeEnum;
 	hideAlphabetFilter: boolean;
 	onRequestClosed: () => void;
+	onBackRequest?: () => void;
 	onSelected: (selected: IModalListInDto) => IModalListInDto;
 	closeable: boolean;
 	list: IModalListInDto[];

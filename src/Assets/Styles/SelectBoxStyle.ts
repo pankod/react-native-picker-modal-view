@@ -8,7 +8,7 @@ export const SelectBoxStyle = StyleSheet.create({
 		paddingVertical: 10,
 		position: 'relative',
 		borderWidth: 1,
-		borderColor: '#ddd',
+		borderColor: '#9E9E9E',
 		justifyContent: 'space-between',
 		flexDirection: 'row',
 		alignContent: 'center',
