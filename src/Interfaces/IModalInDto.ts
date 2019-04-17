@@ -1,9 +1,18 @@
 // Global Imports
-import { FlatListProps, TextInputProps, ViewStyle } from 'react-native';
+import {
+	FlatListProps,
+	TextInputProps,
+	ViewStyle,
+	ModalBaseProps,
+	ModalPropsIOS,
+	ModalPropsAndroid,
+} from 'react-native';
 
 // Local Imports
 import { AnimationTypeEnum, LanguagesEnum } from '@Enum';
 import { IModalListInDto } from '@Interfaces';
+
+type ModalProps = ModalBaseProps | ModalPropsIOS | ModalPropsAndroid;
 
 export interface IModalInDtoProps {
 	animationType: AnimationTypeEnum;
@@ -26,6 +35,7 @@ export interface IModalInDtoProps {
 	searchText: string;
 	autoCorrect: boolean;
 	SearchInputProps?: TextInputProps;
+	ModalProps?: ModalProps;
 	autoSort?: boolean;
 	style?: ViewStyle;
 }

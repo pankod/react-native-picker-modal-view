@@ -58,6 +58,7 @@ export class Example extends React.PureComponent<{}, IState> {
 				alphaBets={['A', 'E', 'O', 'M', 'N']} // if autoGenerateAlphabet variable is false, use custom alphabets
 				autoSort={true} // generate sorting to use Name in data array
 			// SearchInputProps={} // search input box props as React Native TextInputProps
+			// ModalProps={} // modal props as React Native Modal ModalBaseProps | ModalPropsIOS | ModalPropsAndroid
 			// FlatListProps={} // flatlist props as React Native FlatListProps<any>
 			/>
 		);
