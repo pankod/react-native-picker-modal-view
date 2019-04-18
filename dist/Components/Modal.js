@@ -22,7 +22,7 @@ export class ModalComponent extends React.Component {
     }
     componentWillReceiveProps(nextProps, nextState) {
         if ((this.props.defaultSelected && nextProps.defaultSelected) && this.props.defaultSelected.Name !== nextProps.defaultSelected.Name &&
-            this.props.defaultSelected.Id !== nextProps.defaultSelected.Id) {
+            [this.props.defaultSelected.Id] !== [nextProps.defaultSelected.Id]) {
             this.setState({
                 selectedObject: {},
             });
@@ -88,8 +88,8 @@ export class ModalComponent extends React.Component {
         const { onRequestClosed, onSelected, forceSelect, defaultSelected } = this.props;
         const { modalVisible, selectedObject } = this.state;
         if (forceSelect &&
-            (selectedObject && !selectedObject.Id) &&
-            (defaultSelected && !defaultSelected.Id)) {
+            (selectedObject && ![selectedObject.Id]) &&
+            (defaultSelected && ![defaultSelected.Id])) {
             return;
         }
         if (!forceSelect) {
@@ -189,7 +189,7 @@ export class ModalComponent extends React.Component {
             selectedObject: key,
         });
         this.clearComponent();
-        if (key && !key.Id) {
+        if (key && ![key.Id]) {
             return onSelected({});
         }
         return onSelected(key);

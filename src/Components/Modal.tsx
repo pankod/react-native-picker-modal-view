@@ -65,7 +65,7 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 		if (
 			// tslint:disable-next-line: max-line-length
 			(this.props.defaultSelected && nextProps.defaultSelected) && this.props.defaultSelected.Name !== nextProps.defaultSelected.Name &&
-			this.props.defaultSelected.Id !== nextProps.defaultSelected.Id
+			[this.props.defaultSelected.Id] !== [nextProps.defaultSelected.Id]
 		) {
 			this.setState({
 				selectedObject: {} as IModalListInDto,
@@ -206,8 +206,8 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 
 		if (
 			forceSelect &&
-			(selectedObject && !selectedObject.Id) &&
-			(defaultSelected && !defaultSelected.Id)
+			(selectedObject && ![selectedObject.Id]) &&
+			(defaultSelected && ![defaultSelected.Id])
 		) {
 			return;
 		}
@@ -328,8 +328,8 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 		});
 		this.clearComponent();
 
-		if (key && !key.Id) {
-			return onSelected({} as IModalListInDto)
+		if (key && ![key.Id]) {
+			return onSelected({} as IModalListInDto);
 		}
 
 		return onSelected(key);
