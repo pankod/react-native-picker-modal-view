@@ -29,6 +29,7 @@ export interface IModalInDtoProps {
     autoSort?: boolean;
     style?: ViewStyle;
     disabled: boolean;
+    forceSelect: boolean;
 }
 export interface IModalInDtoState {
     modalVisible: boolean;

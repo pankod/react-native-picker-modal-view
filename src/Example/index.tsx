@@ -61,6 +61,7 @@ export class Example extends React.PureComponent<{}, IState> {
 				onEndReached={() => console.log('list ended...')} // list end trigger
 				searchText={'Search anything'} // search box placeholder text
 				alphaBets={['A', 'E', 'O', 'M', 'N']} // if autoGenerateAlphabet variable is false, use custom alphabets
+				forceSelect={true} // force select and user can not close modal
 				autoSort={true} // generate sorting to use Name in data array
 			// SearchInputProps={} // search input box props as React Native TextInputProps
 			// ModalProps={} // modal props as React Native Modal ModalBaseProps | ModalPropsIOS | ModalPropsAndroid

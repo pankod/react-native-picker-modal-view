@@ -58,13 +58,13 @@ export class ModalComponent extends React.Component {
         }
     }
     render() {
-        const { animationType, onRequestClosed, closeable, hideAlphabetFilter, placeholderTextColor, keyExtractor, showToTopButton, onEndReached, removeClippedSubviews, FlatListProps, chooseText, searchText, autoCorrect, SearchInputProps, defaultSelected, disabled, list, } = this.props;
+        const { animationType, onRequestClosed, closeable, hideAlphabetFilter, placeholderTextColor, keyExtractor, showToTopButton, onEndReached, removeClippedSubviews, FlatListProps, chooseText, searchText, autoCorrect, SearchInputProps, defaultSelected, disabled, list, forceSelect, } = this.props;
         const { modalVisible, alphaBets, stickyBottomButton, selectedAlpha, selectedObject } = this.state;
         return (React.createElement(React.Fragment, null,
             React.createElement(SelectBoxComponent, { disabled: (disabled || !list || list.length === 0), selectedObject: selectedObject, chooseText: (defaultSelected && defaultSelected.Name) ? defaultSelected.Name : chooseText, openModal: this.openModal.bind(this) }),
             React.createElement(Modal, { animationType: animationType, visible: modalVisible, onRequestClose: () => onRequestClosed },
                 React.createElement(View, { style: ModalStyles.container },
-                    React.createElement(SearchComponent, Object.assign({ autoCorrect: autoCorrect, searchText: searchText, placeholderTextColor: placeholderTextColor, onClose: this.onClose.bind(this), onBackRequest: this.onBackRequest.bind(this), closeable: closeable, setText: (text) => this.setText(text) }, SearchInputProps)),
+                    React.createElement(SearchComponent, Object.assign({ autoCorrect: autoCorrect, searchText: searchText, placeholderTextColor: placeholderTextColor, onClose: this.onClose.bind(this), onBackRequest: this.onBackRequest.bind(this), closeable: !forceSelect && closeable, setText: (text) => this.setText(text) }, SearchInputProps)),
                     React.createElement(KeyboardAvoidingView, { style: ModalStyles.keyboardContainer, behavior: "padding", enabled: true },
                         React.createElement(View, { style: ModalStyles.listArea },
                             React.createElement(FlatList, Object.assign({ ref: (ref) => this.flatListRef = ref, data: this.getFilteredData(), keyExtractor: keyExtractor ? keyExtractor : this._keyExtractor.bind(this), renderItem: ({ item, index }) => this.renderItem(item, index), onScroll: showToTopButton && this.onScrolling.bind(this), initialNumToRender: this.numToRender, keyboardShouldPersistTaps: 'always', keyboardDismissMode: 'on-drag', onEndReached: onEndReached, removeClippedSubviews: removeClippedSubviews, viewabilityConfig: {
@@ -85,14 +85,21 @@ export class ModalComponent extends React.Component {
         }
     }
     onClose() {
-        const { onRequestClosed, onSelected } = this.props;
-        const { modalVisible } = this.state;
+        const { onRequestClosed, onSelected, forceSelect, defaultSelected } = this.props;
+        const { modalVisible, selectedObject } = this.state;
+        if (forceSelect &&
+            (selectedObject && !selectedObject.Id) &&
+            (defaultSelected && !defaultSelected.Id)) {
+            return;
+        }
+        if (!forceSelect) {
+            onSelected({});
+        }
         this.setState({
             selectedObject: {},
             modalVisible: !modalVisible,
         });
         this.clearComponent();
-        onSelected({});
         if (onRequestClosed) {
             onRequestClosed();
         }
@@ -182,6 +189,9 @@ export class ModalComponent extends React.Component {
             selectedObject: key,
         });
         this.clearComponent();
+        if (key && !key.Id) {
+            return onSelected({});
+        }
         return onSelected(key);
     }
     getIndex(alphabet) {
@@ -220,5 +230,6 @@ ModalComponent.defaultProps = {
     autoSort: false,
     list: [],
     disabled: false,
+    forceSelect: false,
 };
 //# sourceMappingURL=Modal.js.map

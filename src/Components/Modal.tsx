@@ -49,6 +49,7 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 		autoSort: false,
 		list: [],
 		disabled: false,
+		forceSelect: false,
 	};
 
 	constructor(props: IModalInDtoProps) {
@@ -124,6 +125,7 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 			defaultSelected,
 			disabled,
 			list,
+			forceSelect,
 		} = this.props;
 		const { modalVisible, alphaBets, stickyBottomButton, selectedAlpha, selectedObject } = this.state;
 		return (
@@ -145,7 +147,7 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 							placeholderTextColor={placeholderTextColor}
 							onClose={this.onClose.bind(this)}
 							onBackRequest={this.onBackRequest.bind(this)}
-							closeable={closeable}
+							closeable={!forceSelect && closeable}
 							setText={(text: string) => this.setText(text)}
 							{...SearchInputProps}
 						/>
@@ -199,14 +201,26 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 	}
 
 	private onClose(): void {
-		const { onRequestClosed, onSelected } = this.props;
-		const { modalVisible } = this.state;
+		const { onRequestClosed, onSelected, forceSelect, defaultSelected } = this.props;
+		const { modalVisible, selectedObject } = this.state;
+
+		if (
+			forceSelect &&
+			(selectedObject && !selectedObject.Id) &&
+			(defaultSelected && !defaultSelected.Id)
+		) {
+			return;
+		}
+
+		if (!forceSelect) {
+			onSelected({} as IModalListInDto);
+		}
+
 		this.setState({
 			selectedObject: {} as IModalListInDto,
 			modalVisible: !modalVisible,
 		});
 		this.clearComponent();
-		onSelected({} as IModalListInDto);
 		if (onRequestClosed) {
 			onRequestClosed();
 		}
@@ -306,13 +320,18 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 		return list.filter((l: IModalListInDto) => l.Name.toLocaleLowerCase().indexOf(searchText.toLocaleLowerCase()) > -1);
 	}
 
-	private onSelectMethod(key: IModalListInDto): IModalListInDto {
+	private onSelectMethod(key: IModalListInDto): IModalListInDto | void {
 		const { onSelected } = this.props;
 		this.setState({
 			modalVisible: false,
 			selectedObject: key as IModalListInDto,
 		});
 		this.clearComponent();
+
+		if (key && !key.Id) {
+			return onSelected({} as IModalListInDto)
+		}
+
 		return onSelected(key);
 	}
 
