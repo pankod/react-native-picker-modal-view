@@ -160,7 +160,6 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 									renderItem={({ item, index }) => this.renderItem(item, index)}
 									onScroll={showToTopButton && this.onScrolling.bind(this)}
 									initialNumToRender={this.numToRender}
-									initialScrollIndex={this.numToRender}
 									keyboardShouldPersistTaps={'always'}
 									keyboardDismissMode={'interactive'}
 									onEndReached={onEndReached}
