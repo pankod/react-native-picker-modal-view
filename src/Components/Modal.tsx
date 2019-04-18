@@ -8,6 +8,7 @@ import {
 	NativeSyntheticEvent,
 	NativeScrollEvent,
 	Platform,
+	SafeAreaView,
 } from 'react-native';
 
 // Local Imports
@@ -137,7 +138,7 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 					animationType={animationType}
 					visible={modalVisible}
 					onRequestClose={() => onRequestClosed}>
-					<View style={ModalStyles.container}>
+					<SafeAreaView style={ModalStyles.container}>
 						<SearchComponent
 							autoCorrect={autoCorrect}
 							searchText={searchText}
@@ -192,7 +193,7 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 							</View>
 						</KeyboardAvoidingView>
 						{stickyBottomButton && <ScrollToTopComponent goToUp={this.scrollToUp.bind(this)} />}
-					</View>
+					</SafeAreaView>
 				</Modal>
 			</React.Fragment >
 		);

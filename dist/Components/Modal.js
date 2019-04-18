@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Modal, View, FlatList, KeyboardAvoidingView, Platform, } from 'react-native';
+import { Modal, View, FlatList, KeyboardAvoidingView, Platform, SafeAreaView, } from 'react-native';
 import { AlphabetComponent, ListItemComponent, SearchComponent, ScrollToTopComponent, SelectBoxComponent, } from './';
 import { ModalStyles, CommonStyle } from '../Assets/Styles';
 export class ModalComponent extends React.PureComponent {
@@ -62,7 +62,7 @@ export class ModalComponent extends React.PureComponent {
         return (React.createElement(React.Fragment, null,
             React.createElement(SelectBoxComponent, { disabled: (disabled || !list || list.length === 0), selectedObject: selectedObject, chooseText: (defaultSelected && defaultSelected.Name) ? defaultSelected.Name : chooseText, openModal: this.openModal.bind(this) }),
             React.createElement(Modal, { animationType: animationType, visible: modalVisible, onRequestClose: () => onRequestClosed },
-                React.createElement(View, { style: ModalStyles.container },
+                React.createElement(SafeAreaView, { style: ModalStyles.container },
                     React.createElement(SearchComponent, Object.assign({ autoCorrect: autoCorrect, searchText: searchText, placeholderTextColor: placeholderTextColor, onClose: this.onClose.bind(this), onBackRequest: this.onBackRequest.bind(this), forceSelect: forceSelect, setText: (text) => this.setText(text) }, SearchInputProps)),
                     React.createElement(KeyboardAvoidingView, { style: ModalStyles.keyboardContainer, behavior: Platform.OS === 'ios' ? 'padding' : null, enabled: true },
                         React.createElement(View, { style: ModalStyles.listArea },

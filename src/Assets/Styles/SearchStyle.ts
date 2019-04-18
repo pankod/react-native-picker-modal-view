@@ -18,7 +18,6 @@ export const SearchStyle = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'space-between',
 		paddingVertical: 10,
-		backgroundColor: 'rgba(0,0,0,.01)',
 	} as ViewStyle,
 	textInput: {
 		flex: 1,
