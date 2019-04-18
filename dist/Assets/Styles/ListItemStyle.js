@@ -1,8 +1,10 @@
 import { StyleSheet } from 'react-native';
+import { CommonStyle } from './CommonStyle';
 export const ListItemStyle = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'column',
+        height: CommonStyle.BTN_HEIGHT,
     },
     btnContainer: {
         flex: 1,

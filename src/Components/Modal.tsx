@@ -19,7 +19,7 @@ import {
 	SelectBoxComponent,
 } from '@Components';
 import { IModalInDtoProps, IModalListInDto, IModalInDtoState } from '@Interfaces';
-import { ModalStyles } from '@Styles';
+import { ModalStyles, CommonStyle } from '@Styles';
 
 export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModalInDtoState> {
 
@@ -160,6 +160,7 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 									renderItem={({ item, index }) => this.renderItem(item, index)}
 									onScroll={showToTopButton && this.onScrolling.bind(this)}
 									initialNumToRender={this.numToRender}
+									initialScrollIndex={this.numToRender}
 									keyboardShouldPersistTaps={'always'}
 									keyboardDismissMode={'interactive'}
 									onEndReached={onEndReached}
@@ -172,6 +173,11 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 										viewAreaCoveragePercentThreshold: 100,
 										waitForInteraction: true,
 									}}
+									getItemLayout={(_, index) => ({
+										length: CommonStyle.BTN_HEIGHT,
+										offset: CommonStyle.BTN_HEIGHT * index,
+										index,
+									})}
 									onViewableItemsChanged={this._onViewableItemsChanged}
 									{...FlatListProps}
 								/>

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Modal, View, FlatList, KeyboardAvoidingView, Platform, } from 'react-native';
 import { AlphabetComponent, ListItemComponent, SearchComponent, ScrollToTopComponent, SelectBoxComponent, } from './';
-import { ModalStyles } from '../Assets/Styles';
+import { ModalStyles, CommonStyle } from '../Assets/Styles';
 export class ModalComponent extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -66,11 +66,15 @@ export class ModalComponent extends React.PureComponent {
                     React.createElement(SearchComponent, Object.assign({ autoCorrect: autoCorrect, searchText: searchText, placeholderTextColor: placeholderTextColor, onClose: this.onClose.bind(this), onBackRequest: this.onBackRequest.bind(this), forceSelect: forceSelect, setText: (text) => this.setText(text) }, SearchInputProps)),
                     React.createElement(KeyboardAvoidingView, { style: ModalStyles.keyboardContainer, behavior: Platform.OS === 'ios' ? 'padding' : null, enabled: true },
                         React.createElement(View, { style: ModalStyles.listArea },
-                            React.createElement(FlatList, Object.assign({ ref: (ref) => this.flatListRef = ref, data: this.getFilteredData(), keyExtractor: keyExtractor ? keyExtractor : this._keyExtractor.bind(this), renderItem: ({ item, index }) => this.renderItem(item, index), onScroll: showToTopButton && this.onScrolling.bind(this), initialNumToRender: this.numToRender, keyboardShouldPersistTaps: 'always', keyboardDismissMode: 'interactive', onEndReached: onEndReached, maxToRenderPerBatch: 20, legacyImplementation: false, updateCellsBatchingPeriod: 50, removeClippedSubviews: removeClippedSubviews, viewabilityConfig: {
+                            React.createElement(FlatList, Object.assign({ ref: (ref) => this.flatListRef = ref, data: this.getFilteredData(), keyExtractor: keyExtractor ? keyExtractor : this._keyExtractor.bind(this), renderItem: ({ item, index }) => this.renderItem(item, index), onScroll: showToTopButton && this.onScrolling.bind(this), initialNumToRender: this.numToRender, initialScrollIndex: this.numToRender, keyboardShouldPersistTaps: 'always', keyboardDismissMode: 'interactive', onEndReached: onEndReached, maxToRenderPerBatch: 20, legacyImplementation: false, updateCellsBatchingPeriod: 50, removeClippedSubviews: removeClippedSubviews, viewabilityConfig: {
                                     minimumViewTime: 500,
                                     viewAreaCoveragePercentThreshold: 100,
                                     waitForInteraction: true,
-                                }, onViewableItemsChanged: this._onViewableItemsChanged }, FlatListProps)),
+                                }, getItemLayout: (_, index) => ({
+                                    length: CommonStyle.BTN_HEIGHT,
+                                    offset: CommonStyle.BTN_HEIGHT * index,
+                                    index,
+                                }), onViewableItemsChanged: this._onViewableItemsChanged }, FlatListProps)),
                             !hideAlphabetFilter &&
                                 React.createElement(AlphabetComponent, { setAlphabet: (alphabet) => this.setAlphabet(alphabet), alphaBets: alphaBets, selectedAlpha: selectedAlpha }))),
                     stickyBottomButton && React.createElement(ScrollToTopComponent, { goToUp: this.scrollToUp.bind(this) })))));
