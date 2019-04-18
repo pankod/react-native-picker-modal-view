@@ -14,28 +14,28 @@ export class SearchComponent extends React.PureComponent<ISearch, {}> {
 			placeholderTextColor,
 			onClose,
 			setText,
-			closeable,
+			forceSelect,
 			searchText,
 			onBackRequest,
 		} = this.props;
 		return (
 			<View style={SearchStyle.searchArea}>
 
-				<TouchableOpacity onPress={() => onBackRequest()}>
+				<TouchableOpacity onPress={() => onBackRequest()} style={SearchStyle.leftBtn}>
 					<Image source={require('../Assets/Images/left-arrow.png')} style={SearchStyle.backButton} />
 				</TouchableOpacity>
 
 				<TextInput
 					placeholder={searchText}
 					placeholderTextColor={placeholderTextColor}
-					style={SearchStyle.textInput}
+					style={[SearchStyle.textInput, forceSelect && SearchStyle.nonCloseButton]}
 					underlineColorAndroid={'transparent'}
 					onChangeText={(text: string) => setText(text)}
 					autoCorrect={autoCorrect}
 					{...SearchInputProps}
 				/>
-				{closeable &&
-					<TouchableOpacity onPress={() => onClose()}>
+				{!forceSelect &&
+					<TouchableOpacity onPress={() => onClose()} style={SearchStyle.leftBtn}>
 						<Image source={require('../Assets/Images/close.png')} style={SearchStyle.closeButton} />
 					</TouchableOpacity>
 				}

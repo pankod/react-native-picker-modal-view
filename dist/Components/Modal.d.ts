@@ -1,12 +1,11 @@
 import * as React from 'react';
 import { IModalInDtoProps, IModalInDtoState } from '../Interfaces';
-export declare class ModalComponent extends React.Component<IModalInDtoProps, IModalInDtoState> {
+export declare class ModalComponent extends React.PureComponent<IModalInDtoProps, IModalInDtoState> {
     private flatListRef;
     private numToRender;
     state: IModalInDtoState;
     static defaultProps: {
         animationType: string;
-        closeable: boolean;
         hideAlphabetFilter: boolean;
         placeholderTextColor: string;
         autoGenerateAlphabet: boolean;
@@ -36,6 +35,7 @@ export declare class ModalComponent extends React.Component<IModalInDtoProps, IM
     private generateAlphabet;
     private _keyExtractor;
     private setText;
+    private trCompare;
     private compare;
     private getFilteredData;
     private onSelectMethod;

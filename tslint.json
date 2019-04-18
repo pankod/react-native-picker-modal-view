@@ -1,5 +1,5 @@
 {
-	"defaultSeverity": "error",
+	"defaultSeverity": "warn",
 	"extends": [
 		"tslint:recommended"
 	],
@@ -18,6 +18,5 @@
 		"ordered-imports": false,
 		"member-ordering": false,
 		"object-literal-sort-keys": false
-	},
-	"rulesDirectory": []
+	}
 }

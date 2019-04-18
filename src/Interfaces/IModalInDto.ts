@@ -22,7 +22,6 @@ export interface IModalInDtoProps {
 	onRequestClosed: () => void;
 	onBackRequest?: () => void;
 	onSelected: (selected: IModalListInDto) => IModalListInDto;
-	closeable: boolean;
 	list: ListType;
 	alphaBets?: string[];
 	placeholderTextColor?: string;

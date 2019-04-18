@@ -19,7 +19,9 @@ export class SelectBoxComponent extends React.PureComponent<ISelectBoxProps, {}>
 					<Text style={[disabled ? SelectBoxStyle.disabledTxt : SelectBoxStyle.chooseText]}>{
 						(selectedObject && selectedObject.Name) ? selectedObject.Name : chooseText
 					}</Text>
-					<Image source={require('../Assets/Images/down.png')} style={[SelectBoxStyle.downBtn, disabled && SelectBoxStyle.disabledImage]} />
+					<Image source={require('../Assets/Images/down.png')}
+						style={[SelectBoxStyle.downBtn, disabled && SelectBoxStyle.disabledImage]}
+					/>
 				</View>
 			</TouchableOpacity>
 		);

@@ -4,4 +4,7 @@ export declare const SearchStyle: {
     backButton: ImageStyle;
     searchArea: ViewStyle;
     textInput: ViewStyle;
+    nonCloseButton: ViewStyle;
+    leftBtn: ViewStyle;
+    rightBtn: ViewStyle;
 };

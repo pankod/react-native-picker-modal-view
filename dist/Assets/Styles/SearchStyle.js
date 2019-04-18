@@ -1,25 +1,20 @@
-import { StyleSheet, Platform, NativeModules } from 'react-native';
-const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : NativeModules.StatusBarManager.HEIGHT;
+import { StyleSheet } from 'react-native';
 export const SearchStyle = StyleSheet.create({
     closeButton: {
         width: 13,
         height: 13,
-        marginLeft: 20,
     },
     backButton: {
         width: 15,
         height: 15,
-        marginRight: 20,
     },
     searchArea: {
         flexDirection: 'row',
         alignContent: 'center',
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingTop: STATUSBAR_HEIGHT,
-        paddingBottom: 10,
+        paddingVertical: 10,
         backgroundColor: 'rgba(0,0,0,.01)',
-        paddingHorizontal: 20,
     },
     textInput: {
         flex: 1,
@@ -27,6 +22,17 @@ export const SearchStyle = StyleSheet.create({
         borderWidth: 0.5,
         borderRadius: 5,
         padding: 10,
+    },
+    nonCloseButton: {
+        marginRight: 20,
+    },
+    leftBtn: {
+        paddingVertical: 20,
+        paddingHorizontal: 20,
+    },
+    rightBtn: {
+        paddingVertical: 20,
+        paddingHorizontal: 20,
     },
 });
 //# sourceMappingURL=SearchStyle.js.map

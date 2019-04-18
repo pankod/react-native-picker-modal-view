@@ -5,9 +5,9 @@ import {
 	View,
 	FlatList,
 	KeyboardAvoidingView,
-	Dimensions,
 	NativeSyntheticEvent,
 	NativeScrollEvent,
+	Platform,
 } from 'react-native';
 
 // Local Imports
@@ -21,8 +21,7 @@ import {
 import { IModalInDtoProps, IModalListInDto, IModalInDtoState } from '@Interfaces';
 import { ModalStyles } from '@Styles';
 
-const { height } = Dimensions.get('window');
-export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDtoState> {
+export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModalInDtoState> {
 
 	private flatListRef = null;
 	private numToRender: number = 20;
@@ -37,12 +36,11 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 
 	public static defaultProps = {
 		animationType: 'slide',
-		closeable: true,
 		hideAlphabetFilter: false,
 		placeholderTextColor: '#252525',
 		autoGenerateAlphabet: false,
 		sortingLanguage: 'tr',
-		removeClippedSubviews: true,
+		removeClippedSubviews: false,
 		chooseText: 'Choose one...',
 		searchText: 'Search anything...',
 		autoCorrect: true,
@@ -110,7 +108,6 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 		const {
 			animationType,
 			onRequestClosed,
-			closeable,
 			hideAlphabetFilter,
 			placeholderTextColor,
 			keyExtractor,
@@ -147,11 +144,13 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 							placeholderTextColor={placeholderTextColor}
 							onClose={this.onClose.bind(this)}
 							onBackRequest={this.onBackRequest.bind(this)}
-							closeable={!forceSelect && closeable}
+							forceSelect={forceSelect}
 							setText={(text: string) => this.setText(text)}
 							{...SearchInputProps}
 						/>
-						<KeyboardAvoidingView style={ModalStyles.keyboardContainer} behavior="padding" enabled>
+						<KeyboardAvoidingView style={ModalStyles.keyboardContainer}
+							behavior={Platform.OS === 'ios' ? 'padding' : null}
+							enabled>
 							<View style={ModalStyles.listArea}>
 
 								<FlatList
@@ -162,8 +161,11 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 									onScroll={showToTopButton && this.onScrolling.bind(this)}
 									initialNumToRender={this.numToRender}
 									keyboardShouldPersistTaps={'always'}
-									keyboardDismissMode={'on-drag'}
+									keyboardDismissMode={'interactive'}
 									onEndReached={onEndReached}
+									maxToRenderPerBatch={20}
+									legacyImplementation={false}
+									updateCellsBatchingPeriod={50}
 									removeClippedSubviews={removeClippedSubviews}
 									viewabilityConfig={{
 										minimumViewTime: 100,
@@ -184,7 +186,7 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 								}
 							</View>
 						</KeyboardAvoidingView>
-						{stickyBottomButton && <ScrollToTopComponent goToUp={() => this.scrollToUp()} />}
+						{stickyBottomButton && <ScrollToTopComponent goToUp={this.scrollToUp.bind(this)} />}
 					</View>
 				</Modal>
 			</React.Fragment >
@@ -280,7 +282,11 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 			}
 		});
 
-		singularAlpha.sort((a, b) => a.localeCompare(b, sortingLanguage));
+		if (sortingLanguage === 'tr') {
+			singularAlpha.sort(this.trCompare);
+		} else {
+			singularAlpha.sort((a, b) => a.localeCompare(b));
+		}
 
 		this.setState({
 			alphaBets: singularAlpha,
@@ -295,6 +301,23 @@ export class ModalComponent extends React.Component<IModalInDtoProps, IModalInDt
 		this.setState({
 			searchText: text,
 		});
+	}
+
+	// source https://gist.github.com/ugurozpinar/9682734
+	private trCompare(a: any, b: any): number {
+		const alphabets = 'AaBbCcÇçDdEeFfGgĞğHhIıİiJjKkLlMmNnOoÖöPpQqRrSsŞşTtUuÜüVvWwXxYyZz0123456789';
+		if (a.length === 0 || b.length === 0) {
+			return a.length - b.length;
+		}
+		for (let i = 0; i < a.length && i < b.length; i++) {
+			const ai = alphabets.indexOf(a[i]);
+			const bi = alphabets.indexOf(b[i]);
+			if (ai !== bi) {
+				return ai - bi;
+			}
+		}
+
+		return 0;
 	}
 
 	private compare(a: any, b: any): number {

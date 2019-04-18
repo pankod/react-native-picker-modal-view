@@ -7,10 +7,8 @@ const { height } = Dimensions.get('screen');
 
 export const AlphabetStyle = StyleSheet.create({
 	container: {
-		marginVertical: 10,
 		marginHorizontal: 10,
 		zIndex: 2,
-		height: height - 100,
 	} as ViewStyle,
 	alphabetButton: {
 		paddingVertical: 5,

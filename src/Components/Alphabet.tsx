@@ -9,7 +9,8 @@ import { IAlphabetsInDto } from '@Interfaces';
 export class AlphabetComponent extends React.PureComponent<IAlphabetsInDto, {}> {
 
 	public static defaultProps = {
-		alphaBets: ['A', 'B', 'C', 'Ç', 'D', 'E', 'F', 'G', 'H', 'I', 'İ', 'J', 'K', 'L', 'M', 'N', 'O', 'Ö', 'P', 'Q', 'R', 'S', 'Ş', 'T', 'U', 'Ü', 'V', 'W', 'X', 'Y', 'Z']
+		// tslint:disable-next-line: max-line-length
+		alphaBets: ['A', 'B', 'C', 'Ç', 'D', 'E', 'F', 'G', 'H', 'I', 'İ', 'J', 'K', 'L', 'M', 'N', 'O', 'Ö', 'P', 'Q', 'R', 'S', 'Ş', 'T', 'U', 'Ü', 'V', 'W', 'X', 'Y', 'Z'],
 	};
 
 	public render(): JSX.Element {

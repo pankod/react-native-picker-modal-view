@@ -48,7 +48,6 @@ export class Example extends React.PureComponent<{}, IState> {
 				// }
 				onRequestClosed={this.close.bind(this)} // close request
 				onBackRequest={this.onBackRequest.bind(this)} // back key press trigger
-				closeable={true}
 				modalVisible={this.state.modalVisible}
 				list={data}
 				sortingLanguage={LanguagesEnum.tr} // default alphabet sorting is tr
@@ -61,7 +60,7 @@ export class Example extends React.PureComponent<{}, IState> {
 				onEndReached={() => console.log('list ended...')} // list end trigger
 				searchText={'Search anything'} // search box placeholder text
 				alphaBets={['A', 'E', 'O', 'M', 'N']} // if autoGenerateAlphabet variable is false, use custom alphabets
-				forceSelect={true} // force select and user can not close modal
+				forceSelect={true} // force select and user can not close modal, close button hidden
 				autoSort={true} // generate sorting to use Name in data array
 			// SearchInputProps={} // search input box props as React Native TextInputProps
 			// ModalProps={} // modal props as React Native Modal ModalBaseProps | ModalPropsIOS | ModalPropsAndroid
