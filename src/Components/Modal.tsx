@@ -168,7 +168,7 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 									updateCellsBatchingPeriod={50}
 									removeClippedSubviews={removeClippedSubviews}
 									viewabilityConfig={{
-										minimumViewTime: 100,
+										minimumViewTime: 500,
 										viewAreaCoveragePercentThreshold: 100,
 										waitForInteraction: true,
 									}}
@@ -245,7 +245,7 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 			this.setState({
 				selectedAlpha: null,
 			}, () => {
-				this.flatListRef.scrollToOffset({ animated: true, offset: 0 });
+				this.flatListRef.scrollToOffset({ animated: false, offset: 0 });
 			});
 		}
 	}
@@ -374,7 +374,9 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 			const list = this.getFilteredData();
 			const findIndex = this.getIndex(alphabet);
 			if (findIndex >= 0 && findIndex <= (list.length - (this.numToRender / 2))) {
-				this.flatListRef.scrollToIndex({ animated: true, index: findIndex, viewPosition: 0 });
+				setTimeout(() => {
+					this.flatListRef.scrollToIndex({ animated: false, index: findIndex, viewPosition: 0 });
+				}, 100);
 			} else {
 				this.flatListRef.scrollToEnd();
 			}

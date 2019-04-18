@@ -67,7 +67,7 @@ export class ModalComponent extends React.PureComponent {
                     React.createElement(KeyboardAvoidingView, { style: ModalStyles.keyboardContainer, behavior: Platform.OS === 'ios' ? 'padding' : null, enabled: true },
                         React.createElement(View, { style: ModalStyles.listArea },
                             React.createElement(FlatList, Object.assign({ ref: (ref) => this.flatListRef = ref, data: this.getFilteredData(), keyExtractor: keyExtractor ? keyExtractor : this._keyExtractor.bind(this), renderItem: ({ item, index }) => this.renderItem(item, index), onScroll: showToTopButton && this.onScrolling.bind(this), initialNumToRender: this.numToRender, keyboardShouldPersistTaps: 'always', keyboardDismissMode: 'interactive', onEndReached: onEndReached, maxToRenderPerBatch: 20, legacyImplementation: false, updateCellsBatchingPeriod: 50, removeClippedSubviews: removeClippedSubviews, viewabilityConfig: {
-                                    minimumViewTime: 100,
+                                    minimumViewTime: 500,
                                     viewAreaCoveragePercentThreshold: 100,
                                     waitForInteraction: true,
                                 }, onViewableItemsChanged: this._onViewableItemsChanged }, FlatListProps)),
@@ -119,7 +119,7 @@ export class ModalComponent extends React.PureComponent {
             this.setState({
                 selectedAlpha: null,
             }, () => {
-                this.flatListRef.scrollToOffset({ animated: true, offset: 0 });
+                this.flatListRef.scrollToOffset({ animated: false, offset: 0 });
             });
         }
     }
@@ -226,7 +226,9 @@ export class ModalComponent extends React.PureComponent {
             const list = this.getFilteredData();
             const findIndex = this.getIndex(alphabet);
             if (findIndex >= 0 && findIndex <= (list.length - (this.numToRender / 2))) {
-                this.flatListRef.scrollToIndex({ animated: true, index: findIndex, viewPosition: 0 });
+                setTimeout(() => {
+                    this.flatListRef.scrollToIndex({ animated: false, index: findIndex, viewPosition: 0 });
+                }, 100);
             }
             else {
                 this.flatListRef.scrollToEnd();
