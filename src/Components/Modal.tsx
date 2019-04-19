@@ -345,7 +345,7 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 		const { searchText } = this.state;
 
 		if (autoSort) {
-			list.sort(this.compare);
+			list.sort((a, b) => this.trCompare(a.Name, b.Name));
 		}
 		return list.filter((l: IModalListInDto) => l.Name.toLocaleLowerCase().indexOf(searchText.toLocaleLowerCase()) > -1);
 	}

@@ -76,7 +76,7 @@ export default class App extends Component {
 								searchText={'Search anything'} // search box placeholder text
 								// alphaBets={['A', 'E', 'O', 'M', 'N']} // if autoGenerateAlphabet variable is false, use custom alphabets
 								forceSelect={false} // force select and user can not close modal, close button hidden
-								autoSort={true} // generate sorting to use Name in data array
+								autoSort={false} // generate sorting to use Name in data array
 							// SearchInputProps={} // search input box props as React Native TextInputProps
 							// ModalProps={} // modal props as React Native Modal ModalBaseProps | ModalPropsIOS | ModalPropsAndroid
 							// FlatListProps={} // flatlist props as React Native FlatListProps<any>

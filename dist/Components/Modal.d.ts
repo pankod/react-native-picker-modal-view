@@ -5,6 +5,7 @@ export declare class ModalComponent extends React.PureComponent<IModalInDtoProps
     private numToRender;
     state: IModalInDtoState;
     static defaultProps: {
+        showToTopButton: boolean;
         animationType: string;
         hideAlphabetFilter: boolean;
         placeholderTextColor: string;

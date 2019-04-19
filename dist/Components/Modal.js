@@ -200,7 +200,7 @@ export class ModalComponent extends React.PureComponent {
         const { list, autoSort } = this.props;
         const { searchText } = this.state;
         if (autoSort) {
-            list.sort(this.compare);
+            list.sort((a, b) => this.trCompare(a.Name, b.Name));
         }
         return list.filter((l) => l.Name.toLocaleLowerCase().indexOf(searchText.toLocaleLowerCase()) > -1);
     }
@@ -241,6 +241,7 @@ export class ModalComponent extends React.PureComponent {
     }
 }
 ModalComponent.defaultProps = {
+    showToTopButton: true,
     animationType: 'slide',
     hideAlphabetFilter: false,
     placeholderTextColor: '#252525',
@@ -248,7 +249,7 @@ ModalComponent.defaultProps = {
     sortingLanguage: 'tr',
     removeClippedSubviews: false,
     chooseText: 'Choose one...',
-    searchText: 'Search anything...',
+    searchText: 'Search...',
     autoCorrect: true,
     autoSort: false,
     list: [],
