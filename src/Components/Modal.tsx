@@ -36,6 +36,7 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 	};
 
 	public static defaultProps = {
+		showToTopButton: true,
 		animationType: 'slide',
 		hideAlphabetFilter: false,
 		placeholderTextColor: '#252525',
@@ -43,7 +44,7 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 		sortingLanguage: 'tr',
 		removeClippedSubviews: false,
 		chooseText: 'Choose one...',
-		searchText: 'Search anything...',
+		searchText: 'Search...',
 		autoCorrect: true,
 		autoSort: false,
 		list: [],
