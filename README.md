@@ -1,5 +1,11 @@
 
 <div align="center">
+ <img src="./screenshots/example.gif" width="200">
+</div>
+
+<br/>
+
+<div align="center">
  <img src="./screenshots/ss1.png" width="200">
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
  <img src="./screenshots/ss2.png" width="200">

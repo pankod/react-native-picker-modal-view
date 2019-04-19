@@ -71,9 +71,9 @@ export default class App extends Component {
 								autoCorrect={false} // auto correcting for input
 								// keyExtractor={(item, index) => item.Id.toString()}
 								autoGenerateAlphabet={true} // using first letter while auto generate alphabets array in data list
-								chooseText={'Choose country...'}
+								chooseText={'Choose one...'}
 								onEndReached={() => console.log('list ended...')} // list end trigger
-								searchText={'Search anything'} // search box placeholder text
+								searchText={'Search...'} // search box placeholder text
 								// alphaBets={['A', 'E', 'O', 'M', 'N']} // if autoGenerateAlphabet variable is false, use custom alphabets
 								forceSelect={false} // force select and user can not close modal, close button hidden
 								autoSort={true} // generate sorting to use Name in data array
