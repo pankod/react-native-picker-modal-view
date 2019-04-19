@@ -83,7 +83,7 @@ export default class App extends Component {
 							/>
 
 							{this.state.selectedItem && <View style={{ alignItems: 'center', backgroundColor: '#ddd' }}>
-								<Text>Choosen: </Text>
+								<Text>Chosen: </Text>
 								<Text>{JSON.stringify(this.state.selectedItem)}</Text>
 							</View>}
 						</SafeAreaView>
