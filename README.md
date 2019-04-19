@@ -121,7 +121,7 @@ export default class example extends Component {
 | **onBackRequest**   | `Function` | Function fired when the back key pressed          
 | **onSelected** <br> **required* | `Function`  | Function return object when selected item | `"{ Id: string | number; Name: string; Value: string; [key: string]: any; CountryId?: ICity; CityId?: ITown; }"` | 
 | **list** <br> **required* | `array`  | Array for list data | `"[{ Id: string | number; Name: string; Value: string; [key: string]: any; CountryId?: ICity; CityId?: ITown; }]"` | 
-| **alphaBets** | `array`  | Alphabets array to be listed | `"Predefined turkish alphabets"` | 
+| **alphabets** | `array`  | Alphabets array to be listed | `"Predefined turkish alphabets"` | 
 | **placeholderTextColor** | `string`  | Search input placeholder text color |  `"#252525"` | 
 | **keyExtractor** | `Function`  | Flatlist defined {key} function |  `"Predefined return map index"` | 
 | **autoGenerateAlphabet** | `boolean`  | Auto generate alphabets list from data list |  `"false"` | 
