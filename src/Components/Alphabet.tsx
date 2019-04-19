@@ -10,18 +10,18 @@ export class AlphabetComponent extends React.PureComponent<IAlphabetsInDto, {}> 
 
 	public static defaultProps = {
 		// tslint:disable-next-line: max-line-length
-		alphaBets: ['A', 'B', 'C', 'Ç', 'D', 'E', 'F', 'G', 'H', 'I', 'İ', 'J', 'K', 'L', 'M', 'N', 'O', 'Ö', 'P', 'Q', 'R', 'S', 'Ş', 'T', 'U', 'Ü', 'V', 'W', 'X', 'Y', 'Z'],
+		alphabets: ['A', 'B', 'C', 'Ç', 'D', 'E', 'F', 'G', 'H', 'I', 'İ', 'J', 'K', 'L', 'M', 'N', 'O', 'Ö', 'P', 'Q', 'R', 'S', 'Ş', 'T', 'U', 'Ü', 'V', 'W', 'X', 'Y', 'Z'],
 	};
 
 	public render(): JSX.Element {
-		const { alphaBets, setAlphabet, selectedAlpha } = this.props;
+		const { alphabets, setAlphabet, selectedAlpha } = this.props;
 		return (
 			<View style={AlphabetStyle.container}>
 				<ScrollView
 					showsVerticalScrollIndicator={false}
 					keyboardShouldPersistTaps="always">
 					{
-						alphaBets.map((a: string, index: number) =>
+						alphabets.map((a: string, index: number) =>
 							<TouchableOpacity onPress={() => setAlphabet(a)} key={index}
 								style={AlphabetStyle.alphabetButton}>
 								<Text

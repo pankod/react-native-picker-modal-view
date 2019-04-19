@@ -82,12 +82,12 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 	}
 
 	public componentWillMount(): void {
-		const { autoGenerateAlphabet, alphaBets } = this.props;
+		const { autoGenerateAlphabet, alphabets } = this.props;
 		if (autoGenerateAlphabet) {
 			this.generateAlphabet();
-		} else if (alphaBets) {
+		} else if (alphabets) {
 			this.setState({
-				alphaBets,
+				alphabets,
 			});
 		}
 	}
@@ -126,7 +126,7 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 			list,
 			forceSelect,
 		} = this.props;
-		const { modalVisible, alphaBets, stickyBottomButton, selectedAlpha, selectedObject } = this.state;
+		const { modalVisible, alphabets, stickyBottomButton, selectedAlpha, selectedObject } = this.state;
 		return (
 			<React.Fragment>
 				<SelectBoxComponent
@@ -187,7 +187,7 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 									!hideAlphabetFilter &&
 									<AlphabetComponent
 										setAlphabet={(alphabet: string) => this.setAlphabet(alphabet)}
-										alphaBets={alphaBets}
+										alphabets={alphabets}
 										selectedAlpha={selectedAlpha}
 									/>
 								}
@@ -252,7 +252,7 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 			this.setState({
 				selectedAlpha: null,
 			}, () => {
-				this.flatListRef.scrollToOffset({ animated: false, offset: 0 });
+				this.flatListRef.scrollToOffset({ animated: true, offset: 0 });
 			});
 		}
 	}
@@ -296,7 +296,7 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 		}
 
 		this.setState({
-			alphaBets: singularAlpha,
+			alphabets: singularAlpha,
 		});
 	}
 
@@ -382,7 +382,7 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 			const findIndex = this.getIndex(alphabet);
 			if (findIndex >= 0 && findIndex <= (list.length - (this.numToRender / 2))) {
 				setTimeout(() => {
-					this.flatListRef.scrollToIndex({ animated: false, index: findIndex, viewPosition: 0 });
+					this.flatListRef.scrollToIndex({ animated: true, index: findIndex, viewPosition: 0 });
 				}, 100);
 			} else {
 				this.flatListRef.scrollToEnd();

@@ -1,5 +1,5 @@
 export interface IAlphabetsInDto {
-    alphaBets: string[];
+    alphabets: string[];
     setAlphabet: (alphabet: string) => void;
     selectedAlpha?: string;
 }

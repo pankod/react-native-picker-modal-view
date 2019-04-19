@@ -23,7 +23,7 @@ export interface IModalInDtoProps {
 	onBackRequest?: () => void;
 	onSelected: (selected: IModalListInDto) => IModalListInDto;
 	list: ListType;
-	alphaBets?: string[];
+	alphabets?: string[];
 	placeholderTextColor?: string;
 	keyExtractor?: (key: any) => string;
 	autoGenerateAlphabet?: boolean;
@@ -47,7 +47,7 @@ export interface IModalInDtoProps {
 export interface IModalInDtoState {
 	modalVisible: boolean;
 	searchText: string;
-	alphaBets?: string[];
+	alphabets?: string[];
 	stickyBottomButton?: boolean;
 	selectedAlpha?: string;
 	selectedObject?: IModalListInDto;

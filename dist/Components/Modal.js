@@ -35,13 +35,13 @@ export class ModalComponent extends React.PureComponent {
         });
     }
     componentWillMount() {
-        const { autoGenerateAlphabet, alphaBets } = this.props;
+        const { autoGenerateAlphabet, alphabets } = this.props;
         if (autoGenerateAlphabet) {
             this.generateAlphabet();
         }
-        else if (alphaBets) {
+        else if (alphabets) {
             this.setState({
-                alphaBets,
+                alphabets,
             });
         }
     }
@@ -58,7 +58,7 @@ export class ModalComponent extends React.PureComponent {
     }
     render() {
         const { animationType, onRequestClosed, hideAlphabetFilter, placeholderTextColor, keyExtractor, showToTopButton, onEndReached, removeClippedSubviews, FlatListProps, chooseText, searchText, autoCorrect, SearchInputProps, defaultSelected, disabled, list, forceSelect, } = this.props;
-        const { modalVisible, alphaBets, stickyBottomButton, selectedAlpha, selectedObject } = this.state;
+        const { modalVisible, alphabets, stickyBottomButton, selectedAlpha, selectedObject } = this.state;
         return (React.createElement(React.Fragment, null,
             React.createElement(SelectBoxComponent, { disabled: (disabled || !list || list.length === 0), selectedObject: selectedObject, chooseText: (defaultSelected && defaultSelected.Name) ? defaultSelected.Name : chooseText, openModal: this.openModal.bind(this) }),
             React.createElement(Modal, { animationType: animationType, visible: modalVisible, onRequestClose: () => onRequestClosed },
@@ -76,7 +76,7 @@ export class ModalComponent extends React.PureComponent {
                                     index,
                                 }), onViewableItemsChanged: this._onViewableItemsChanged }, FlatListProps)),
                             !hideAlphabetFilter &&
-                                React.createElement(AlphabetComponent, { setAlphabet: (alphabet) => this.setAlphabet(alphabet), alphaBets: alphaBets, selectedAlpha: selectedAlpha }))),
+                                React.createElement(AlphabetComponent, { setAlphabet: (alphabet) => this.setAlphabet(alphabet), alphabets: alphabets, selectedAlpha: selectedAlpha }))),
                     stickyBottomButton && React.createElement(ScrollToTopComponent, { goToUp: this.scrollToUp.bind(this) })))));
     }
     _onViewableItemsChanged({ viewableItems, changed }) {
@@ -123,7 +123,7 @@ export class ModalComponent extends React.PureComponent {
             this.setState({
                 selectedAlpha: null,
             }, () => {
-                this.flatListRef.scrollToOffset({ animated: false, offset: 0 });
+                this.flatListRef.scrollToOffset({ animated: true, offset: 0 });
             });
         }
     }
@@ -159,7 +159,7 @@ export class ModalComponent extends React.PureComponent {
             singularAlpha.sort((a, b) => a.localeCompare(b));
         }
         this.setState({
-            alphaBets: singularAlpha,
+            alphabets: singularAlpha,
         });
     }
     _keyExtractor(item, index) {
@@ -231,7 +231,7 @@ export class ModalComponent extends React.PureComponent {
             const findIndex = this.getIndex(alphabet);
             if (findIndex >= 0 && findIndex <= (list.length - (this.numToRender / 2))) {
                 setTimeout(() => {
-                    this.flatListRef.scrollToIndex({ animated: false, index: findIndex, viewPosition: 0 });
+                    this.flatListRef.scrollToIndex({ animated: true, index: findIndex, viewPosition: 0 });
                 }, 100);
             }
             else {
