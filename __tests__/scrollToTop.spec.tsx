@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { shallow, ShallowWrapper } from 'enzyme';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, Image } from 'react-native';
 
 import { ScrollToTopComponent } from '../src/Components/ScrollToTop';
 
@@ -14,9 +14,12 @@ describe('ScrollToTopComponent', () => {
 			wrapper = shallow(<ScrollToTopComponent {...props} goToUp={spyOn} />);
 		});
 
-
 		test('should render a <TouchableOpacity />', () => {
 			expect(wrapper.find(TouchableOpacity)).toHaveLength(1);
+		});
+
+		test('should render a <Image />', () => {
+			expect(wrapper.find(Image)).toHaveLength(1);
 		});
 
 		test('should goToUp is pressed', () => {

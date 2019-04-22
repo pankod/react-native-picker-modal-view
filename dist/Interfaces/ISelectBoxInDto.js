@@ -1,3 +1,3 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=SelectBoxInDto.js.map
+//# sourceMappingURL=ISelectBoxInDto.js.map

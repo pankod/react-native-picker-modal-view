@@ -11,7 +11,7 @@ describe('SearchComponent', () => {
 		let mounting;
 		const back = jest.fn(() => 'back_pressed');
 		const close = jest.fn(() => 'close_pressed');
-		const onChange = jest.fn(() => 'onchange_input');
+		const onChange = jest.fn((val) => val.value);
 		const component = (
 			<SearchComponent
 				autoCorrect={true}
@@ -28,8 +28,16 @@ describe('SearchComponent', () => {
 		});
 
 
-		test('should render a <TouchableOpacity />', () => {
+		test('should render a <View />', () => {
 			expect(wrapper.find(View)).toHaveLength(1);
+		});
+
+		test('should render a <TouchableOpacity />', () => {
+			expect(wrapper.find(TouchableOpacity)).toHaveLength(2);
+		});
+
+		test('should render a <TextInput />', () => {
+			expect(wrapper.find(TextInput)).toHaveLength(1);
 		});
 
 		test('should onBackRequest pressed', () => {
@@ -51,8 +59,8 @@ describe('SearchComponent', () => {
 
 		test('should input typing fired changed method', () => {
 			onChange.mockReturnValue('onchange_input');
-			wrapper.find(TextInput).first().simulate('change');
-			expect(onChange).toBe('');
+			wrapper.find(TextInput).simulate('changeText', { target: { value: 'test' } });
+			expect(onChange).toHaveBeenCalled();
 		});
 
 	});

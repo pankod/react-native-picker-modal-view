@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { shallow, ShallowWrapper, mount } from 'enzyme';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 
 import { ListItemComponent } from '../src/Components/ListItem';
 
@@ -28,6 +28,10 @@ describe('ListItemComponent', () => {
 
 		test('should render a <TouchableOpacity />', () => {
 			expect(wrapper.find(TouchableOpacity)).toHaveLength(1);
+		});
+
+		test('should render a <View />', () => {
+			expect(wrapper.find(View)).toHaveLength(1);
 		});
 
 		test('should goToUp is pressed', () => {

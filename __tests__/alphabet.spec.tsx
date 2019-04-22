@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, ScrollView } from 'react-native';
 import { shallow, ShallowWrapper, mount } from 'enzyme';
 
 import { AlphabetComponent } from '../src/Components/Alphabet';
@@ -24,6 +24,10 @@ describe('AlphabetComponent', () => {
 
 		test('should render a <View />', () => {
 			expect(wrapper.find(View)).toHaveLength(1);
+		});
+
+		test('should render a <ScrollView />', () => {
+			expect(wrapper.find(ScrollView)).toHaveLength(1);
 		});
 
 		test('should alphabets prop is array', () => {

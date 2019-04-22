@@ -38,10 +38,11 @@
 			]
 		},
 		"lib": [
-			"es2015",
-			"es2016",
-			"dom"
+			"ES6",
+			"DOM"
 		],
+		"skipDefaultLibCheck": true,
+		"skipLibCheck": true,
 		"target": "es2016",
 		"module": "commonjs",
 		"moduleResolution": "node",

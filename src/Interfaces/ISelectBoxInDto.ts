@@ -3,7 +3,7 @@ import { ViewStyle } from 'react-native';
 
 export interface ISelectBoxProps {
 	selectedObject?: IModalListInDto;
-	openModal: any;
+	openModal: () => void;
 	chooseText: string;
 	disabled?: boolean;
 }
