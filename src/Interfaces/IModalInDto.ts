@@ -17,7 +17,7 @@ type ModalProps = ModalBaseProps | ModalPropsIOS | ModalPropsAndroid;
 type ListType = IModalListInDto[];
 
 export interface IModalInDtoProps {
-	animationType: AnimationTypeEnum;
+	animationType?: AnimationTypeEnum;
 	hideAlphabetFilter: boolean;
 	onRequestClosed: () => void;
 	onBackRequest?: () => void;
@@ -25,13 +25,13 @@ export interface IModalInDtoProps {
 	list: ListType;
 	alphabets?: string[];
 	placeholderTextColor?: string;
-	keyExtractor?: (key: any) => string;
+	keyExtractor?: (key: any, index: number) => string;
 	autoGenerateAlphabet?: boolean;
 	sortingLanguage?: LanguagesEnum;
 	showToTopButton?: boolean;
 	onEndReached: () => void;
 	removeClippedSubviews: boolean;
-	FlatListProps: FlatListProps<any>;
+	FlatListProps?: FlatListProps<any>;
 	chooseText: string;
 	defaultSelected?: IModalListInDto;
 	searchText: string;

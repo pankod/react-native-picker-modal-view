@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AlphabetComponent rendering should render a AlphabetComponent 1`] = `
+<react-native-mock>
+  <react-native-mock>
+    <react-native-mock>
+      <react-native-mock>
+        A
+      </react-native-mock>
+    </react-native-mock>
+    <react-native-mock>
+      <react-native-mock>
+        B
+      </react-native-mock>
+    </react-native-mock>
+  </react-native-mock>
+</react-native-mock>
+`;

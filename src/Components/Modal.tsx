@@ -73,7 +73,7 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 		}
 	}
 
-	private clearComponent(): void {
+	public clearComponent(): void {
 		this.setState({
 			stickyBottomButton: false,
 			searchText: '',
@@ -92,7 +92,7 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 		}
 	}
 
-	private openModal(): void {
+	public openModal(): void {
 		const { list, autoGenerateAlphabet, disabled } = this.props;
 
 		if (autoGenerateAlphabet) {
@@ -274,6 +274,7 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 	private renderItem(item: IModalListInDto, index: number): JSX.Element {
 		const { defaultSelected } = this.props;
 		return <ListItemComponent
+			key={index.toString()}
 			defaultSelected={defaultSelected}
 			list={item}
 			onSelectMethod={this.onSelectMethod.bind(this)}

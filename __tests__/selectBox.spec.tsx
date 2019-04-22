@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { View, TouchableOpacity, Text, Image } from 'react-native';
 import { shallow, ShallowWrapper, mount } from 'enzyme';
+import renderer from 'react-test-renderer';
 
 import { SelectBoxComponent } from '../src/Components/SelectBox';
 
@@ -27,6 +28,10 @@ describe('SelectBoxComponent', () => {
 			mounting = mount(component);
 		});
 
+		test('should render a SelectBoxComponent', () => {
+			const render = renderer.create(component).toJSON();
+			expect(render).toMatchSnapshot();
+		});
 
 		test('should render a <TouchableOpacity />', () => {
 			expect(wrapper.find(TouchableOpacity)).toHaveLength(1);

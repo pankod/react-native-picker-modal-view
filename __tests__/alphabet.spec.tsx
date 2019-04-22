@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { View, TouchableOpacity, ScrollView } from 'react-native';
 import { shallow, ShallowWrapper, mount } from 'enzyme';
+import renderer from 'react-test-renderer';
 
 import { AlphabetComponent } from '../src/Components/Alphabet';
 
@@ -21,6 +22,11 @@ describe('AlphabetComponent', () => {
 			mounting = mount(component);
 		});
 
+
+		test('should render a AlphabetComponent', () => {
+			const render = renderer.create(component).toJSON();
+			expect(render).toMatchSnapshot();
+		});
 
 		test('should render a <View />', () => {
 			expect(wrapper.find(View)).toHaveLength(1);

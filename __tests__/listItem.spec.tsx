@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { shallow, ShallowWrapper, mount } from 'enzyme';
 import { TouchableOpacity, View } from 'react-native';
+import renderer from 'react-test-renderer';
 
 import { ListItemComponent } from '../src/Components/ListItem';
 
@@ -25,6 +26,10 @@ describe('ListItemComponent', () => {
 			mounting = mount(component);
 		});
 
+		test('should render a ListItemComponent', () => {
+			const render = renderer.create(component).toJSON();
+			expect(render).toMatchSnapshot();
+		});
 
 		test('should render a <TouchableOpacity />', () => {
 			expect(wrapper.find(TouchableOpacity)).toHaveLength(1);

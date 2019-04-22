@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { shallow, ShallowWrapper, mount } from 'enzyme';
 import { View, TouchableOpacity, TextInput } from 'react-native';
+import renderer from 'react-test-renderer';
 
 import { SearchComponent } from '../src/Components/Search';
 
@@ -27,6 +28,10 @@ describe('SearchComponent', () => {
 			mounting = mount(component);
 		});
 
+		test('should render a SearchComponent', () => {
+			const render = renderer.create(component).toJSON();
+			expect(render).toMatchSnapshot();
+		});
 
 		test('should render a <View />', () => {
 			expect(wrapper.find(View)).toHaveLength(1);
