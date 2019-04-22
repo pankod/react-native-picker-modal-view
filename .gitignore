@@ -7,3 +7,7 @@ yarn-error.log
 # visual studio code
 .vscode
 .history
+
+# jest
+.jest/
+coverage/

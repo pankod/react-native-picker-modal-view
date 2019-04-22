@@ -1,5 +1,7 @@
-import { StyleSheet } from 'react-native';
-export const SearchStyle = StyleSheet.create({
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const react_native_1 = require("react-native");
+exports.SearchStyle = react_native_1.StyleSheet.create({
     closeButton: {
         width: 13,
         height: 13,

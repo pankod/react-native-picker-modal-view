@@ -1,18 +1,37 @@
-const { defaults } = require('jest-config');
+const { pathsToModuleNameMapper } = require('ts-jest/utils');
+const { compilerOptions } = require('./tsconfig');
 
 module.exports = {
-	bail: true,
-	moduleFileExtensions: [...defaults.moduleFileExtensions, 'ts', 'tsx'],
-	roots: ['.'],
-	// testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
+	"preset": "react-native",
+	"testRegex": "(/__tests__/.*| (\\.| /)(test|spec))\\.(ts?|tsx?)$",
 	"transform": {
-		"^.+\\.(ts|tsx)$": "ts-jest"
+		"^.+\\.js$": "<rootDir>/node_modules/react-native/jest/preprocessor.js",
+		"^.+\\.tsx?$": "ts-jest"
 	},
-	verbose: true,
-	"moduleDirectories": ["node_modules", "src"],
+	"moduleFileExtensions": [
+		"ts",
+		"tsx",
+		"js",
+		"jsx",
+		"json",
+		"node"
+	],
+	"roots": [
+		"<rootDir>"
+	],
+	"modulePathIgnorePatterns": ["<rootDir>/ExampleApp"],
 	"globals": {
 		"ts-jest": {
-			"tsConfig": "tsconfig.json"
+			"tsConfig": "./tsconfig.json"
 		}
-	}
+	},
+	"moduleNameMapper": pathsToModuleNameMapper(compilerOptions.paths /*, { prefix: '<rootDir>/' } */),
+	"modulePaths": [
+		"<rootDir>"
+	],
+	"testEnvironment": "jsdom",
+	"setupFiles": [
+		"./setupTests.ts"
+	],
+	"setupFilesAfterEnv": ["<rootDir>/setupTests.ts"]
 };

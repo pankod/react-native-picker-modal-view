@@ -3,7 +3,7 @@ import * as React from 'react';
 import { TouchableOpacity, Image } from 'react-native';
 
 // Local Imports
-import { ScrollToTopStyle } from '@Styles/ScrollToTopStyle';
+import { ScrollToTopStyle } from '@Styles';
 import { IScrollToTop } from '@Interfaces';
 
 export class ScrollToTopComponent extends React.PureComponent<IScrollToTop, {}> {
