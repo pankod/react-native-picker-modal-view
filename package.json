@@ -1,0 +1,83 @@
+{
+	"name": "react-native-picker-modal-view",
+	"version": "1.0.0",
+	"description": "React Native Picker Modal View",
+	"scripts": {
+		"build": "npm run test && rm -rf ./dist/** && tsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./dist && npm run copy-assets",
+		"copy-assets": "cp -R src/Assets/Images dist/Assets/",
+		"travis-deploy-once": "travis-deploy-once",
+		"semantic-release": "semantic-release",
+		"watch": "tsc -- --watch",
+		"test": "jest",
+		"lint": "tslint -c tslint.json 'src/**/*.ts*'"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/pankod/react-native-picker-modal-view"
+	},
+	"bugs": {
+		"url": "https://github.com/pankod/react-native-picker-modal-view/issues"
+	},
+	"homepage": "https://github.com/pankod/react-native-picker-modal-view",
+	"files": [
+		"dist",
+		"src"
+	],
+	"types": "dist/index.d.ts",
+	"main": "dist/index.js",
+	"keywords": [
+		"react",
+		"react-native",
+		"picker",
+		"dropdown",
+		"modal",
+		"selectbox"
+	],
+	"author": "Pankod Inc.",
+	"contributors": [
+		{
+			"name": "selcuksarikoz",
+			"email": "selcuk@pankod.com"
+		}
+	],
+	"license": "MIT",
+	"dependencies": {},
+	"devDependencies": {
+		"@babel/core": "*",
+		"@babel/preset-env": "*",
+		"@babel/preset-react": "*",
+		"@babel/preset-typescript": "*",
+		"@types/enzyme": "^3.9.1",
+		"@types/enzyme-adapter-react-16": "^1.0.5",
+		"@types/jest": "^24.0.11",
+		"@types/react": "^16.8.13",
+		"@types/react-dom": "^16.8.4",
+		"@types/react-native": "^0.57.43",
+		"@types/react-test-renderer": "^16.8.1",
+		"babel-jest": "*",
+		"enzyme": "^3.9.0",
+		"enzyme-adapter-react-16": "^1.12.1",
+		"jest": "^24.7.1",
+		"jest-cli": "^24.7.1",
+		"jest-fetch-mock": "^2.1.2",
+		"jsdom": "15.0.0",
+		"jsdom-global": "3.0.2",
+		"react": "^16.8.6",
+		"react-dom": "^16.8.6",
+		"react-native": "^0.59.5",
+		"react-native-mock-render": "^0.1.2",
+		"react-test-renderer": "^16.8.6",
+		"react-testing-library": "^6.1.2",
+		"ts-jest": "^24.0.2",
+		"ts-lib": "0.0.5",
+		"tscpaths": "0.0.7",
+		"tslint": "^5.15.0",
+		"tslint-config-prettier": "^1.18.0",
+		"tslint-react": "^4.0.0",
+		"typescript": "^3.4.3"
+	},
+	"peerDependencies": {
+		"react": "*",
+		"react-native": "*"
+	}
+}

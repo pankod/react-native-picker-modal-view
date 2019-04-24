@@ -1,0 +1,23 @@
+{
+	"defaultSeverity": "warn",
+	"extends": [
+		"tslint:recommended"
+	],
+	"rules": {
+		"indent": [
+			true,
+			"tabs",
+			4
+		],
+		"no-console": false,
+		"quotemark": [
+			true,
+			"single",
+			"jsx-double"
+		],
+		"ordered-imports": false,
+		"member-ordering": false,
+		"object-literal-sort-keys": false,
+		"no-internal-module": true,
+	}
+}

@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SelectBoxComponent rendering should render a SelectBoxComponent 1`] = `
+<react-native-mock>
+  <react-native-mock>
+    <react-native-mock>
+      John Doe
+    </react-native-mock>
+    <react-native-mock />
+  </react-native-mock>
+</react-native-mock>
+`;

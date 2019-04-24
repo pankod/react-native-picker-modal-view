@@ -1,14 +1,22 @@
-<!-- 
+
 <div align="center">
- <img src="./screenshots/shoot_1.png" width="250">
+ <img src="./screenshots/example.gif" width="200">
+</div>
+
+<br/>
+
+<div align="center">
+ <img src="./screenshots/ss1.png" width="200">
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- <img src="./screenshots/shoot_2.png" width="250">
-</div> -->
+ <img src="./screenshots/ss2.png" width="200">
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ <img src="./screenshots/ss3.png" width="200">
+</div>
 
 <br/>
 <div align="center"> <h3>React Native Picker Modal View<h3></div>
 
-<!-- <div align="center"> React Native Module to getting users to easily rate your app.</div>
+<div align="center">React Native Module to select item picker modal.</div>
 <div align="center"> 
 <br/>
 
@@ -22,11 +30,6 @@
 </div>
 <br/>
 <br/>
-
-Ratings and reviews influence how your app ranks in search results, and can affect whether someone downloads your app. Users can rate your app on a scale of desired amount of stars. They can also add a written review for iOS and Android apps.
-
-
-
 
 
 ## Stores Supported:
@@ -43,73 +46,62 @@ Ratings and reviews influence how your app ranks in search results, and can affe
 
 ## Getting started
 ```
-$ npm install react-native-store-rating --save
+$ npm install react-native-picker-modal-view --save
 ```
 
 or
 
 ```
-$ yarn add react-native-store-rating
+$ yarn add react-native-picker-modal-view
 ```
 
-## Usage
-Users are presented with a modal allowing them to choose amount of stars which is defined with `count` props.
-
-The star rate taken from the users is compared to the value defined in "commentOpenRating". If this value is greater than the value of "commentOpenRating", the user is directed to the App store or Google Play Store. If it is equal and smaller, comment popup will be opened and users will be allowed to type comment.
-
-Example: Let's say we defined 3 as a value to `commentOpenRating` property,
-```javascript
-<RateModal
-	commentOpenRating={3}
-	// ... props
-/>
-```
-
-User redirect to App Store or Google Play Store when the given star rate is greater then 3.
-
-Comment modal will be opened if the given star rate equal or less then 3.
+<!-- ## Usage -->
 
 
 ## Example
 ```javascript
 import React, { Component } from 'react';
-import RateModal from 'react-native-rating-modal';
+import PickerModal from 'react-native-picker-modal-view';
+
+const list = [
+	{Id: 1, Name: 'Test1 Name', Value: 'Test1 Value'},
+	{Id: 2, Name: 'Test2 Name', Value: 'Test2 Value'},
+	{Id: 3, Name: 'Test3 Name', Value: 'Test3 Value'},
+	{Id: 4, Name: 'Test4 Name', Value: 'Test4 Value'}
+]
 
 export default class example extends Component {
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			selectedItem: {}
+		}
+	}
+
+	selected(selected) {
+		this.setState({
+			selectedItem: selected
+		})
+	}
+
     render() {
         return (
-            <RateModal
-                rateBtnText={'Rate'}
-                cancelBtnText={'Cancel'}
-                count={5}
-                defaultRating={5}
-                showRating={true}
-                sendBtnText={'Send'}
-                placeHolderText={'Placeholder text'}
-                nonComment={'Non comment text'}
-                androidUrl={'market://details?id=${APP_PACKAGE_NAME}'}
-                isModalOpen={true}
-                commentOpenRating={3}
-                style={{
-                    backgroundColor: '#000',
-                    paddingHorizontal: 30,
-                }}
-                ratingOnChange={(e: number) => {
-                    console.log('change rating', e);
-                }}
-                onClosed={() => {
-                    console.log('pressed cancel button...')
-                }}
-                sendContactUsForm={(state: object) => {
-                    // state = {
-                    // 	isModalOpen: true,
-                    // 	rating: 3,
-                    // 	review: "Lorem ipsum dolor sit amet...",
-                    // 	reviewError:false,
-                    // 	showContactForm:true
-                    // }
-                }}
-            />
+		<PickerModal
+			onSelected={(selected) => this.selected(selected)}
+			onRequestClosed={()=> console.warn('closed...')}
+			onBackRequest={()=> console.warn('back key pressed')}
+			list={city}
+			sortingLanguage={'tr'}
+			showToTopButton={true}
+			defaultSelected={this.state.selectedItem}
+			autoCorrect={false}
+			autoGenerateAlphabet={true}
+			chooseText={'Choose one'}
+			searchText={'Search...'} 
+			forceSelect={false}
+			autoSort={true}
+		/>
         )
     }
 }
@@ -123,24 +115,30 @@ export default class example extends Component {
 
 | Properties | Type | Description |Default |
 |------------|-------------------------------------|-------------|----------------------------------------------------------------|
-| **sendContactUsForm** <br> **required* | `Function`  | Read component state and function fired when send bottom click | `{ isModalOpen: true, rating: 3, review: "Lorem ipsum dolor sit amet...", reviewError:false, showContactForm:true }` | 
-| **androidUrl** <br> **required* | `string`  | Google Play Store App Url <br> `market://details?id=${APP_PACKAGE_NAME}` | | 
-| **iosUrl** <br> **required* | `string`  | Apple ITunes App Url <br> `itms-apps://itunes.apple.com/app/${APP_ID}`| | 
-| **rateBtnText**   | `string` | The button text.    | `"Rate"`        | 
-| **cancelBtnText**  | `string`  | The cancel button text.  | `"Cancel"`  | 
-| **count**     | `number`     | The starts count on modal.   | `5` | 
-| **defaulRating** | `number` | If no number set, it will determine 3 stars rating.               |  `5` | 
-| **showRating**      | `boolean` | Shows rating on modal. | ` true`   | 
-| **sendBtnText** | `string`  | The text of send button. | `"Send"` |  
-| **placeHolderText** | `string` | User review modal placeholder text. | `"You can write your comments here"` | 
-| **transparent** |`boolean` | Background style | `true` | 
-| **reviews** | `array` | The array of rating title. | `['Terrible', 'Bad', 'Okay', 'Good', 'Great']` | 
-| **nonComment** | `string`  | User review comment box validation text | `"Please specify your opinion."` | 
-| **isModalOpen** | `boolean`  | Control if the modal open or not. | `false` | 
-| **commentOpenRating** | `number`  | ? | `3` | 
-| **style** | `Object`  | An object containing the styles objects to style the modal. | `example:`<br>`{ backgroundColor: #000, paddingHorizontal: 30 }` | 
-| **ratingOnChange** | `Function`  | Function fired when the rating has changed.| `return: number` | 
-| **onClosed** | `Function`  | Function fired when the modal has closed.| `console.warn('pressed cancel button...')` | 
+| **animationType**   | `string` | The RN Modal animation type                | `"slide"`       | 
+| **hideAlphabetFilter**   | `string` | Alphabets list in modal at right      | `"true"`        | 
+| **onRequestClosed**   | `Function` | Function fired when the modal closed    
+| **onBackRequest**   | `Function` | Function fired when the back key pressed          
+| **onSelected** <br> **required* | `Function`  | Function return object when selected item | `"{ Id: string | number; Name: string; Value: string; [key: string]: any; CountryId?: ICity; CityId?: ITown; }"` | 
+| **list** <br> **required* | `array`  | Array for list data | `"[{ Id: string | number; Name: string; Value: string; [key: string]: any; CountryId?: ICity; CityId?: ITown; }]"` | 
+| **alphabets** | `array`  | Alphabets array to be listed | `"Predefined turkish alphabets"` | 
+| **placeholderTextColor** | `string`  | Search input placeholder text color |  `"#252525"` | 
+| **keyExtractor** | `Function`  | Flatlist defined {key} function |  `"Predefined return map index"` | 
+| **autoGenerateAlphabet** | `boolean`  | Auto generate alphabets list from data list |  `"false"` | 
+| **sortingLanguage** | `string`  | Country ISO (Alpha 2) Code for localeCompare |  `"tr"` | 
+| **showToTopButton** | `boolean`  | Button for scroll to offset 0 |  `"true"` | 
+| **onEndReached** | `Function`  | Function fired when the list end |  | 
+| **FlatListProps** | `object`  | React Native Flatlist Props |  | 
+| **SearchInputProps** | `object`  | React Native TextInput Props |  | 
+| **ModalProps** | `object`  | React Native Modal Props |  | 
+| **chooseText** | `string`  | Select box placeholder text | `"Choose one..."` | 
+| **searchText** | `string`  | Search input placeholder text | `"Search..."` | 
+| **defaultSelected** | `object`  | Predefined selected object |  | 
+| **autoCorrect** | `boolean`  | Auto correct for search input | `"true"` | 
+| **autoSort** | `boolean`  | Auto sort data list | `"false"` | 
+| **style** | `object`  | In the future list... |  | 
+| **disabled** | `boolean`  | Select box disabled boolean |  | 
+| **forceSelect** | `boolean`  | Force the user select anyone | `"false"` |  
 
 <br/>
 <br/>
@@ -148,9 +146,10 @@ export default class example extends Component {
 
 #### Notes
 
-As of version 1.0.0 this package is compatible with both iOS and Android.
+- As of version 1.0.0 this package is compatible with both iOS and Android.
+- Auto alphabets sorting support for Turkish and English
 
 #### Releases
 - 1.0.0 - Initial release
 
- -->
+

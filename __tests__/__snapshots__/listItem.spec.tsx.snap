@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ListItemComponent rendering should render a ListItemComponent 1`] = `
+<react-native-mock>
+  <react-native-mock>
+    <react-native-mock>
+      John Doe
+    </react-native-mock>
+  </react-native-mock>
+</react-native-mock>
+`;

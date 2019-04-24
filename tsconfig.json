@@ -1,0 +1,80 @@
+{
+	"compilerOptions": {
+		"baseUrl": ".",
+		"rootDirs": [
+			"src/**",
+			"src/Components",
+			"src/Interfaces",
+			"src/Assets",
+			"src/Assets/Styles",
+			"src/Assets/Images",
+			"src/Enum"
+		],
+		"importHelpers": true,
+		"paths": {
+			"@Components": [
+				"src/Components"
+			],
+			"@Components/*": [
+				"src/Components/*"
+			],
+			"@Interfaces": [
+				"src/Interfaces"
+			],
+			"@Interfaces/*": [
+				"src/Interfaces/*"
+			],
+			"@Styles": [
+				"src/Assets/Styles"
+			],
+			"@Styles/*": [
+				"src/Assets/Styles/*"
+			],
+			"@Enum": [
+				"src/Enum"
+			],
+			"@Enum/*": [
+				"src/Enum/*"
+			]
+		},
+		"lib": [
+			"es2016",
+			"dom"
+		],
+		"skipDefaultLibCheck": true,
+		"skipLibCheck": true,
+		"target": "es2016",
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"jsx": "react",
+		"declaration": true,
+		"sourceMap": true,
+		"outDir": "./dist",
+		"removeComments": true,
+		"noImplicitAny": false,
+		"noImplicitThis": true,
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true,
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"typeRoots": [
+			"node_modules/@types"
+		],
+		"plugins": [],
+		"resolveJsonModule": true
+	},
+	"files": [
+		"src/index.ts"
+	],
+	"exclude": [
+		"node_modules",
+		"dist",
+		"__tests__",
+		"src/Example/**"
+	],
+	"include": [
+		"src/**/*.tsx",
+		"src/**/*.ts",
+		"src/**/*.d.ts"
+	]
+}

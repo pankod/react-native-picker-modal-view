@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchComponent rendering should render a SearchComponent 1`] = `
+<react-native-mock>
+  <react-native-mock>
+    <react-native-mock />
+  </react-native-mock>
+  <react-native-mock />
+  <react-native-mock>
+    <react-native-mock />
+  </react-native-mock>
+</react-native-mock>
+`;
