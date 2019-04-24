@@ -16,7 +16,7 @@
 <br/>
 <div align="center"> <h3>React Native Picker Modal View<h3></div>
 
-<div align="center"> React Native Module to getting users to easily rate your app.</div>
+<div align="center">React Native Module to select item picker modal.</div>
 <div align="center"> 
 <br/>
 
@@ -30,11 +30,6 @@
 </div>
 <br/>
 <br/>
-
-***yazılacak***
-
-
-
 
 
 ## Stores Supported:
@@ -60,8 +55,7 @@ or
 $ yarn add react-native-picker-modal-view
 ```
 
-## Usage
-*** yazılacak ***
+<!-- ## Usage -->
 
 
 ## Example
@@ -103,8 +97,8 @@ export default class example extends Component {
 			defaultSelected={this.state.selectedItem}
 			autoCorrect={false}
 			autoGenerateAlphabet={true}
-			chooseText={'Choose country...'}
-			searchText={'Search anything'} 
+			chooseText={'Choose one'}
+			searchText={'Search...'} 
 			forceSelect={false}
 			autoSort={true}
 		/>
