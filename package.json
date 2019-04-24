@@ -41,10 +41,7 @@
 		}
 	],
 	"license": "MIT",
-	"dependencies": {
-		"react": "^16.8.6",
-		"react-native": "^0.59.5"
-	},
+	"dependencies": {},
 	"devDependencies": {
 		"@babel/core": "*",
 		"@babel/preset-env": "*",
@@ -65,7 +62,9 @@
 		"jest-fetch-mock": "^2.1.2",
 		"jsdom": "15.0.0",
 		"jsdom-global": "3.0.2",
+		"react": "^16.8.6",
 		"react-dom": "^16.8.6",
+		"react-native": "^0.59.5",
 		"react-native-mock-render": "^0.1.2",
 		"react-test-renderer": "^16.8.6",
 		"react-testing-library": "^6.1.2",
