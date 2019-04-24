@@ -73,12 +73,16 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 		}
 	}
 
-	public clearComponent(): void {
+	private _clearComponent(): void {
 		this.setState({
 			stickyBottomButton: false,
 			searchText: '',
 			selectedAlpha: null,
 		});
+	}
+
+	public clearComponent(): void {
+		this._clearComponent();
 	}
 
 	public componentWillMount(): void {
@@ -92,7 +96,7 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 		}
 	}
 
-	public openModal(): void {
+	private _openModal(): void {
 		const { list, autoGenerateAlphabet, disabled } = this.props;
 
 		if (autoGenerateAlphabet) {
@@ -104,6 +108,10 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 				modalVisible: true,
 			});
 		}
+	}
+
+	public openModal(): void {
+		this._openModal();
 	}
 
 	public render(): JSX.Element {
@@ -158,7 +166,7 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 								<FlatList
 									ref={(ref) => this.flatListRef = ref}
 									data={this.getFilteredData()}
-									keyExtractor={keyExtractor ? keyExtractor : this._keyExtractor.bind(this)}
+									keyExtractor={keyExtractor ? keyExtractor : this.keyExtractor.bind(this)}
 									renderItem={({ item, index }) => this.renderItem(item, index)}
 									onScroll={showToTopButton && this.onScrolling.bind(this)}
 									initialNumToRender={this.numToRender}
@@ -209,7 +217,7 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 		}
 	}
 
-	private onClose(): void {
+	private _onClose(): void {
 		const { onRequestClosed, onSelected, forceSelect, defaultSelected } = this.props;
 		const { modalVisible, selectedObject } = this.state;
 
@@ -235,7 +243,11 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 		}
 	}
 
-	private onBackRequest(): void {
+	public onClose(): void {
+		this._onClose();
+	}
+
+	private _onBackRequest(): void {
 		const { onBackRequest, onSelected } = this.props;
 		const { modalVisible } = this.state;
 		this.setState({
@@ -247,7 +259,11 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 		}
 	}
 
-	private scrollToUp(): void {
+	public onBackRequest(): void {
+		this._onBackRequest();
+	}
+
+	private _scrollToUp(): void {
 		if (this.flatListRef) {
 			this.setState({
 				selectedAlpha: null,
@@ -257,7 +273,11 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 		}
 	}
 
-	private onScrolling(e: NativeSyntheticEvent<NativeScrollEvent>): void {
+	public scrollToUp(): void {
+		this._scrollToUp();
+	}
+
+	private _onScrolling(e: NativeSyntheticEvent<NativeScrollEvent>): void {
 		const { contentOffset } = e.nativeEvent;
 
 		if (contentOffset.y > 100) {
@@ -271,7 +291,11 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 		}
 	}
 
-	private renderItem(item: IModalListInDto, index: number): JSX.Element {
+	public onScrolling(e: NativeSyntheticEvent<NativeScrollEvent>): void {
+		this._onScrolling(e);
+	}
+
+	private _renderItem(item: IModalListInDto, index: number): JSX.Element {
 		const { defaultSelected } = this.props;
 		return <ListItemComponent
 			key={index.toString()}
@@ -281,7 +305,11 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 		/>;
 	}
 
-	private generateAlphabet(): void {
+	private renderItem(item: IModalListInDto, index: number): JSX.Element {
+		return this._renderItem(item, index);
+	}
+
+	private _generateAlphabet(): void {
 		const { list, sortingLanguage } = this.props;
 		const singularAlpha = [];
 		list.map((x: IModalListInDto) => {
@@ -301,18 +329,30 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 		});
 	}
 
-	private _keyExtractor(item: IModalListInDto, index: number) {
+	public generateAlphabet(): void {
+		this._generateAlphabet();
+	}
+
+	private _keyExtractor(item: IModalListInDto, index: number): string {
 		return index.toString();
 	}
 
-	private setText(text: string): void {
+	public keyExtractor(item: IModalListInDto, index: number): string {
+		return this._keyExtractor(item, index);
+	}
+
+	private _setText(text: string): void {
 		this.setState({
 			searchText: text,
 		});
 	}
 
+	public setText(text: string): void {
+		this._setText(text);
+	}
+
 	// source https://gist.github.com/ugurozpinar/9682734
-	private trCompare(a: any, b: any): number {
+	private _trCompare(a: any, b: any): number {
 		const alphabets = 'AaBbCcÇçDdEeFfGgĞğHhIıİiJjKkLlMmNnOoÖöPpQqRrSsŞşTtUuÜüVvWwXxYyZz0123456789';
 		if (a.length === 0 || b.length === 0) {
 			return a.length - b.length;
@@ -328,6 +368,10 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 		return 0;
 	}
 
+	public trCompare(a: any, b: any): number {
+		return this._trCompare(a, b);
+	}
+
 	private compare(a: any, b: any): number {
 		const aName = a.Name.toLocaleLowerCase();
 		const bName = b.Name.toLocaleLowerCase();
@@ -341,7 +385,7 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 		return comparison;
 	}
 
-	private getFilteredData(): IModalListInDto[] {
+	private _getFilteredData(): IModalListInDto[] {
 		const { list, autoSort } = this.props;
 		const { searchText } = this.state;
 
@@ -351,7 +395,11 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 		return list.filter((l: IModalListInDto) => l.Name.toLocaleLowerCase().indexOf(searchText.toLocaleLowerCase()) > -1);
 	}
 
-	private onSelectMethod(key: IModalListInDto): IModalListInDto | void {
+	public getFilteredData(): IModalListInDto[] {
+		return this._getFilteredData();
+	}
+
+	private _onSelectMethod(key: IModalListInDto): IModalListInDto | void {
 		const { onSelected } = this.props;
 		this.setState({
 			modalVisible: false,
@@ -366,7 +414,11 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 		return onSelected(key);
 	}
 
-	private getIndex(alphabet: string): number {
+	public onSelectMethod(key: IModalListInDto): IModalListInDto | void {
+		return this._onSelectMethod(key);
+	}
+
+	private _getIndex(alphabet: string): number {
 		const list = this.getFilteredData();
 		const findIndex = list.findIndex((x: IModalListInDto) => {
 			return x.Name.charAt(0) === alphabet;
@@ -374,7 +426,11 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 		return findIndex;
 	}
 
-	private setAlphabet(alphabet: string): void {
+	public getIndex(alphabet: string): number {
+		return this._getIndex(alphabet);
+	}
+
+	private _setAlphabet(alphabet: string): void {
 		// const { list } = this.props;
 		this.setState({
 			selectedAlpha: alphabet,
@@ -389,5 +445,9 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 				this.flatListRef.scrollToEnd();
 			}
 		});
+	}
+
+	public setAlphabet(alphabet: string): void {
+		this._setAlphabet(alphabet);
 	}
 }

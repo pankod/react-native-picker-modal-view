@@ -30,12 +30,15 @@ class ModalComponent extends React.PureComponent {
             });
         }
     }
-    clearComponent() {
+    _clearComponent() {
         this.setState({
             stickyBottomButton: false,
             searchText: '',
             selectedAlpha: null,
         });
+    }
+    clearComponent() {
+        this._clearComponent();
     }
     componentWillMount() {
         const { autoGenerateAlphabet, alphabets } = this.props;
@@ -48,7 +51,7 @@ class ModalComponent extends React.PureComponent {
             });
         }
     }
-    openModal() {
+    _openModal() {
         const { list, autoGenerateAlphabet, disabled } = this.props;
         if (autoGenerateAlphabet) {
             this.generateAlphabet();
@@ -58,6 +61,9 @@ class ModalComponent extends React.PureComponent {
                 modalVisible: true,
             });
         }
+    }
+    openModal() {
+        this._openModal();
     }
     render() {
         const { animationType, onRequestClosed, hideAlphabetFilter, placeholderTextColor, keyExtractor, showToTopButton, onEndReached, removeClippedSubviews, FlatListProps, chooseText, searchText, autoCorrect, SearchInputProps, defaultSelected, disabled, list, forceSelect, } = this.props;
@@ -69,7 +75,7 @@ class ModalComponent extends React.PureComponent {
                     React.createElement(_Components_1.SearchComponent, Object.assign({ autoCorrect: autoCorrect, searchText: searchText, placeholderTextColor: placeholderTextColor, onClose: this.onClose.bind(this), onBackRequest: this.onBackRequest.bind(this), forceSelect: forceSelect, setText: (text) => this.setText(text) }, SearchInputProps)),
                     React.createElement(react_native_1.KeyboardAvoidingView, { style: _Styles_1.ModalStyles.keyboardContainer, behavior: react_native_1.Platform.OS === 'ios' ? 'padding' : null, enabled: true },
                         React.createElement(react_native_1.View, { style: _Styles_1.ModalStyles.listArea },
-                            React.createElement(react_native_1.FlatList, Object.assign({ ref: (ref) => this.flatListRef = ref, data: this.getFilteredData(), keyExtractor: keyExtractor ? keyExtractor : this._keyExtractor.bind(this), renderItem: ({ item, index }) => this.renderItem(item, index), onScroll: showToTopButton && this.onScrolling.bind(this), initialNumToRender: this.numToRender, keyboardShouldPersistTaps: 'always', keyboardDismissMode: 'interactive', onEndReached: onEndReached, maxToRenderPerBatch: 20, legacyImplementation: false, updateCellsBatchingPeriod: 50, removeClippedSubviews: removeClippedSubviews, viewabilityConfig: {
+                            React.createElement(react_native_1.FlatList, Object.assign({ ref: (ref) => this.flatListRef = ref, data: this.getFilteredData(), keyExtractor: keyExtractor ? keyExtractor : this.keyExtractor.bind(this), renderItem: ({ item, index }) => this.renderItem(item, index), onScroll: showToTopButton && this.onScrolling.bind(this), initialNumToRender: this.numToRender, keyboardShouldPersistTaps: 'always', keyboardDismissMode: 'interactive', onEndReached: onEndReached, maxToRenderPerBatch: 20, legacyImplementation: false, updateCellsBatchingPeriod: 50, removeClippedSubviews: removeClippedSubviews, viewabilityConfig: {
                                     minimumViewTime: 500,
                                     viewAreaCoveragePercentThreshold: 100,
                                     waitForInteraction: true,
@@ -90,7 +96,7 @@ class ModalComponent extends React.PureComponent {
             });
         }
     }
-    onClose() {
+    _onClose() {
         const { onRequestClosed, onSelected, forceSelect, defaultSelected } = this.props;
         const { modalVisible, selectedObject } = this.state;
         if (forceSelect &&
@@ -110,7 +116,10 @@ class ModalComponent extends React.PureComponent {
             onRequestClosed();
         }
     }
-    onBackRequest() {
+    onClose() {
+        this._onClose();
+    }
+    _onBackRequest() {
         const { onBackRequest, onSelected } = this.props;
         const { modalVisible } = this.state;
         this.setState({
@@ -121,7 +130,10 @@ class ModalComponent extends React.PureComponent {
             onBackRequest();
         }
     }
-    scrollToUp() {
+    onBackRequest() {
+        this._onBackRequest();
+    }
+    _scrollToUp() {
         if (this.flatListRef) {
             this.setState({
                 selectedAlpha: null,
@@ -130,7 +142,10 @@ class ModalComponent extends React.PureComponent {
             });
         }
     }
-    onScrolling(e) {
+    scrollToUp() {
+        this._scrollToUp();
+    }
+    _onScrolling(e) {
         const { contentOffset } = e.nativeEvent;
         if (contentOffset.y > 100) {
             this.setState({
@@ -143,11 +158,17 @@ class ModalComponent extends React.PureComponent {
             });
         }
     }
-    renderItem(item, index) {
-        const { defaultSelected } = this.props;
-        return React.createElement(_Components_1.ListItemComponent, { defaultSelected: defaultSelected, list: item, onSelectMethod: this.onSelectMethod.bind(this) });
+    onScrolling(e) {
+        this._onScrolling(e);
     }
-    generateAlphabet() {
+    _renderItem(item, index) {
+        const { defaultSelected } = this.props;
+        return React.createElement(_Components_1.ListItemComponent, { key: index.toString(), defaultSelected: defaultSelected, list: item, onSelectMethod: this.onSelectMethod.bind(this) });
+    }
+    renderItem(item, index) {
+        return this._renderItem(item, index);
+    }
+    _generateAlphabet() {
         const { list, sortingLanguage } = this.props;
         const singularAlpha = [];
         list.map((x) => {
@@ -165,15 +186,24 @@ class ModalComponent extends React.PureComponent {
             alphabets: singularAlpha,
         });
     }
+    generateAlphabet() {
+        this._generateAlphabet();
+    }
     _keyExtractor(item, index) {
         return index.toString();
     }
-    setText(text) {
+    keyExtractor(item, index) {
+        return this._keyExtractor(item, index);
+    }
+    _setText(text) {
         this.setState({
             searchText: text,
         });
     }
-    trCompare(a, b) {
+    setText(text) {
+        this._setText(text);
+    }
+    _trCompare(a, b) {
         const alphabets = 'AaBbCcÇçDdEeFfGgĞğHhIıİiJjKkLlMmNnOoÖöPpQqRrSsŞşTtUuÜüVvWwXxYyZz0123456789';
         if (a.length === 0 || b.length === 0) {
             return a.length - b.length;
@@ -187,6 +217,9 @@ class ModalComponent extends React.PureComponent {
         }
         return 0;
     }
+    trCompare(a, b) {
+        return this._trCompare(a, b);
+    }
     compare(a, b) {
         const aName = a.Name.toLocaleLowerCase();
         const bName = b.Name.toLocaleLowerCase();
@@ -199,7 +232,7 @@ class ModalComponent extends React.PureComponent {
         }
         return comparison;
     }
-    getFilteredData() {
+    _getFilteredData() {
         const { list, autoSort } = this.props;
         const { searchText } = this.state;
         if (autoSort) {
@@ -207,7 +240,10 @@ class ModalComponent extends React.PureComponent {
         }
         return list.filter((l) => l.Name.toLocaleLowerCase().indexOf(searchText.toLocaleLowerCase()) > -1);
     }
-    onSelectMethod(key) {
+    getFilteredData() {
+        return this._getFilteredData();
+    }
+    _onSelectMethod(key) {
         const { onSelected } = this.props;
         this.setState({
             modalVisible: false,
@@ -219,14 +255,20 @@ class ModalComponent extends React.PureComponent {
         }
         return onSelected(key);
     }
-    getIndex(alphabet) {
+    onSelectMethod(key) {
+        return this._onSelectMethod(key);
+    }
+    _getIndex(alphabet) {
         const list = this.getFilteredData();
         const findIndex = list.findIndex((x) => {
             return x.Name.charAt(0) === alphabet;
         });
         return findIndex;
     }
-    setAlphabet(alphabet) {
+    getIndex(alphabet) {
+        return this._getIndex(alphabet);
+    }
+    _setAlphabet(alphabet) {
         this.setState({
             selectedAlpha: alphabet,
         }, () => {
@@ -241,6 +283,9 @@ class ModalComponent extends React.PureComponent {
                 this.flatListRef.scrollToEnd();
             }
         });
+    }
+    setAlphabet(alphabet) {
+        this._setAlphabet(alphabet);
     }
 }
 ModalComponent.defaultProps = {

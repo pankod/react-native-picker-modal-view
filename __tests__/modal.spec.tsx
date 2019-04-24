@@ -101,7 +101,7 @@ describe('ModalComponent', () => {
 		});
 
 		test('should clearComponent function set default state', () => {
-			const spy = spyOn(ModalComponent.prototype, 'clearComponent');
+			const spy = spyOn(ModalComponent.prototype, 'clearComponent').and.callThrough();
 			const instance = mounting.instance() as any;
 			instance.clearComponent();
 			expect(spy).toHaveBeenCalledTimes(1);
@@ -113,7 +113,7 @@ describe('ModalComponent', () => {
 		});
 
 		test('should openmodal fired modal is open', () => {
-			const spy = spyOn(ModalComponent.prototype, 'openModal');
+			const spy = spyOn(ModalComponent.prototype, 'openModal').and.callThrough();
 			const instance = mounting.instance() as any;
 			mounting.setProps({
 				disabled: false
