@@ -3,8 +3,7 @@
 	"version": "0.0.11-rc3",
 	"description": "React Native Picker Modal View",
 	"scripts": {
-		"build": "rm -rf ./dist/** && tsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./dist && npm run copy-assets && npm run copy",
-		"copy": "rm -rf /Users/selcuk/Documents/projects/siberalem/node_modules/react-native-picker-modal-view/dist/** && cp -R /Users/selcuk/Documents/projects/react-native-picker/dist /Users/selcuk/Documents/projects/siberalem/node_modules/react-native-picker-modal-view",
+		"build": "npm run test && rm -rf ./dist/** && tsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./dist && npm run copy-assets",
 		"copy-assets": "cp -R src/Assets/Images dist/Assets/",
 		"travis-deploy-once": "travis-deploy-once",
 		"semantic-release": "semantic-release",

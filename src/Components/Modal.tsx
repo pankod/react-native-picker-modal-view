@@ -319,7 +319,7 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 		});
 
 		if (sortingLanguage === 'tr') {
-			singularAlpha.sort(this.trCompare);
+			singularAlpha.sort((a, b) => this.trCompare(a, b));
 		} else {
 			singularAlpha.sort((a, b) => a.localeCompare(b));
 		}
@@ -392,6 +392,7 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 		if (autoSort) {
 			list.sort((a, b) => this.trCompare(a.Name, b.Name));
 		}
+
 		return list.filter((l: IModalListInDto) => l.Name.toLocaleLowerCase().indexOf(searchText.toLocaleLowerCase()) > -1);
 	}
 

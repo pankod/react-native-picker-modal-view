@@ -177,7 +177,7 @@ class ModalComponent extends React.PureComponent {
             }
         });
         if (sortingLanguage === 'tr') {
-            singularAlpha.sort(this.trCompare);
+            singularAlpha.sort((a, b) => this.trCompare(a, b));
         }
         else {
             singularAlpha.sort((a, b) => a.localeCompare(b));
