@@ -115,16 +115,16 @@ export default class example extends Component {
 <br/>
 
 | Properties | Type | Description |Default |
-|------------|-------------------------------------|-------------|----------------------------------------------------------------|
+|------------|-------------------------------------|-------------|----------------------------------------------------------------|		
 | **modalAnimationType**   | `string` | The RN Modal show/hide animation type                | `"slide"`       | 
 | **showAlphabeticalIndex**   | `string` | Hides alphabetical index      | `"true"`        | 
 | **onClosed**   | `Function` | Fired when the modal is closed    | |
 | **onBackButtonPressed**   | `Function` |  Fired when the back key is pressed          | |
-| **onSelected** <br> **required* | `Function`  | Returns selected item object | `"{ Id: string | number; Name: string; Value: string; [key: string]: any;}"` 		| 
-| **items** <br> **required* | `array`  | Array of list items | `"[{ Id: string | number; Name: string; Value: string; [key: string]: any;}]"` 	| 
+| **onSelected** <br> **required* | `Function`  | Returns selected item object | `"{ Id: string | number; Name: string; Value: string; [key: string]: any;}"` 			| 
+| **items** <br> **required* | `array`  | Array of list items | `"[{ Id: string | number; Name: string; Value: string; [key: string]: any;}]"` 		| 
 | **alphabeticalIndexChars** | `array`  | Letters array for the alphabetical index | `"Predefined turkish alphabets"` | 
 | **searchInputTextColor** | `string`  | Search input placeholder text color |  `"#252525"` | 
-| **keyExtractor** | `Function`  | Flatlist defined {key} function |  `"Predefined return map index"` | 
+| **keyExtractor** | `Function`  | Flatlist defined {key} function |  `"Predefined return map index"` 	| 
 | **autoGenerateAlphabeticalIndex** | `boolean`  | Auto-generates alphabetical index from list items data|  `"false"` | 
 | **sortingLanguage** | `string`  | Country ISO (Alpha 2) Code for localeCompare |  `"tr"` | 
 | **showToTopButton** | `boolean`  | Button for scroll to offset 0 |  `"true"` | 
