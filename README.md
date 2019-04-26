@@ -1,8 +1,19 @@
-<div align="center"> <h3>React Native Picker Modal View<h3></div>
+# React Native Picker Modal View
 
-<div align="center">An alternative to [Picker](https://facebook.github.io/react-native/docs/picker) and [PickerIOS](https://facebook.github.io/react-native/docs/pickerios) components with an unified API and consistent look & feel on both plaforms. It's fully configurable and includes built-in support for text search and alphabetical index. Ideal for longer lists not suitable for "wheel-pickers".  </div>
+An alternative to [Picker](https://facebook.github.io/react-native/docs/picker) and [PickerIOS](https://facebook.github.io/react-native/docs/pickerios) components with an unified API and consistent look & feel on both plaforms. It's fully configurable and includes built-in support for text search and alphabetical index. Ideal for longer lists not suitable for "wheel-pickers".
 
-## Demo
+
+[![npm version](https://img.shields.io/npm/v/react-native-picker-modal-view.svg)](https://www.npmjs.com/package/react-native-picker-modal-view)
+[![npm downloads per month](https://img.shields.io/npm/dm/react-native-picker-modal-view.svg)](https://www.npmjs.com/package/react-native-picker-modal-view)
+[![dependencies Status](https://david-dm.org/pankod/react-native-picker-modal-view/status.svg)](https://david-dm.org/pankod/react-native-picker-modal-view)
+[![dev-dependencies Status](https://david-dm.org/pankod/react-native-picker-modal-view/dev-status.svg)](https://david-dm.org/pankod/react-native-picker-modal-view?type=dev)
+
+
+<br/>
+  <sub>Created by <a href="https://www.pankod.com">Pankod</a></sub>
+</div>
+<br/>
+<br/>
 
 <div align="center">
  <img src="./screenshots/example.gif" width="200">
@@ -18,17 +29,7 @@
  <img src="./screenshots/ss3.png" width="200">
 </div>
 
-[![npm version](https://img.shields.io/npm/v/react-native-picker-modal-view.svg)](https://www.npmjs.com/package/react-native-picker-modal-view)
-[![npm downloads per month](https://img.shields.io/npm/dm/react-native-picker-modal-view.svg)](https://www.npmjs.com/package/react-native-picker-modal-view)
-[![dependencies Status](https://david-dm.org/pankod/react-native-picker-modal-view/status.svg)](https://david-dm.org/pankod/react-native-picker-modal-view)
-[![dev-dependencies Status](https://david-dm.org/pankod/react-native-picker-modal-view/dev-status.svg)](https://david-dm.org/pankod/react-native-picker-modal-view?type=dev)
 
-
-<br/>
-  <sub>Created by <a href="https://www.pankod.com">Pankod</a></sub>
-</div>
-<br/>
-<br/>
 
 
 ## Stores Supported:
