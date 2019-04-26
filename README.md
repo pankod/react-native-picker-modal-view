@@ -14,7 +14,8 @@ An alternative to [Picker](https://facebook.github.io/react-native/docs/picker) 
 <br/>
 
 <div align="center">
- <img src="screenshots/example.gif" width="200">
+ <img src="screenshots/ios.gif" width="200" height="400">
+ <img src="screenshots/android.gif" width="200" height="400">
 </div>
 
 <br/>
