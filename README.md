@@ -1,6 +1,6 @@
 
 <div align="center">
- <img src="https://github.com/pankod/react-native-picker-modal-view/blob/develop/screenshots/example.gif" width="200">
+ <img src="https://github.com/pankod/react-native-picker-modal-view/blob/master/screenshots/example.gif" width="200">
 </div>
 
 <br/>
