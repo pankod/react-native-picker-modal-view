@@ -1,3 +1,13 @@
+An unified React Native Picker Modal component for iOS and Android.
+
+<br/>
+<div align="center"> <h3>React Native Picker Modal View<h3></div>
+
+<div align="center">An alternative to [Picker](https://facebook.github.io/react-native/docs/picker) and [PickerIOS](https://facebook.github.io/react-native/docs/pickerios) components with an unified API and consistent look & feel on both plaforms. It's fully configurable and includes built-in support for text search and alphabetical index. Ideal for longer lists not suitable for "wheel-pickers".  </div>
+<div align="center"> 
+<br/>
+
+## Demo
 
 <div align="center">
  <img src="./screenshots/example.gif" width="200">
@@ -12,13 +22,6 @@
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
  <img src="./screenshots/ss3.png" width="200">
 </div>
-
-<br/>
-<div align="center"> <h3>React Native Picker Modal View<h3></div>
-
-<div align="center">React Native Module to select item picker modal.</div>
-<div align="center"> 
-<br/>
 
 [![npm version](https://img.shields.io/npm/v/react-native-picker-modal-view.svg)](https://www.npmjs.com/package/react-native-picker-modal-view)
 [![npm downloads per month](https://img.shields.io/npm/dm/react-native-picker-modal-view.svg)](https://www.npmjs.com/package/react-native-picker-modal-view)
@@ -116,30 +119,30 @@ export default class example extends Component {
 
 | Properties | Type | Description |Default |
 |------------|-------------------------------------|-------------|----------------------------------------------------------------|
-| **animationType**   | `string` | The RN Modal animation type                | `"slide"`       | 
-| **hideAlphabetFilter**   | `string` | Alphabets list in modal at right      | `"true"`        | 
-| **onRequestClosed**   | `Function` | Function fired when the modal closed    
-| **onBackRequest**   | `Function` | Function fired when the back key pressed          
-| **onSelected** <br> **required* | `Function`  | Function return object when selected item | `"{ Id: string | number; Name: string; Value: string; [key: string]: any; CountryId?: ICity; CityId?: ITown; }"` | 
-| **list** <br> **required* | `array`  | Array for list data | `"[{ Id: string | number; Name: string; Value: string; [key: string]: any; CountryId?: ICity; CityId?: ITown; }]"` | 
-| **alphabets** | `array`  | Alphabets array to be listed | `"Predefined turkish alphabets"` | 
+| **animationType**   | `string` | The RN Modal show/hide animation type                | `"slide"`       | 
+| **hideAlphabetFilter**   | `string` | Hides alphabetical index      | `"true"`        | 
+| **onRequestClosed**   | `Function` | Fired when the modal is closed    
+| **onBackRequest**   | `Function` |  Fired when the back key is pressed          
+| **onSelected** <br> **required* | `Function`  | Returns selected item object | `"{ Id: string | number; Name: string; Value: string; [key: string]: any; CountryId?: ICity; CityId?: ITown; }"` | 
+| **list** <br> **required* | `array`  | Array of list items | `"[{ Id: string | number; Name: string; Value: string; [key: string]: any; CountryId?: ICity; CityId?: ITown; }]"` | 
+| **alphabets** | `array`  | Letters array for the alphabetical index | `"Predefined turkish alphabets"` | 
 | **placeholderTextColor** | `string`  | Search input placeholder text color |  `"#252525"` | 
 | **keyExtractor** | `Function`  | Flatlist defined {key} function |  `"Predefined return map index"` | 
-| **autoGenerateAlphabet** | `boolean`  | Auto generate alphabets list from data list |  `"false"` | 
+| **autoGenerateAlphabet** | `boolean`  | Auto-generates alphabetical index from list items data|  `"false"` | 
 | **sortingLanguage** | `string`  | Country ISO (Alpha 2) Code for localeCompare |  `"tr"` | 
 | **showToTopButton** | `boolean`  | Button for scroll to offset 0 |  `"true"` | 
-| **onEndReached** | `Function`  | Function fired when the list end |  | 
+| **onEndReached** | `Function`  | Fired when the list reaches the end |  | 
 | **FlatListProps** | `object`  | React Native Flatlist Props |  | 
 | **SearchInputProps** | `object`  | React Native TextInput Props |  | 
 | **ModalProps** | `object`  | React Native Modal Props |  | 
 | **chooseText** | `string`  | Select box placeholder text | `"Choose one..."` | 
 | **searchText** | `string`  | Search input placeholder text | `"Search..."` | 
-| **defaultSelected** | `object`  | Predefined selected object |  | 
-| **autoCorrect** | `boolean`  | Auto correct for search input | `"true"` | 
-| **autoSort** | `boolean`  | Auto sort data list | `"false"` | 
-| **style** | `object`  | In the future list... |  | 
+| **defaultSelected** | `object`  | Default selected object |  | 
+| **autoCorrect** | `boolean`  | Auto-correct for search input | `"true"` | 
+| **autoSort** | `boolean`  | Auto-sort data list | `"false"` | 
+| **style** | `object`  | [Not implemented yet] |  | 
 | **disabled** | `boolean`  | Select box disabled boolean |  | 
-| **forceSelect** | `boolean`  | Force the user select anyone | `"false"` |  
+| **forceSelect** | `boolean`  | Require at least one list item is selected| `"false"` |  
 
 <br/>
 <br/>
@@ -147,10 +150,10 @@ export default class example extends Component {
 
 #### Notes
 
-- As of version 1.0.0 this package is compatible with both iOS and Android.
-- Auto alphabets sorting support for Turkish and English
+- Auto-alphabetical index supported for Turkish and English languages.
 
 #### Releases
+
 - 1.0.0 - Initial release
 
 
