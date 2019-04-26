@@ -8,6 +8,5 @@ export interface ISearch {
 	forceSelect: boolean;
 	setText: (text: string) => void;
 	searchText: string;
-	autoCorrect: boolean;
 	SearchInputProps?: TextInputProps;
 }

@@ -10,7 +10,6 @@ export class SearchComponent extends React.PureComponent<ISearch, {}> {
 	public render(): JSX.Element {
 		const {
 			SearchInputProps,
-			autoCorrect,
 			placeholderTextColor,
 			onClose,
 			setText,
@@ -31,7 +30,6 @@ export class SearchComponent extends React.PureComponent<ISearch, {}> {
 					style={[SearchStyle.textInput, forceSelect && SearchStyle.nonCloseButton]}
 					underlineColorAndroid={'transparent'}
 					onChangeText={(text: string) => setText(text)}
-					autoCorrect={autoCorrect}
 					{...SearchInputProps}
 				/>
 				{!forceSelect &&

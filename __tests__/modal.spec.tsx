@@ -50,24 +50,23 @@ describe('ModalComponent', () => {
 			selectedObject: {},
 		}
 		const component = (<ModalComponent
-			hideAlphabetFilter={false}
-			onRequestClosed={onRequestClosed}
-			onBackRequest={onBackRequest}
+			showAlphabeticalIndex={false}
+			onClosed={onRequestClosed}
+			onBackButtonPressed={onBackRequest}
 			onSelected={onSelected}
-			list={list}
-			alphabets={['A', 'B', 'C', 'D', 'E']}
-			placeholderTextColor={'#ddd'}
-			autoGenerateAlphabet={true}
+			items={list}
+			alphabeticalIndexChars={['A', 'B', 'C', 'D', 'E']}
+			searchInputTextColor={'#ddd'}
+			autoGenerateAlphabeticalIndex={true}
 			showToTopButton={true}
 			onEndReached={onEndReached}
 			removeClippedSubviews={false}
-			chooseText={'Choose one...'}
-			defaultSelected={data}
-			searchText={'Search...'}
-			autoCorrect={false}
+			selectPlaceholderText={'Choose one...'}
+			selected={data}
+			searchPlaceholderText={'Search...'}
 			autoSort={false}
 			disabled={false}
-			forceSelect={false}
+			requireSelection={false}
 		/>);
 
 		beforeEach(() => {
@@ -85,24 +84,23 @@ describe('ModalComponent', () => {
 			expect(render).toMatchSnapshot();
 		});
 
-		test('should (hideAlphabetFilter,autoGenerateAlphabet,autoCorrect,autoSort,disabledforceSelect) type is boolean ', () => {
-			expect(typeof mounting.props().hideAlphabetFilter).toBe('boolean');
-			expect(typeof mounting.props().autoGenerateAlphabet).toBe('boolean');
-			expect(typeof mounting.props().autoCorrect).toBe('boolean');
+		test('should (showAlphabeticalIndex,autoGenerateAlphabeticalIndex,autoCorrect,autoSort,disabledforceSelect) type is boolean ', () => {
+			expect(typeof mounting.props().showAlphabeticalIndex).toBe('boolean');
+			expect(typeof mounting.props().autoGenerateAlphabeticalIndex).toBe('boolean');
 			expect(typeof mounting.props().autoSort).toBe('boolean');
-			expect(typeof mounting.props().forceSelect).toBe('boolean');
+			expect(typeof mounting.props().requireSelection).toBe('boolean');
 		});
 
 		test('should fired onSelected prop', () => {
 			expect(typeof mounting.props().onSelected).toBe('function');
 		});
 
-		test('should fired onRequestClosed prop', () => {
-			expect(typeof mounting.props().onRequestClosed).toBe('function');
+		test('should fired onClosed prop', () => {
+			expect(typeof mounting.props().onClosed).toBe('function');
 		});
 
-		test('should fired onBackRequest prop', () => {
-			expect(typeof mounting.props().onBackRequest).toBe('function');
+		test('should fired onBackButtonPressed prop', () => {
+			expect(typeof mounting.props().onBackButtonPressed).toBe('function');
 		});
 
 		test('should fired onEndReached prop', () => {
@@ -174,7 +172,7 @@ describe('ModalComponent', () => {
 				list
 			});
 
-			const stateLength: string[] = mounting.state('alphabets').length;
+			const stateLength: string[] = mounting.state('alphabeticalIndexChars').length;
 			const propsLength: string[] = mounting.props().list.length;
 
 			expect(stateLength).toEqual(propsLength);
