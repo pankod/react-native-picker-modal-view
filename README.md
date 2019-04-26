@@ -1,11 +1,6 @@
-An unified React Native Picker Modal component for iOS and Android.
-
-<br/>
 <div align="center"> <h3>React Native Picker Modal View<h3></div>
 
 <div align="center">An alternative to [Picker](https://facebook.github.io/react-native/docs/picker) and [PickerIOS](https://facebook.github.io/react-native/docs/pickerios) components with an unified API and consistent look & feel on both plaforms. It's fully configurable and includes built-in support for text search and alphabetical index. Ideal for longer lists not suitable for "wheel-pickers".  </div>
-<div align="center"> 
-<br/>
 
 ## Demo
 
