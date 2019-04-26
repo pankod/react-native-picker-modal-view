@@ -118,10 +118,10 @@ export default class example extends Component {
 |------------|-------------------------------------|-------------|----------------------------------------------------------------|
 | **modalAnimationType**   | `string` | The RN Modal show/hide animation type                | `"slide"`       | 
 | **showAlphabeticalIndex**   | `string` | Hides alphabetical index      | `"true"`        | 
-| **onClosed**   | `Function` | Fired when the modal is closed    
-| **onBackButtonPressed**   | `Function` |  Fired when the back key is pressed          
-| **onSelected** <br> **required* | `Function`  | Returns selected item object | `"{ Id: string | number; Name: string; Value: string; [key: string]: any; CountryId?: ICity; CityId?: ITown; }"` | 
-| **items** <br> **required* | `array`  | Array of list items | `"[{ Id: string | number; Name: string; Value: string; [key: string]: any; CountryId?: ICity; CityId?: ITown; }]"` | 
+| **onClosed**   | `Function` | Fired when the modal is closed    | |
+| **onBackButtonPressed**   | `Function` |  Fired when the back key is pressed          | |
+| **onSelected** <br> **required* | `Function`  | Returns selected item object | `"{ Id: string | number; Name: string; Value: string; [key: string]: any; CountryId?: ICity; CityId?: ITown; }"` | |
+| **items** <br> **required* | `array`  | Array of list items | `"[{ Id: string | number; Name: string; Value: string; [key: string]: any; CountryId?: ICity; CityId?: ITown; }]"` | |
 | **alphabeticalIndexChars** | `array`  | Letters array for the alphabetical index | `"Predefined turkish alphabets"` | 
 | **searchInputTextColor** | `string`  | Search input placeholder text color |  `"#252525"` | 
 | **keyExtractor** | `Function`  | Flatlist defined {key} function |  `"Predefined return map index"` | 
