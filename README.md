@@ -5,13 +5,6 @@
 
 <br/>
 
-<div align="center">
- <img src="./screenshots/ss1.png" width="200">
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- <img src="./screenshots/ss2.png" width="200">
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- <img src="./screenshots/ss3.png" width="200">
-</div>
 
 <br/>
 <div align="center"> <h3>React Native Picker Modal View<h3></div>
@@ -24,6 +17,7 @@
 [![npm downloads per month](https://img.shields.io/npm/dm/react-native-picker-modal-view.svg)](https://www.npmjs.com/package/react-native-picker-modal-view)
 [![dependencies Status](https://david-dm.org/pankod/react-native-picker-modal-view/status.svg)](https://david-dm.org/pankod/react-native-picker-modal-view)
 [![dev-dependencies Status](https://david-dm.org/pankod/react-native-picker-modal-view/dev-status.svg)](https://david-dm.org/pankod/react-native-picker-modal-view?type=dev)
+[![Build Status](https://travis-ci.com/pankod/react-native-picker-modal-view.svg?branch=master)](https://travis-ci.com/pankod/react-native-picker-modal-view)
 
 
 <br/>
@@ -34,11 +28,10 @@
 
 
 ## Stores Supported:
-|                                                                 **Apple App Store**                                                                 |                                                              **Google Play**                                                              |                                                                              |
-| :--------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------
-|                                                         **✓**                                                         |                                                        **✓**                                                        |                                                                                                                       |
-| <img src="https://developer.apple.com/assets/elements/icons/app-store/app-store-128x128_2x.png" height="60" > |                      <img src="https://elegal.ph/site/wp-content/uploads/2017/08/google-play-icon-logo-favicon-1632434.svg_.jpg" height="60" float="right"> |
-|                                             |
+| **Apple App Store**  |   **Google Play**  |  
+:--------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------- 
+| **✓** | **✓** | 
+| <img src="https://developer.apple.com/assets/elements/icons/app-store/app-store-128x128_2x.png" height="60" > | <img src="https://elegal.ph/site/wp-content/uploads/2017/08/google-play-icon-logo-favicon-1632434.svg_.jpg" height="60" float="right"> | 
 
 
 
