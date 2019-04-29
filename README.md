@@ -114,14 +114,14 @@ export default class example extends Component {
 ## Options
 <br/>
 
-| Properties | Type | Description |Default |
+| Properties | Type | Description | Default |
 |------------|-------------------------------------|-------------|----------------------------------------------------------------|		
 | **modalAnimationType**   | `string` | The RN Modal show/hide animation type                | `"slide"`       | 
 | **showAlphabeticalIndex**   | `string` | Hides alphabetical index      | `"true"`        | 
 | **onClosed**   | `Function` | Fired when the modal is closed    | |
 | **onBackButtonPressed**   | `Function` |  Fired when the back key is pressed          | |
-| **onSelected** <br> **required* | `Function`  | Returns selected item object | ```"{ Id: string | number, Name: string, Value: string, [key: string]: any}"``` 			| 
-| **items** <br> **required* | `array`  | Array of list items | ```"[{ Id: string | number, Name: string, Value: string, [key: string]: any}]"```		| 
+| **onSelected** <br> **required* | `Function`  | Returns selected item object | // { Id: string | number, Name: string, <br> Value: string, [key: string]: any} | 
+| **items** <br> **required* | `array`  | Array of list items | // [{ Id: string | number, Name: string, <br> Value: string, [key: string]: any}] | 
 | **alphabeticalIndexChars** | `array`  | Letters array for the alphabetical index | `"Predefined turkish alphabets"` | 
 | **searchInputTextColor** | `string`  | Search input placeholder text color |  `"#252525"` | 
 | **keyExtractor** | `Function`  | Flatlist defined {key} function |  `"Predefined return map index"` 	| 
@@ -129,15 +129,21 @@ export default class example extends Component {
 | **sortingLanguage** | `string`  | Country ISO (Alpha 2) Code for localeCompare |  `"tr"` | 
 | **showToTopButton** | `boolean`  | Button for scroll to offset 0 |  `"true"` | 
 | **onEndReached** | `Function`  | Fired when the list reaches the end |  | 
-| **FlatListProps** | `object`  | React Native Flatlist Props |  | 
-| **SearchInputProps** | `object`  | React Native TextInput Props |  | 
-| **ModalProps** | `object`  | React Native Modal Props |  | 
 | **selectPlaceholderText** | `string`  | Select box placeholder text | `"Choose one..."` | 
 | **searchPlaceholderText** | `string`  | Search input placeholder text | `"Search..."` | 
 | **selected** | `object`  | Default selected object |  | 
 | **autoSort** | `boolean`  | Auto-sort data list | `"false"` | 
 | **disabled** | `boolean`  | Select box disabled boolean |  | 
 | **requireSelection** | `boolean`  | Require at least one list item is selected| `"false"` |  
+
+# Core Props of React Native
+<br/>
+
+| Properties | Type | Description | Default |
+|------------|-------------------------------------|-------------|----------------------------------------------------------------|	
+| **ModalProps** | `object`  | React Native Modal Props |  | 
+| **FlatListProps** | `object`  | React Native Flatlist Props |  | 
+| **SearchInputProps** | `object`  | React Native TextInput Props |  | 
 
 <br/>
 <br/>
