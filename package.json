@@ -1,6 +1,6 @@
 {
 	"name": "react-native-picker-modal-view",
-	"version": "1.1.0",
+	"version": "1.1.1",
 	"description": "React Native Picker Modal View",
 	"scripts": {
 		"build": "npm run test && rm -rf ./dist/** && tsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./dist && npm run copy-assets",
@@ -69,7 +69,7 @@
 		"react-test-renderer": "^16.8.6",
 		"react-testing-library": "^6.1.2",
 		"ts-jest": "^24.0.2",
-		"ts-lib": "0.0.5",
+		"tslib": "1.9.3",
 		"tscpaths": "0.0.7",
 		"tslint": "^5.15.0",
 		"tslint-config-prettier": "^1.18.0",
@@ -78,6 +78,7 @@
 	},
 	"peerDependencies": {
 		"react": "*",
-		"react-native": "*"
+		"react-native": "*",
+		"tslib": "*"
 	}
 }
