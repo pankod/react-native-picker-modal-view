@@ -44,7 +44,7 @@
 		"skipDefaultLibCheck": true,
 		"skipLibCheck": true,
 		"target": "es2016",
-		"module": "commonjs",
+		"module": "esnext",
 		"moduleResolution": "node",
 		"jsx": "react",
 		"declaration": true,

@@ -1,7 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var CommonStyle;
+export var CommonStyle;
 (function (CommonStyle) {
     CommonStyle.BTN_HEIGHT = 50;
-})(CommonStyle = exports.CommonStyle || (exports.CommonStyle = {}));
+})(CommonStyle || (CommonStyle = {}));
 //# sourceMappingURL=CommonStyle.js.map
