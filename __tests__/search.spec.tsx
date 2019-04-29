@@ -15,7 +15,6 @@ describe('SearchComponent', () => {
 		const onChange = jest.fn((val) => val.value);
 		const component = (
 			<SearchComponent
-				autoCorrect={true}
 				searchText={'search'}
 				placeholderTextColor={'#ddd'}
 				onClose={close}
@@ -57,8 +56,7 @@ describe('SearchComponent', () => {
 			expect(back).toHaveBeenCalled();
 		});
 
-		test('should forceSelect & autoCorrent type is boolean', () => {
-			expect(typeof mounting.props().autoCorrect).toEqual('boolean');
+		test('should forceSelect type is boolean', () => {
 			expect(typeof mounting.props().forceSelect).toEqual('boolean');
 		});
 

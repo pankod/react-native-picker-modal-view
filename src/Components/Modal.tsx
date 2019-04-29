@@ -37,19 +37,18 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 
 	public static defaultProps = {
 		showToTopButton: true,
-		animationType: 'slide',
-		hideAlphabetFilter: false,
-		placeholderTextColor: '#252525',
-		autoGenerateAlphabet: false,
+		modalAnimationType: 'slide',
+		showAlphabeticalIndex: false,
+		searchInputTextColor: '#252525',
+		autoGenerateAlphabeticalIndex: false,
 		sortingLanguage: 'tr',
 		removeClippedSubviews: false,
-		chooseText: 'Choose one...',
-		searchText: 'Search...',
-		autoCorrect: true,
+		selectPlaceholderText: 'Choose one...',
+		searchPlaceholderText: 'Search...',
 		autoSort: false,
-		list: [],
+		items: [],
 		disabled: false,
-		forceSelect: false,
+		requireSelection: false,
 	};
 
 	constructor(props: IModalInDtoProps) {
@@ -64,8 +63,8 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 	public componentWillReceiveProps(nextProps, nextState): void {
 		if (
 			// tslint:disable-next-line: max-line-length
-			(this.props.defaultSelected && nextProps.defaultSelected) && this.props.defaultSelected.Name !== nextProps.defaultSelected.Name &&
-			[this.props.defaultSelected.Id] !== [nextProps.defaultSelected.Id]
+			(this.props.selected && nextProps.selected) && this.props.selected.Name !== nextProps.selected.Name &&
+			[this.props.selected.Id] !== [nextProps.selected.Id]
 		) {
 			this.setState({
 				selectedObject: {} as IModalListInDto,
@@ -86,24 +85,24 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 	}
 
 	public componentWillMount(): void {
-		const { autoGenerateAlphabet, alphabets } = this.props;
-		if (autoGenerateAlphabet) {
+		const { autoGenerateAlphabeticalIndex, alphabeticalIndexChars } = this.props;
+		if (autoGenerateAlphabeticalIndex) {
 			this.generateAlphabet();
-		} else if (alphabets) {
+		} else if (alphabeticalIndexChars) {
 			this.setState({
-				alphabets,
+				alphabeticalIndexChars,
 			});
 		}
 	}
 
 	private _openModal(): void {
-		const { list, autoGenerateAlphabet, disabled } = this.props;
+		const { items, autoGenerateAlphabeticalIndex, disabled } = this.props;
 
-		if (autoGenerateAlphabet) {
+		if (autoGenerateAlphabeticalIndex) {
 			this.generateAlphabet();
 		}
 
-		if (list.length > 0 && !disabled) {
+		if (items.length > 0 && !disabled) {
 			this.setState({
 				modalVisible: true,
 			});
@@ -116,45 +115,43 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 
 	public render(): JSX.Element {
 		const {
-			animationType,
-			onRequestClosed,
-			hideAlphabetFilter,
-			placeholderTextColor,
+			modalAnimationType,
+			onClosed,
+			showAlphabeticalIndex,
+			searchInputTextColor,
 			keyExtractor,
 			showToTopButton,
 			onEndReached,
 			removeClippedSubviews,
 			FlatListProps,
-			chooseText,
-			searchText,
-			autoCorrect,
+			selectPlaceholderText,
+			searchPlaceholderText,
 			SearchInputProps,
-			defaultSelected,
+			selected,
 			disabled,
-			list,
-			forceSelect,
+			items,
+			requireSelection,
 		} = this.props;
-		const { modalVisible, alphabets, stickyBottomButton, selectedAlpha, selectedObject } = this.state;
+		const { modalVisible, alphabeticalIndexChars, stickyBottomButton, selectedAlpha, selectedObject } = this.state;
 		return (
 			<React.Fragment>
 				<SelectBoxComponent
-					disabled={(disabled || !list || list.length === 0)}
+					disabled={(disabled || !items || items.length === 0)}
 					selectedObject={selectedObject}
-					chooseText={(defaultSelected && defaultSelected.Name) ? defaultSelected.Name : chooseText}
+					chooseText={(selected && selected.Name) ? selected.Name : selectPlaceholderText}
 					openModal={this.openModal.bind(this)}
 				/>
 				<Modal
-					animationType={animationType}
+					animationType={modalAnimationType}
 					visible={modalVisible}
-					onRequestClose={() => onRequestClosed}>
+					onRequestClose={() => onClosed}>
 					<SafeAreaView style={ModalStyles.container}>
 						<SearchComponent
-							autoCorrect={autoCorrect}
-							searchText={searchText}
-							placeholderTextColor={placeholderTextColor}
+							searchText={searchPlaceholderText}
+							placeholderTextColor={searchInputTextColor}
 							onClose={this.onClose.bind(this)}
 							onBackRequest={this.onBackRequest.bind(this)}
-							forceSelect={forceSelect}
+							forceSelect={requireSelection}
 							setText={(text: string) => this.setText(text)}
 							{...SearchInputProps}
 						/>
@@ -192,10 +189,10 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 								/>
 
 								{
-									!hideAlphabetFilter &&
+									!showAlphabeticalIndex &&
 									<AlphabetComponent
 										setAlphabet={(alphabet: string) => this.setAlphabet(alphabet)}
-										alphabets={alphabets}
+										alphabets={alphabeticalIndexChars}
 										selectedAlpha={selectedAlpha}
 									/>
 								}
@@ -218,18 +215,18 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 	}
 
 	private _onClose(): void {
-		const { onRequestClosed, onSelected, forceSelect, defaultSelected } = this.props;
+		const { onClosed, onSelected, requireSelection, selected } = this.props;
 		const { modalVisible, selectedObject } = this.state;
 
 		if (
-			forceSelect &&
+			requireSelection &&
 			(selectedObject && ![selectedObject.Id]) &&
-			(defaultSelected && ![defaultSelected.Id])
+			(selected && ![selected.Id])
 		) {
 			return;
 		}
 
-		if (!forceSelect) {
+		if (!requireSelection) {
 			onSelected({} as IModalListInDto);
 		}
 
@@ -238,8 +235,8 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 			modalVisible: !modalVisible,
 		});
 		this.clearComponent();
-		if (onRequestClosed) {
-			onRequestClosed();
+		if (onClosed) {
+			onClosed();
 		}
 	}
 
@@ -248,14 +245,14 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 	}
 
 	private _onBackRequest(): void {
-		const { onBackRequest, onSelected } = this.props;
+		const { onBackButtonPressed } = this.props;
 		const { modalVisible } = this.state;
 		this.setState({
 			modalVisible: !modalVisible,
 		});
 		this.clearComponent();
-		if (onBackRequest) {
-			onBackRequest();
+		if (onBackButtonPressed) {
+			onBackButtonPressed();
 		}
 	}
 
@@ -296,10 +293,10 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 	}
 
 	private _renderItem(item: IModalListInDto, index: number): JSX.Element {
-		const { defaultSelected } = this.props;
+		const { selected } = this.props;
 		return <ListItemComponent
 			key={index.toString()}
-			defaultSelected={defaultSelected}
+			defaultSelected={selected}
 			list={item}
 			onSelectMethod={this.onSelectMethod.bind(this)}
 		/>;
@@ -310,9 +307,9 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 	}
 
 	private _generateAlphabet(): void {
-		const { list, sortingLanguage } = this.props;
+		const { items, sortingLanguage } = this.props;
 		const singularAlpha = [];
-		list.map((x: IModalListInDto) => {
+		items.map((x: IModalListInDto) => {
 			if (singularAlpha.indexOf(x.Name.charAt(0)) === -1) {
 				singularAlpha.push(x.Name.charAt(0));
 			}
@@ -325,7 +322,7 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 		}
 
 		this.setState({
-			alphabets: singularAlpha,
+			alphabeticalIndexChars: singularAlpha,
 		});
 	}
 
@@ -386,14 +383,14 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 	}
 
 	private _getFilteredData(): IModalListInDto[] {
-		const { list, autoSort } = this.props;
+		const { items, autoSort } = this.props;
 		const { searchText } = this.state;
 
 		if (autoSort) {
-			list.sort((a, b) => this.trCompare(a.Name, b.Name));
+			items.sort((a, b) => this.trCompare(a.Name, b.Name));
 		}
 
-		return list.filter((l: IModalListInDto) => l.Name.toLocaleLowerCase().indexOf(searchText.toLocaleLowerCase()) > -1);
+		return items.filter((l: IModalListInDto) => l.Name.toLocaleLowerCase().indexOf(searchText.toLocaleLowerCase()) > -1);
 	}
 
 	public getFilteredData(): IModalListInDto[] {

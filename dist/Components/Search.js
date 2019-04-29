@@ -6,11 +6,11 @@ const react_native_1 = require("react-native");
 const _Styles_1 = require("../Assets/Styles");
 class SearchComponent extends React.PureComponent {
     render() {
-        const { SearchInputProps, autoCorrect, placeholderTextColor, onClose, setText, forceSelect, searchText, onBackRequest, } = this.props;
+        const { SearchInputProps, placeholderTextColor, onClose, setText, forceSelect, searchText, onBackRequest, } = this.props;
         return (React.createElement(react_native_1.View, { style: _Styles_1.SearchStyle.searchArea },
             React.createElement(react_native_1.TouchableOpacity, { onPress: () => onBackRequest(), style: _Styles_1.SearchStyle.leftBtn },
                 React.createElement(react_native_1.Image, { source: require('../Assets/Images/left-arrow.png'), style: _Styles_1.SearchStyle.backButton })),
-            React.createElement(react_native_1.TextInput, Object.assign({ placeholder: searchText, placeholderTextColor: placeholderTextColor, style: [_Styles_1.SearchStyle.textInput, forceSelect && _Styles_1.SearchStyle.nonCloseButton], underlineColorAndroid: 'transparent', onChangeText: (text) => setText(text), autoCorrect: autoCorrect }, SearchInputProps)),
+            React.createElement(react_native_1.TextInput, Object.assign({ placeholder: searchText, placeholderTextColor: placeholderTextColor, style: [_Styles_1.SearchStyle.textInput, forceSelect && _Styles_1.SearchStyle.nonCloseButton], underlineColorAndroid: 'transparent', onChangeText: (text) => setText(text) }, SearchInputProps)),
             !forceSelect &&
                 React.createElement(react_native_1.TouchableOpacity, { onPress: () => onClose(), style: _Styles_1.SearchStyle.leftBtn },
                     React.createElement(react_native_1.Image, { source: require('../Assets/Images/close.png'), style: _Styles_1.SearchStyle.closeButton }))));

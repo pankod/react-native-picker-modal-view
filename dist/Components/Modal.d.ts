@@ -7,19 +7,18 @@ export declare class ModalComponent extends React.PureComponent<IModalInDtoProps
     state: IModalInDtoState;
     static defaultProps: {
         showToTopButton: boolean;
-        animationType: string;
-        hideAlphabetFilter: boolean;
-        placeholderTextColor: string;
-        autoGenerateAlphabet: boolean;
+        modalAnimationType: string;
+        showAlphabeticalIndex: boolean;
+        searchInputTextColor: string;
+        autoGenerateAlphabeticalIndex: boolean;
         sortingLanguage: string;
         removeClippedSubviews: boolean;
-        chooseText: string;
-        searchText: string;
-        autoCorrect: boolean;
+        selectPlaceholderText: string;
+        searchPlaceholderText: string;
         autoSort: boolean;
-        list: any[];
+        items: any[];
         disabled: boolean;
-        forceSelect: boolean;
+        requireSelection: boolean;
     };
     constructor(props: IModalInDtoProps);
     componentWillUnmount(): void;

@@ -17,37 +17,35 @@ type ModalProps = ModalBaseProps | ModalPropsIOS | ModalPropsAndroid;
 type ListType = IModalListInDto[];
 
 export interface IModalInDtoProps {
-	animationType?: AnimationTypeEnum;
-	hideAlphabetFilter: boolean;
-	onRequestClosed: () => void;
-	onBackRequest?: () => void;
+	modalAnimationType?: AnimationTypeEnum;
+	showAlphabeticalIndex: boolean;
+	onClosed: () => void;
+	onBackButtonPressed?: () => void;
 	onSelected: (selected: IModalListInDto) => IModalListInDto;
-	list: ListType;
-	alphabets?: string[];
-	placeholderTextColor?: string;
+	items: ListType;
+	alphabeticalIndexChars?: string[];
+	searchInputTextColor?: string;
 	keyExtractor?: (key: any, index: number) => string;
-	autoGenerateAlphabet?: boolean;
+	autoGenerateAlphabeticalIndex?: boolean;
 	sortingLanguage?: LanguagesEnum;
 	showToTopButton?: boolean;
 	onEndReached: () => void;
 	removeClippedSubviews: boolean;
 	FlatListProps?: FlatListProps<any>;
-	chooseText: string;
-	defaultSelected?: IModalListInDto;
-	searchText: string;
-	autoCorrect: boolean;
+	selectPlaceholderText: string;
+	selected?: IModalListInDto;
+	searchPlaceholderText: string;
 	SearchInputProps?: TextInputProps;
 	ModalProps?: ModalProps;
 	autoSort?: boolean;
-	style?: ViewStyle;
 	disabled: boolean;
-	forceSelect: boolean;
+	requireSelection: boolean;
 }
 
 export interface IModalInDtoState {
 	modalVisible: boolean;
 	searchText: string;
-	alphabets?: string[];
+	alphabeticalIndexChars?: string[];
 	stickyBottomButton?: boolean;
 	selectedAlpha?: string;
 	selectedObject?: IModalListInDto;
