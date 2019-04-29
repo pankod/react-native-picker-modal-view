@@ -1,7 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const react_native_1 = require("react-native");
-exports.SelectBoxStyle = react_native_1.StyleSheet.create({
+import { StyleSheet } from 'react-native';
+export const SelectBoxStyle = StyleSheet.create({
     container: {
         backgroundColor: '#fff',
         paddingHorizontal: 10,

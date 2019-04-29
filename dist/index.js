@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const Modal_1 = require("./Components/Modal");
-exports.default = Modal_1.ModalComponent;
+import { ModalComponent as PickerModal } from './Components/Modal';
+export default PickerModal;
 //# sourceMappingURL=index.js.map
