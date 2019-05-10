@@ -20,8 +20,7 @@ export default class App extends Component {
 		super(props);
 		this.state = {
 			selectedItem: {},
-			intro: false,
-			modalVisible: false,
+			intro: false
 		};
 	}
 
@@ -30,7 +29,7 @@ export default class App extends Component {
 	}
 
 	selected(selected) {
-		this.setState({ selectedItem: selected, modalVisible: false });
+		this.setState({ selectedItem: selected });
 		return selected;
 	}
 
