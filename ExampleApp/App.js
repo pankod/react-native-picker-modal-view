@@ -7,7 +7,7 @@
  */
 
 import React, { Component } from 'react';
-import { StyleSheet, View, SafeAreaView, Text, ImageBackground } from 'react-native';
+import { StyleSheet, View, SafeAreaView, Text, ImageBackground, Button } from 'react-native';
 import PickerModal from 'react-native-picker-modal-view';
 
 const data = require("./top20.json")
@@ -20,7 +20,8 @@ export default class App extends Component {
 		super(props);
 		this.state = {
 			selectedItem: {},
-			intro: true
+			intro: false,
+			modalVisible: false,
 		};
 	}
 
@@ -29,7 +30,7 @@ export default class App extends Component {
 	}
 
 	selected(selected) {
-		this.setState({ selectedItem: selected });
+		this.setState({ selectedItem: selected, modalVisible: false });
 		return selected;
 	}
 
@@ -52,7 +53,11 @@ export default class App extends Component {
 					</ImageBackground>
 				) : (
 						<SafeAreaView style={{ flex: 1, justifyContent: 'center', marginHorizontal: 20 }}>
+
 							<PickerModal
+								renderSelectView={(disabled, selected, showModal) =>
+									<Button disabled={disabled} title={"Show me!"} onPress={showModal} />
+								}
 								onSelected={(selected) => this.selected(selected)}
 								// selected Item as IModalListInDto {
 								// 	Id: string | number;

@@ -32,10 +32,10 @@ An alternative to [Picker](https://facebook.github.io/react-native/docs/picker) 
 
 
 ## Stores Supported:
-| **Apple App Store**  |   **Google Play**  |  
-:--------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------: | 
-| **✓** | **✓** | 
-| <img src="https://developer.apple.com/assets/elements/icons/app-store/app-store-128x128_2x.png" height="60" > | <img src="https://elegal.ph/site/wp-content/uploads/2017/08/google-play-icon-logo-favicon-1632434.svg_.jpg" height="60" float="right"> | 
+|                                              **Apple App Store**                                              |                                                            **Google Play**                                                             |
+| :-----------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------: |
+|                                                     **✓**                                                     |                                                                 **✓**                                                                  |
+| <img src="https://developer.apple.com/assets/elements/icons/app-store/app-store-128x128_2x.png" height="60" > | <img src="https://elegal.ph/site/wp-content/uploads/2017/08/google-play-icon-logo-favicon-1632434.svg_.jpg" height="60" float="right"> |
 
 
 
@@ -61,7 +61,7 @@ $ yarn add react-native-picker-modal-view
 import React, { Component } from 'react';
 import PickerModal from 'react-native-picker-modal-view';
 
-const items = [ { "Name": "United States", "Value": "United States", "Code": "US", "Id": 1 }, { "Name": "China", "Value": "China", "Code": "CN", "Id": 2 }, { "Name": "Japan", "Value": "Japan", "Code": "JP", "Id": 3 }, { "Name": "Germany", "Value": "Germany", "Code": "DE", "Id": 4 }, { "Name": "Turkey", "Value": "Turkey", "Code": "TR", "Id": 5 }]
+const items = [ { "Name": "United States", "Value": "United States", "Code": "US", "Id": 1 }, { "Name": "China", "Value": "China", "Code": "CN", "Id": 2 }, { "Name": "Japan", "Value": "Japan", "Code": "JP", "Id": 3 }, { "Name": "Germany", "Value": "Germany", "Code": "DE", "Id": 4 }, { "Name": "Turkey", "Value": "Turkey", "Code": "TR", "Id": 5 } ];
 
 export default class example extends Component {
 
@@ -70,6 +70,29 @@ export default class example extends Component {
 		this.state = {
 			selectedItem: {},
 		};
+	}
+
+	render() {
+		return (
+			<PickerModal
+				renderSelectView={(disabled, selected, showModal) =>
+					<Button disabled={disabled} title={"Show me!"} onPress={showModal} />
+				}
+				onSelected={(selected) => this.selected(selected)}	
+				onClosed={this.close.bind(this)}
+				onBackButtonPressed={this.onBackRequest.bind(this)}
+				items={items}
+				sortingLanguage={'tr'}
+				showToTopButton={true}
+				selected={this.state.selectedItem}
+				autoGenerateAlphabeticalIndex={true}
+				selectPlaceholderText={'Choose one...'}
+				onEndReached={() => console.log('list ended...')}
+				searchPlaceholderText={'Search...'}
+				requireSelection={false}
+				autoSort={false}
+			/>
+		)
 	}
 
 	close() {
@@ -85,26 +108,6 @@ export default class example extends Component {
 	onBackRequest() {
 		console.log("back key pressed");
 	}
-
-	render() {
-		return (
-			<PickerModal
-			onSelected={(selected) => this.selected(selected)}	
-			onClosed={this.close.bind(this)}
-			onBackButtonPressed={this.onBackRequest.bind(this)}
-			items={items}
-			sortingLanguage={'tr'}
-			showToTopButton={true}
-			selected={this.state.selectedItem}
-			autoGenerateAlphabeticalIndex={true}
-			selectPlaceholderText={'Choose one...'}
-			onEndReached={() => console.log('list ended...')}
-			searchPlaceholderText={'Search...'}
-			requireSelection={false}
-			autoSort={false}
-			/>
-		)
-	}
 }
 
 ```
@@ -114,36 +117,38 @@ export default class example extends Component {
 ## Options
 <br/>
 
-| Properties | Type | Description | Default |
-|------------|-------------------------------------|-------------|----------------------------------------------------------------|		
-| **modalAnimationType**   | `string` | The RN Modal show/hide animation type                | `"slide"`       | 
-| **showAlphabeticalIndex**   | `string` | Hides alphabetical index      | `"true"`        | 
-| **onClosed**   | `Function` | Fired when the modal is closed    | |
-| **onBackButtonPressed**   | `Function` |  Fired when the back key is pressed          | |
-| **onSelected** <br> **required* | `Function`  | Returns selected item object | `"{Id, Name, Value, [key: string]: any}"` 			| 
-| **items** <br> **required* | `array`  | Array of list items | `"[{Id, Name, Value, [key: string]: any}]"`		| 
-| **alphabeticalIndexChars** | `array`  | Chracters array for the alphabetical index | `<Turkish alphabet chracters>` | 
-| **searchInputTextColor** | `string`  | Search input placeholder text color |  `"#252525"` | 
-| **keyExtractor** | `Function`  | Flatlist defined {key} function |  `<Predefined return map index>` 	| 
-| **autoGenerateAlphabeticalIndex** | `boolean`  | Auto-generates alphabetical index from list items data|  `"false"` | 
-| **sortingLanguage** | `string`  | Country ISO (Alpha 2) Code for localeCompare |  `"tr"` | 
-| **showToTopButton** | `boolean`  | Button for scroll to offset 0 |  `"true"` | 
-| **onEndReached** | `Function`  | Fired when the list reaches the end |  | 
-| **selectPlaceholderText** | `string`  | Select box placeholder text | `"Choose one..."` | 
-| **searchPlaceholderText** | `string`  | Search input placeholder text | `"Search..."` | 
-| **selected** | `object`  | Default selected item |  | 
-| **autoSort** | `boolean`  | Auto-sort data list | `"false"` | 
-| **disabled** | `boolean`  | Disable Select box|  | 
-| **requireSelection** | `boolean`  | Require at least one list item is selected| `"false"` |  
+| Properties                        | Type       | Description                                            | Default                                     |
+| --------------------------------- | ---------- | ------------------------------------------------------ | ------------------------------------------- |
+| **modalAnimationType**            | `string`   | The RN Modal show/hide animation type                  | `"slide"`                                   |
+| **showAlphabeticalIndex**         | `string`   | Hides alphabetical index                               | `"true"`                                    |
+| **onClosed**                      | `Function` | Fired when the modal is closed                         |                                             |
+| **onBackButtonPressed**           | `Function` | Fired when the back key is pressed                     |                                             |
+| **onSelected** <br> **required*   | `Function` | Returns selected item object                           | `"{Id, Name, Value, [key: string]: any}"`   |
+| **items** <br> **required*        | `array`    | Array of list items                                    | `"[{Id, Name, Value, [key: string]: any}]"` |
+| **renderSelectView**              | `Element`  | Render Select Component                                | `<SelectBoxComponent (built-in)>`           |
+| **alphabeticalIndexChars**        | `array`    | Chracters array for the alphabetical index             | `<Turkish alphabet chracters>`              |
+| **searchInputTextColor**          | `string`   | Search input placeholder text color                    | `"#252525"`                                 |
+| **keyExtractor**                  | `Function` | Flatlist defined {key} function                        | `<Predefined return map index>`             |
+| **autoGenerateAlphabeticalIndex** | `boolean`  | Auto-generates alphabetical index from list items data | `"false"`                                   |
+| **sortingLanguage**               | `string`   | Country ISO (Alpha 2) Code for localeCompare           | `"tr"`                                      |
+| **showToTopButton**               | `boolean`  | Button for scroll to offset 0                          | `"true"`                                    |
+| **onEndReached**                  | `Function` | Fired when the list reaches the end                    |                                             |
+| **selectPlaceholderText**         | `string`   | Select box placeholder text                            | `"Choose one..."`                           |
+| **searchPlaceholderText**         | `string`   | Search input placeholder text                          | `"Search..."`                               |
+| **selected**                      | `object`   | Default selected item                                  |                                             |
+| **autoSort**                      | `boolean`  | Auto-sort data list                                    | `"false"`                                   |
+| **disabled**                      | `boolean`  | Disable Select box                                     |                                             |
+| **requireSelection**              | `boolean`  | Require at least one list item is selected             | `"false"`                                   |
+
 
 # Core Props of React Native
 <br/>
 
-| Properties | Type | Description | Default |
-|------------|-------------------------------------|-------------|----------------------------------------------------------------|	
-| **ModalProps** | `object`  | React Native Modal Props |  | 
-| **FlatListProps** | `object`  | React Native Flatlist Props |  | 
-| **SearchInputProps** | `object`  | React Native TextInput Props |  | 
+| Properties           | Type     | Description                  | Default |
+| -------------------- | -------- | ---------------------------- | ------- |
+| **ModalProps**       | `object` | React Native Modal Props     |         |
+| **FlatListProps**    | `object` | React Native Flatlist Props  |         |
+| **SearchInputProps** | `object` | React Native TextInput Props |         |
 
 <br/>
 <br/>

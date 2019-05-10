@@ -19,15 +19,15 @@ import {
 	ScrollToTopComponent,
 	SelectBoxComponent,
 } from '@Components';
-import { IModalInDtoProps, IModalListInDto, IModalInDtoState } from '@Interfaces';
+import { IModalProps, IModalListInDto, IModalState } from '@Interfaces';
 import { ModalStyles, CommonStyle } from '@Styles';
 
-export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModalInDtoState> {
+export class ModalComponent extends React.PureComponent<IModalProps, IModalState> {
 
 	private flatListRef = null;
 	private numToRender: number = 20;
 
-	public state: IModalInDtoState = {
+	public state: IModalState = {
 		modalVisible: false,
 		searchText: '',
 		stickyBottomButton: false,
@@ -51,10 +51,11 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 		requireSelection: false,
 	};
 
-	constructor(props: IModalInDtoProps) {
+	constructor(props: IModalProps) {
 		super(props);
 		this._onViewableItemsChanged = this._onViewableItemsChanged.bind(this);
 	}
+
 
 	public componentWillUnmount(): void {
 		this.clearComponent();
@@ -97,7 +98,6 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 
 	private _openModal(): void {
 		const { items, autoGenerateAlphabeticalIndex, disabled } = this.props;
-
 		if (autoGenerateAlphabeticalIndex) {
 			this.generateAlphabet();
 		}
@@ -131,16 +131,25 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 			disabled,
 			items,
 			requireSelection,
+			renderSelectView
 		} = this.props;
+
 		const { modalVisible, alphabeticalIndexChars, stickyBottomButton, selectedAlpha, selectedObject } = this.state;
+
+		const selectViewIsDisabled = (disabled || !items || items.length === 0);
+
 		return (
 			<React.Fragment>
-				<SelectBoxComponent
-					disabled={(disabled || !items || items.length === 0)}
-					selectedObject={selectedObject}
-					chooseText={(selected && selected.Name) ? selected.Name : selectPlaceholderText}
-					openModal={this.openModal.bind(this)}
-				/>
+				{
+					(renderSelectView && renderSelectView(selectViewIsDisabled, selected, this.openModal.bind(this))) ||
+					<SelectBoxComponent
+						disabled={selectViewIsDisabled}
+						selectedObject={selectedObject}
+						chooseText={(selected && selected.Name) ? selected.Name : selectPlaceholderText}
+						openModal={this.openModal.bind(this)}
+					/>
+				}
+
 				<Modal
 					animationType={modalAnimationType}
 					visible={modalVisible}

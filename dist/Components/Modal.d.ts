@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { NativeSyntheticEvent, NativeScrollEvent } from 'react-native';
-import { IModalInDtoProps, IModalListInDto, IModalInDtoState } from '../Interfaces';
-export declare class ModalComponent extends React.PureComponent<IModalInDtoProps, IModalInDtoState> {
+import { IModalProps, IModalListInDto, IModalState } from '../Interfaces';
+export declare class ModalComponent extends React.PureComponent<IModalProps, IModalState> {
     private flatListRef;
     private numToRender;
-    state: IModalInDtoState;
+    state: IModalState;
     static defaultProps: {
         showToTopButton: boolean;
         modalAnimationType: string;
@@ -20,7 +20,7 @@ export declare class ModalComponent extends React.PureComponent<IModalInDtoProps
         disabled: boolean;
         requireSelection: boolean;
     };
-    constructor(props: IModalInDtoProps);
+    constructor(props: IModalProps);
     componentWillUnmount(): void;
     componentWillReceiveProps(nextProps: any, nextState: any): void;
     private _clearComponent;
