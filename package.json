@@ -1,6 +1,6 @@
 {
 	"name": "react-native-picker-modal-view",
-	"version": "1.1.2",
+	"version": "1.2.0",
 	"description": "React Native Picker Modal View",
 	"scripts": {
 		"build": "npm run test && rm -rf ./dist/** && tsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./dist && npm run copy-assets",
