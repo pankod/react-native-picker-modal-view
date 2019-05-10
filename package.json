@@ -9,8 +9,7 @@
 		"semantic-release": "semantic-release",
 		"watch": "tsc -- --watch",
 		"test": "jest",
-		"lint": "tslint -c tslint.json 'src/**/*.ts*'",
-		"copy": "rm -rf /Users/pankod/Documents/projects/react-native-picker-modal-view/ExampleApp/node_modules/react-native-picker-modal-view/dist** && cp -R /Users/pankod/Documents/projects/react-native-picker-modal-view/dist /Users/pankod/Documents/projects/react-native-picker-modal-view/ExampleApp/node_modules/react-native-picker-modal-view"
+		"lint": "tslint -c tslint.json 'src/**/*.ts*'"
 	},
 	"repository": {
 		"type": "git",
