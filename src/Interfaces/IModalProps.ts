@@ -16,7 +16,7 @@ type ModalProps = ModalBaseProps | ModalPropsIOS | ModalPropsAndroid;
 
 type ListType = IModalListInDto[];
 
-export interface IModalInDtoProps {
+export interface IModalProps {
 	modalAnimationType?: AnimationTypeEnum;
 	showAlphabeticalIndex: boolean;
 	onClosed: () => void;
@@ -40,9 +40,11 @@ export interface IModalInDtoProps {
 	autoSort?: boolean;
 	disabled: boolean;
 	requireSelection: boolean;
+	renderListItem?: (selectedItem: IModalListInDto, listItem: IModalListInDto) => JSX.Element
+	renderSelectView?: (disabled: boolean, selected: IModalListInDto, showModal: Function) => React.ReactElement
 }
 
-export interface IModalInDtoState {
+export interface IModalState {
 	modalVisible: boolean;
 	searchText: string;
 	alphabeticalIndexChars?: string[];

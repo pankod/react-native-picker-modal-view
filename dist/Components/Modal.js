@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Modal, View, FlatList, KeyboardAvoidingView, Platform, SafeAreaView, } from 'react-native';
+import { Modal, View, FlatList, KeyboardAvoidingView, Platform, SafeAreaView, TouchableOpacity } from 'react-native';
 import { AlphabetComponent, ListItemComponent, SearchComponent, ScrollToTopComponent, SelectBoxComponent, } from './';
 import { ModalStyles, CommonStyle } from '../Assets/Styles';
 export class ModalComponent extends React.PureComponent {
@@ -63,10 +63,12 @@ export class ModalComponent extends React.PureComponent {
         this._openModal();
     }
     render() {
-        const { modalAnimationType, onClosed, showAlphabeticalIndex, searchInputTextColor, keyExtractor, showToTopButton, onEndReached, removeClippedSubviews, FlatListProps, selectPlaceholderText, searchPlaceholderText, SearchInputProps, selected, disabled, items, requireSelection, } = this.props;
+        const { modalAnimationType, onClosed, showAlphabeticalIndex, searchInputTextColor, keyExtractor, showToTopButton, onEndReached, removeClippedSubviews, FlatListProps, selectPlaceholderText, searchPlaceholderText, SearchInputProps, selected, disabled, items, requireSelection, renderSelectView } = this.props;
         const { modalVisible, alphabeticalIndexChars, stickyBottomButton, selectedAlpha, selectedObject } = this.state;
+        const selectViewIsDisabled = (disabled || !items || items.length === 0);
         return (React.createElement(React.Fragment, null,
-            React.createElement(SelectBoxComponent, { disabled: (disabled || !items || items.length === 0), selectedObject: selectedObject, chooseText: (selected && selected.Name) ? selected.Name : selectPlaceholderText, openModal: this.openModal.bind(this) }),
+            (renderSelectView && renderSelectView(selectViewIsDisabled, selected, this.openModal.bind(this))) ||
+                React.createElement(SelectBoxComponent, { disabled: selectViewIsDisabled, selectedObject: selectedObject, chooseText: (selected && selected.Name) ? selected.Name : selectPlaceholderText, openModal: this.openModal.bind(this) }),
             React.createElement(Modal, { animationType: modalAnimationType, visible: modalVisible, onRequestClose: () => onClosed },
                 React.createElement(SafeAreaView, { style: ModalStyles.container },
                     React.createElement(SearchComponent, Object.assign({ searchText: searchPlaceholderText, placeholderTextColor: searchInputTextColor, onClose: this.onClose.bind(this), onBackRequest: this.onBackRequest.bind(this), forceSelect: requireSelection, setText: (text) => this.setText(text) }, SearchInputProps)),
@@ -159,8 +161,11 @@ export class ModalComponent extends React.PureComponent {
         this._onScrolling(e);
     }
     _renderItem(item, index) {
-        const { selected } = this.props;
-        return React.createElement(ListItemComponent, { key: index.toString(), defaultSelected: selected, list: item, onSelectMethod: this.onSelectMethod.bind(this) });
+        const { selected, renderListItem } = this.props;
+        return ((renderListItem &&
+            React.createElement(TouchableOpacity, { key: index.toString(), onPress: () => this.onSelectMethod(item) }, renderListItem(selected, item)))
+            ||
+                React.createElement(ListItemComponent, { key: index.toString(), defaultSelected: selected, list: item, onSelectMethod: this.onSelectMethod.bind(this) }));
     }
     renderItem(item, index) {
         return this._renderItem(item, index);

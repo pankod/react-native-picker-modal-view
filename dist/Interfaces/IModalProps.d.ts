@@ -1,9 +1,10 @@
+/// <reference types="react" />
 import { FlatListProps, TextInputProps, ModalBaseProps, ModalPropsIOS, ModalPropsAndroid } from 'react-native';
 import { AnimationTypeEnum, LanguagesEnum } from '../Enum';
 import { IModalListInDto } from './';
 declare type ModalProps = ModalBaseProps | ModalPropsIOS | ModalPropsAndroid;
 declare type ListType = IModalListInDto[];
-export interface IModalInDtoProps {
+export interface IModalProps {
     modalAnimationType?: AnimationTypeEnum;
     showAlphabeticalIndex: boolean;
     onClosed: () => void;
@@ -27,8 +28,10 @@ export interface IModalInDtoProps {
     autoSort?: boolean;
     disabled: boolean;
     requireSelection: boolean;
+    renderListItem?: (selectedItem: IModalListInDto, listItem: IModalListInDto) => JSX.Element;
+    renderSelectView?: (disabled: boolean, selected: IModalListInDto, showModal: Function) => React.ReactElement;
 }
-export interface IModalInDtoState {
+export interface IModalState {
     modalVisible: boolean;
     searchText: string;
     alphabeticalIndexChars?: string[];

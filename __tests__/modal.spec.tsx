@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, ScrollView, Modal } from 'react-native';
+import { Button } from 'react-native';
 import { shallow, ShallowWrapper, mount } from 'enzyme';
 import renderer from 'react-test-renderer';
 
@@ -38,6 +38,7 @@ describe('ModalComponent', () => {
 				Value: 'Şule Doe',
 			}
 		];
+
 		const onSelected = jest.fn((a) => a);
 		const onRequestClosed = jest.fn();
 		const onBackRequest = jest.fn();
@@ -49,6 +50,7 @@ describe('ModalComponent', () => {
 			selectedAlpha: null,
 			selectedObject: {},
 		}
+
 		const component = (<ModalComponent
 			showAlphabeticalIndex={false}
 			onClosed={onRequestClosed}
@@ -83,6 +85,7 @@ describe('ModalComponent', () => {
 			expect(typeof wrapper.state('selectedObject')).toBe('object');
 			expect(render).toMatchSnapshot();
 		});
+
 
 		test('should (showAlphabeticalIndex,autoGenerateAlphabeticalIndex,autoCorrect,autoSort,disabledforceSelect) type is boolean ', () => {
 			expect(typeof mounting.props().showAlphabeticalIndex).toBe('boolean');
@@ -264,6 +267,24 @@ describe('ModalComponent', () => {
 			setTimeout(() => {
 				expect(wrapper.state('selectedAlpha')).toEqual(selectedAlpha);
 			}, 0);
+		});
+
+		test('should render a renderListItem', () => {
+			const selectListItemView = () => <Button title="renderListItem" onPress={jest.fn()} />;
+			mounting.setProps({
+				renderListItem: selectListItemView
+			});
+
+			expect(mounting.find({ title: "renderListItem" })).toHaveLength(list.length);
+		});
+
+		test('should render a renderSelectView', () => {
+			const selectView = () => <Button title="renderSelectView" onPress={jest.fn()} />;
+			mounting.setProps({
+				renderSelectView: selectView
+			});
+
+			expect(mounting.find({ title: "renderSelectView" })).toHaveLength(1);
 		});
 
 	});
