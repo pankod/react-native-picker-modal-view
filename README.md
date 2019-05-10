@@ -1,6 +1,17 @@
-# React Native Picker Modal View
 
-An alternative to [Picker](https://facebook.github.io/react-native/docs/picker) and [PickerIOS](https://facebook.github.io/react-native/docs/pickerios) components with an unified API and consistent look & feel on both plaforms. It's fully configurable and includes built-in support for text search and alphabetical index. Ideal for longer lists not suitable for "wheel-pickers".
+<div align="center">
+ <img src="screenshots/ios.gif" width="200" height="400">
+ <img src="screenshots/android.gif" width="200" height="400">
+</div>
+
+<br/>
+
+
+<br/>
+<div align="center"><h3>React Native Picker Modal View<h3></div>
+<div align="center">React Native Module to select item picker modal.</div>
+
+<br/>
 
 <div align="center">
 
@@ -14,20 +25,12 @@ An alternative to [Picker](https://facebook.github.io/react-native/docs/picker) 
 <br/>
 
 <div align="center">
- <img src="screenshots/ios.gif" width="200" height="400">
- <img src="screenshots/android.gif" width="200" height="400">
-</div>
-
-<br/>
-
-
-<br/>
-<div align="center"> <h3>React Native Picker Modal View<h3></div>
-<div align="center">React Native Module to select item picker modal.</div>
-<div align="center">
   <sub>Created by <a href="https://www.pankod.com">Pankod</a></sub>
 </div>
+
 <br/>
+
+An alternative to [Picker](https://facebook.github.io/react-native/docs/picker) and [PickerIOS](https://facebook.github.io/react-native/docs/pickerios) components with an unified API and consistent look & feel on both plaforms. It's fully configurable and includes built-in support for text search and alphabetical index. Ideal for longer lists not suitable for "wheel-pickers".
 
 
 
@@ -148,6 +151,29 @@ export default class example extends Component {
 <br/>
 <br/>
 
+
+## Running example project
+
+You should have React Native CLI to be installed in order to run example.
+
+Follow this [instructions](https://facebook.github.io/react-native/docs/getting-started) if you need to install React Native CLI
+
+To run the demo app, go to ExampleApp directory then run the following commands:
+
+```
+npm install
+```
+
+Once the installation is done, you can run the following command:
+
+```
+react-native run-ios
+```
+``` 
+react-native run-android
+```
+
+<br/>
 
 #### Notes
 
