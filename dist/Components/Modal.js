@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Modal, View, FlatList, KeyboardAvoidingView, Platform, SafeAreaView, } from 'react-native';
+import { Modal, View, FlatList, KeyboardAvoidingView, Platform, SafeAreaView, TouchableOpacity } from 'react-native';
 import { AlphabetComponent, ListItemComponent, SearchComponent, ScrollToTopComponent, SelectBoxComponent, } from './';
 import { ModalStyles, CommonStyle } from '../Assets/Styles';
 export class ModalComponent extends React.PureComponent {
@@ -159,8 +159,11 @@ export class ModalComponent extends React.PureComponent {
         this._onScrolling(e);
     }
     _renderItem(item, index) {
-        const { selected } = this.props;
-        return React.createElement(ListItemComponent, { key: index.toString(), defaultSelected: selected, list: item, onSelectMethod: this.onSelectMethod.bind(this) });
+        const { selected, renderListItem } = this.props;
+        return ((renderListItem &&
+            React.createElement(TouchableOpacity, { key: index.toString(), onPress: () => this.onSelectMethod(item) }, renderListItem(selected, item)))
+            ||
+                React.createElement(ListItemComponent, { key: index.toString(), defaultSelected: selected, list: item, onSelectMethod: this.onSelectMethod.bind(this) }));
     }
     renderItem(item, index) {
         return this._renderItem(item, index);

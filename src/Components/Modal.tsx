@@ -9,6 +9,7 @@ import {
 	NativeScrollEvent,
 	Platform,
 	SafeAreaView,
+	TouchableOpacity
 } from 'react-native';
 
 // Local Imports
@@ -293,13 +294,24 @@ export class ModalComponent extends React.PureComponent<IModalInDtoProps, IModal
 	}
 
 	private _renderItem(item: IModalListInDto, index: number): JSX.Element {
-		const { selected } = this.props;
-		return <ListItemComponent
-			key={index.toString()}
-			defaultSelected={selected}
-			list={item}
-			onSelectMethod={this.onSelectMethod.bind(this)}
-		/>;
+		const { selected, renderListItem } = this.props;
+		return (
+			(renderListItem &&
+				<TouchableOpacity
+					key={index.toString()}
+					onPress={() => this.onSelectMethod(item)}
+				>
+					{renderListItem(selected, item)}
+				</TouchableOpacity>)
+			||
+			<ListItemComponent
+				key={index.toString()}
+				defaultSelected={selected}
+				list={item}
+				onSelectMethod={this.onSelectMethod.bind(this)}
+			/>
+
+		)
 	}
 
 	private renderItem(item: IModalListInDto, index: number): JSX.Element {

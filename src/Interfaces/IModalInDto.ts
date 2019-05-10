@@ -40,6 +40,8 @@ export interface IModalInDtoProps {
 	autoSort?: boolean;
 	disabled: boolean;
 	requireSelection: boolean;
+
+	renderListItem?: (selectedItem: IModalListInDto, listItem: IModalListInDto) => JSX.Element
 }
 
 export interface IModalInDtoState {

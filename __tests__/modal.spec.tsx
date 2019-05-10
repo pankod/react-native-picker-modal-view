@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, ScrollView, Modal } from 'react-native';
+import { View, ScrollView, Modal, Text, Button } from 'react-native';
 import { shallow, ShallowWrapper, mount } from 'enzyme';
 import renderer from 'react-test-renderer';
 
@@ -266,5 +266,13 @@ describe('ModalComponent', () => {
 			}, 0);
 		});
 
+		test('should render a renderListItem', () => {
+			const selectListItemView = () => <Button title="renderListItem" onPress={jest.fn()} />;
+			mounting.setProps({
+				renderListItem: selectListItemView
+			});
+
+			expect(mounting.find({ title: "renderListItem" })).toHaveLength(list.length);
+		});
 	});
 });

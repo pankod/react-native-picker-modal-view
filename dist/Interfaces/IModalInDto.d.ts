@@ -1,3 +1,4 @@
+/// <reference types="react" />
 import { FlatListProps, TextInputProps, ModalBaseProps, ModalPropsIOS, ModalPropsAndroid } from 'react-native';
 import { AnimationTypeEnum, LanguagesEnum } from '../Enum';
 import { IModalListInDto } from './';
@@ -27,6 +28,7 @@ export interface IModalInDtoProps {
     autoSort?: boolean;
     disabled: boolean;
     requireSelection: boolean;
+    renderListItem?: (selectedItem: IModalListInDto, listItem: IModalListInDto) => JSX.Element;
 }
 export interface IModalInDtoState {
     modalVisible: boolean;
