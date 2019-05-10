@@ -63,10 +63,12 @@ export class ModalComponent extends React.PureComponent {
         this._openModal();
     }
     render() {
-        const { modalAnimationType, onClosed, showAlphabeticalIndex, searchInputTextColor, keyExtractor, showToTopButton, onEndReached, removeClippedSubviews, FlatListProps, selectPlaceholderText, searchPlaceholderText, SearchInputProps, selected, disabled, items, requireSelection, } = this.props;
+        const { modalAnimationType, onClosed, showAlphabeticalIndex, searchInputTextColor, keyExtractor, showToTopButton, onEndReached, removeClippedSubviews, FlatListProps, selectPlaceholderText, searchPlaceholderText, SearchInputProps, selected, disabled, items, requireSelection, renderSelectView } = this.props;
         const { modalVisible, alphabeticalIndexChars, stickyBottomButton, selectedAlpha, selectedObject } = this.state;
+        const selectViewIsDisabled = (disabled || !items || items.length === 0);
         return (React.createElement(React.Fragment, null,
-            React.createElement(SelectBoxComponent, { disabled: (disabled || !items || items.length === 0), selectedObject: selectedObject, chooseText: (selected && selected.Name) ? selected.Name : selectPlaceholderText, openModal: this.openModal.bind(this) }),
+            (renderSelectView && renderSelectView(selectViewIsDisabled, selected, this.openModal.bind(this))) ||
+                React.createElement(SelectBoxComponent, { disabled: selectViewIsDisabled, selectedObject: selectedObject, chooseText: (selected && selected.Name) ? selected.Name : selectPlaceholderText, openModal: this.openModal.bind(this) }),
             React.createElement(Modal, { animationType: modalAnimationType, visible: modalVisible, onRequestClose: () => onClosed },
                 React.createElement(SafeAreaView, { style: ModalStyles.container },
                     React.createElement(SearchComponent, Object.assign({ searchText: searchPlaceholderText, placeholderTextColor: searchInputTextColor, onClose: this.onClose.bind(this), onBackRequest: this.onBackRequest.bind(this), forceSelect: requireSelection, setText: (text) => this.setText(text) }, SearchInputProps)),

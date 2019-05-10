@@ -1,4 +1,4 @@
-export { IModalInDtoProps, IModalInDtoState } from './IModalInDto';
+export { IModalProps, IModalState } from './IModalProps';
 export { IModalListInDto } from './IModalListInDto';
 export { IAlphabetsInDto } from './IAlphabetsInDto';
 export { IListItemInDto } from './IListItemInDto';

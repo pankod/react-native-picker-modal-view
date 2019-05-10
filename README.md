@@ -64,7 +64,7 @@ $ yarn add react-native-picker-modal-view
 import React, { Component } from 'react';
 import PickerModal from 'react-native-picker-modal-view';
 
-const items = [ { "Name": "United States", "Value": "United States", "Code": "US", "Id": 1 }, { "Name": "China", "Value": "China", "Code": "CN", "Id": 2 }, { "Name": "Japan", "Value": "Japan", "Code": "JP", "Id": 3 }, { "Name": "Germany", "Value": "Germany", "Code": "DE", "Id": 4 }, { "Name": "Turkey", "Value": "Turkey", "Code": "TR", "Id": 5 }]
+const items = [ { "Name": "United States", "Value": "United States", "Code": "US", "Id": 1 }, { "Name": "China", "Value": "China", "Code": "CN", "Id": 2 }, { "Name": "Japan", "Value": "Japan", "Code": "JP", "Id": 3 }, { "Name": "Germany", "Value": "Germany", "Code": "DE", "Id": 4 }, { "Name": "Turkey", "Value": "Turkey", "Code": "TR", "Id": 5 } ];
 
 export default class example extends Component {
 
@@ -73,6 +73,29 @@ export default class example extends Component {
 		this.state = {
 			selectedItem: {},
 		};
+	}
+
+	render() {
+		return (
+			<PickerModal
+				renderSelectView={(disabled, selected, showModal) =>
+					<Button disabled={disabled} title={"Show me!"} onPress={showModal} />
+				}
+				onSelected={(selected) => this.selected(selected)}	
+				onClosed={this.close.bind(this)}
+				onBackButtonPressed={this.onBackRequest.bind(this)}
+				items={items}
+				sortingLanguage={'tr'}
+				showToTopButton={true}
+				selected={this.state.selectedItem}
+				autoGenerateAlphabeticalIndex={true}
+				selectPlaceholderText={'Choose one...'}
+				onEndReached={() => console.log('list ended...')}
+				searchPlaceholderText={'Search...'}
+				requireSelection={false}
+				autoSort={false}
+			/>
+		)
 	}
 
 	close() {
@@ -87,26 +110,6 @@ export default class example extends Component {
 
 	onBackRequest() {
 		console.log("back key pressed");
-	}
-
-	render() {
-		return (
-			<PickerModal
-			onSelected={(selected) => this.selected(selected)}	
-			onClosed={this.close.bind(this)}
-			onBackButtonPressed={this.onBackRequest.bind(this)}
-			items={items}
-			sortingLanguage={'tr'}
-			showToTopButton={true}
-			selected={this.state.selectedItem}
-			autoGenerateAlphabeticalIndex={true}
-			selectPlaceholderText={'Choose one...'}
-			onEndReached={() => console.log('list ended...')}
-			searchPlaceholderText={'Search...'}
-			requireSelection={false}
-			autoSort={false}
-			/>
-		)
 	}
 }
 
@@ -125,7 +128,8 @@ export default class example extends Component {
 | **onBackButtonPressed**           | `Function` | Fired when the back key is pressed                     |                                             |
 | **onSelected** <br> **required*   | `Function` | Returns selected item object                           | `"{Id, Name, Value, [key: string]: any}"`   |
 | **items** <br> **required*        | `array`    | Array of list items                                    | `"[{Id, Name, Value, [key: string]: any}]"` |
-| **renderListItem** <br>           | `Element`  | Render List item                                       | `<ListItemComponent (built-in)/>`           |
+| **renderSelectView**              | `Element`  | Render Select Component                                | `<SelectBoxComponent (built-in)>`           |
+| **renderListItem**	            | `Element`  | Render List item                                       | `<ListItemComponent (built-in)/>`           |
 | **alphabeticalIndexChars**        | `array`    | Chracters array for the alphabetical index             | `<Turkish alphabet chracters>`              |
 | **searchInputTextColor**          | `string`   | Search input placeholder text color                    | `"#252525"`                                 |
 | **keyExtractor**                  | `Function` | Flatlist defined {key} function                        | `<Predefined return map index>`             |
