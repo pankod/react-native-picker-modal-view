@@ -186,13 +186,13 @@ export class ModalComponent extends React.PureComponent<IModalProps, IModalState
 									removeClippedSubviews={removeClippedSubviews}
 									viewabilityConfig={{
 										minimumViewTime: 500,
-										viewAreaCoveragePercentThreshold: 100,
-										waitForInteraction: true,
+										viewAreaCoveragePercentThreshold: 50,
+										waitForInteraction: true
 									}}
 									getItemLayout={(_, index) => ({
 										length: CommonStyle.BTN_HEIGHT,
 										offset: CommonStyle.BTN_HEIGHT * index,
-										index,
+										index
 									})}
 									onViewableItemsChanged={this._onViewableItemsChanged}
 									{...FlatListProps}
