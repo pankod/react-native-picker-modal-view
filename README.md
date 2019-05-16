@@ -186,6 +186,8 @@ react-native run-android
 
 #### Releases
 
+- 1.2.1 - Fixed <a href="https://github.com/pankod/react-native-picker-modal-view/issues/5">#5</a>
+- 1.2.0 - Added renderSelectView and renderListItem properties.
 - 1.0.0 - Initial release
 
 
