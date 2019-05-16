@@ -61,56 +61,74 @@ $ yarn add react-native-picker-modal-view
 
 ## Example
 ```javascript
-import React, { Component } from 'react';
+import * as React from 'react';
+import { Button, SafeAreaView, Text, View } from 'react-native';
+
 import PickerModal from 'react-native-picker-modal-view';
 
-const items = [ { "Name": "United States", "Value": "United States", "Code": "US", "Id": 1 }, { "Name": "China", "Value": "China", "Code": "CN", "Id": 2 }, { "Name": "Japan", "Value": "Japan", "Code": "JP", "Id": 3 }, { "Name": "Germany", "Value": "Germany", "Code": "DE", "Id": 4 }, { "Name": "Turkey", "Value": "Turkey", "Code": "TR", "Id": 5 } ];
+import data from '../../../top20.json';
 
-export default class example extends Component {
-
-	constructor(props) {
+export default class Main extends React.Component<{}, { selectedItem: {} }> {
+	constructor(props: {}) {
 		super(props);
+
 		this.state = {
-			selectedItem: {},
+			selectedItem: {}
 		};
 	}
 
-	render() {
+	public componentDidMount(): void {
+		setTimeout(() => {
+			this.setState({ intro: false });
+		}, 2000);
+	}
+
+	public render(): JSX.Element {
+		const { selectedItem } = this.state;
+
 		return (
-			<PickerModal
-				renderSelectView={(disabled, selected, showModal) =>
-					<Button disabled={disabled} title={"Show me!"} onPress={showModal} />
-				}
-				onSelected={(selected) => this.selected(selected)}	
-				onClosed={this.close.bind(this)}
-				onBackButtonPressed={this.onBackRequest.bind(this)}
-				items={items}
-				sortingLanguage={'tr'}
-				showToTopButton={true}
-				selected={this.state.selectedItem}
-				autoGenerateAlphabeticalIndex={true}
-				selectPlaceholderText={'Choose one...'}
-				onEndReached={() => console.log('list ended...')}
-				searchPlaceholderText={'Search...'}
-				requireSelection={false}
-				autoSort={false}
-			/>
-		)
+			<SafeAreaView style={{ flex: 1, justifyContent: 'center', marginHorizontal: 20 }}>
+
+				<PickerModal
+					renderSelectView={(disabled, selected, showModal) =>
+						<Button disabled={disabled} title={'Show me!'} onPress={showModal} />
+					}
+					onSelected={this.onSelected.bind(this)}
+					onClosed={this.onClosed.bind(this)}
+					onBackButtonPressed={this.onBackButtonPressed.bind(this)}
+					items={data}
+					sortingLanguage={'tr'}
+					showToTopButton={true}
+					selected={selectedItem}
+					autoGenerateAlphabeticalIndex={true}
+					selectPlaceholderText={'Choose one...'}
+					onEndReached={() => console.log('list ended...')}
+					searchPlaceholderText={'Search...'}
+					requireSelection={false}
+					autoSort={false}
+				/>
+				<View style={{ padding: 10, alignItems: 'center', backgroundColor: '#ddd' }}>
+					<Text>Chosen: </Text>
+					<Text>{JSON.stringify(selectedItem)}</Text>
+				</View>
+			</SafeAreaView>
+		);
 	}
 
-	close() {
-		console.log("close key pressed");
+	private onClosed(): void {
+		console.log('close key pressed');
 	}
 
-	selected(selected) {
-		this.setState({
-			selectedItem: selected
-		})
+	private onSelected(selected: any): void {
+		this.setState({ selectedItem: selected });
+
+		return selected;
 	}
 
-	onBackRequest() {
-		console.log("back key pressed");
+	private onBackButtonPressed(): void {
+		console.log('back key pressed');
 	}
+}
 }
 
 ```
@@ -129,7 +147,7 @@ export default class example extends Component {
 | **onSelected** <br> **required*   | `Function` | Returns selected item object                           | `"{Id, Name, Value, [key: string]: any}"`   |
 | **items** <br> **required*        | `array`    | Array of list items                                    | `"[{Id, Name, Value, [key: string]: any}]"` |
 | **renderSelectView**              | `Element`  | Render Select Component                                | `<SelectBoxComponent (built-in)>`           |
-| **renderListItem**	            | `Element`  | Render List item                                       | `<ListItemComponent (built-in)/>`           |
+| **renderListItem**                | `Element`  | Render List item                                       | `<ListItemComponent (built-in)/>`           |
 | **alphabeticalIndexChars**        | `array`    | Chracters array for the alphabetical index             | `<Turkish alphabet chracters>`              |
 | **searchInputTextColor**          | `string`   | Search input placeholder text color                    | `"#252525"`                                 |
 | **keyExtractor**                  | `Function` | Flatlist defined {key} function                        | `<Predefined return map index>`             |

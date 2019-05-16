@@ -51,10 +51,16 @@ export class ModalComponent extends React.PureComponent<IModalProps, IModalState
 		disabled: false,
 		requireSelection: false,
 	};
+	private viewabilityConfig: { minimumViewTime: number; waitForInteraction: boolean; viewAreaCoveragePercentThreshold: number; };
 
 	constructor(props: IModalProps) {
 		super(props);
 		this._onViewableItemsChanged = this._onViewableItemsChanged.bind(this);
+		this.viewabilityConfig = {
+			minimumViewTime: 500,
+			waitForInteraction: true,
+			viewAreaCoveragePercentThreshold: 95
+		}
 	}
 
 
@@ -184,11 +190,7 @@ export class ModalComponent extends React.PureComponent<IModalProps, IModalState
 									legacyImplementation={false}
 									updateCellsBatchingPeriod={50}
 									removeClippedSubviews={removeClippedSubviews}
-									viewabilityConfig={{
-										minimumViewTime: 500,
-										viewAreaCoveragePercentThreshold: 50,
-										waitForInteraction: true
-									}}
+									viewabilityConfig={this.viewabilityConfig}
 									getItemLayout={(_, index) => ({
 										length: CommonStyle.BTN_HEIGHT,
 										offset: CommonStyle.BTN_HEIGHT * index,

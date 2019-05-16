@@ -1,0 +1,29 @@
+{
+	"compilerOptions": {
+		"allowJs": false,
+		"baseUrl": ".",
+		"rootDirs": [
+			"./src"
+		],
+		"resolveJsonModule": true,
+		"allowSyntheticDefaultImports": true,
+		"noFallthroughCasesInSwitch": true,
+		"experimentalDecorators": true,
+		"esModuleInterop": true,
+		"jsx": "react-native",
+		"paths": {},
+		"typeRoots": [
+			"node_modules/@types"
+		],
+		"lib": [
+			"es6"
+		],
+		"moduleResolution": "node",
+		"noEmit": true,
+		"strict": true,
+		"target": "esnext"
+	},
+	"exclude": [
+		"node_modules"
+	]
+}

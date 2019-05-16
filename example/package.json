@@ -1,0 +1,60 @@
+{
+	"name": "expo-boilerplate",
+	"version": "1.0.1",
+	"description": "React Native Expo boilerplate with Typescript support",
+	"main": "node_modules/expo/AppEntry.js",
+	"scripts": {
+		"start": "expo start",
+		"android": "expo start --android",
+		"ios": "expo start --ios",
+		"eject": "expo eject",
+		"test": "nyc jest --coverage",
+		"posttest": "nyc report --reporter=json > coverage/coverage.json"
+	},
+	"keywords": [
+		"react",
+		"react-native",
+		"expo",
+		"typescript"
+	],
+	"author": "Pankod Inc.",
+	"contributors": [
+		{
+			"name": "aydinakyol",
+			"email": "aydin@pankod.com"
+		}
+	],
+	"license": "MIT",
+	"dependencies": {
+		"@pankod/project-splash": "git+https://github.com/pankod/project-splash.git",
+		"react-native-picker-modal-view": "git+https://github.com/pankod/react-native-picker-modal-view.git#develop",
+		"@types/enzyme": "^3.9.2",
+		"@types/jest": "^24.0.13",
+		"expo": "^32.0.0",
+		"react": "16.5.0",
+		"react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz"
+	},
+	"devDependencies": {
+		"@types/expo": "^32.0.13",
+		"@types/react-native": "^0.57.55",
+		"babel-preset-expo": "^5.0.0",
+		"enzyme": "^3.9.0",
+		"enzyme-adapter-react-16": "^1.13.0",
+		"jest": "^24.8.0",
+		"jest-expo": "^32.0.0",
+		"module-resolver": "^1.0.0",
+		"nyc": "^14.1.1",
+		"react-dom": "^16.5.0",
+		"typescript": "^3.4.5"
+	},
+	"jest": {
+		"preset": "jest-expo",
+		"testMatch": [
+			"**/__tests__/**/*.[tj]s?(x)",
+			"**/?(*.)(spec|test).[tj]s?(x)"
+		],
+		"setupFiles": [
+			"./test/setupTests.js"
+		]
+	}
+}
