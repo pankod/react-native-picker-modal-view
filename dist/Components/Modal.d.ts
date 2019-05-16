@@ -20,6 +20,7 @@ export declare class ModalComponent extends React.PureComponent<IModalProps, IMo
         disabled: boolean;
         requireSelection: boolean;
     };
+    private viewabilityConfig;
     constructor(props: IModalProps);
     componentWillUnmount(): void;
     componentWillReceiveProps(nextProps: any, nextState: any): void;

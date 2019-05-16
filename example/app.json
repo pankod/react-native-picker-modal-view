@@ -1,0 +1,27 @@
+{
+  "expo": {
+    "name": "expo-boilerplate",
+    "slug": "expo-boilerplate",
+    "privacy": "public",
+    "sdkVersion": "32.0.0",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./src/Assets/Images/pan.png",
+    "loading": {
+      "icon": "./src/Assets/Images/pan.png"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    }
+  }
+}
