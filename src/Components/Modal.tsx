@@ -194,7 +194,7 @@ export class ModalComponent extends React.PureComponent<IModalProps, IModalState
 									getItemLayout={(_, index) => ({
 										length: CommonStyle.BTN_HEIGHT,
 										offset: CommonStyle.BTN_HEIGHT * index,
-										index,
+										index
 									})}
 									onViewableItemsChanged={this._onViewableItemsChanged}
 									{...FlatListProps}
