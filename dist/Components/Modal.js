@@ -15,6 +15,11 @@ export class ModalComponent extends React.PureComponent {
             selectedObject: {},
         };
         this._onViewableItemsChanged = this._onViewableItemsChanged.bind(this);
+        this.viewabilityConfig = {
+            minimumViewTime: 500,
+            waitForInteraction: true,
+            viewAreaCoveragePercentThreshold: 95
+        };
     }
     componentWillUnmount() {
         this.clearComponent();
@@ -74,11 +79,7 @@ export class ModalComponent extends React.PureComponent {
                     React.createElement(SearchComponent, Object.assign({ searchText: searchPlaceholderText, placeholderTextColor: searchInputTextColor, onClose: this.onClose.bind(this), onBackRequest: this.onBackRequest.bind(this), forceSelect: requireSelection, setText: (text) => this.setText(text) }, SearchInputProps)),
                     React.createElement(KeyboardAvoidingView, { style: ModalStyles.keyboardContainer, behavior: Platform.OS === 'ios' ? 'padding' : null, enabled: true },
                         React.createElement(View, { style: ModalStyles.listArea },
-                            React.createElement(FlatList, Object.assign({ ref: (ref) => this.flatListRef = ref, data: this.getFilteredData(), keyExtractor: keyExtractor ? keyExtractor : this.keyExtractor.bind(this), renderItem: ({ item, index }) => this.renderItem(item, index), onScroll: showToTopButton && this.onScrolling.bind(this), initialNumToRender: this.numToRender, keyboardShouldPersistTaps: 'always', keyboardDismissMode: 'interactive', onEndReached: onEndReached, maxToRenderPerBatch: 20, legacyImplementation: false, updateCellsBatchingPeriod: 50, removeClippedSubviews: removeClippedSubviews, viewabilityConfig: {
-                                    minimumViewTime: 500,
-                                    viewAreaCoveragePercentThreshold: 100,
-                                    waitForInteraction: true,
-                                }, getItemLayout: (_, index) => ({
+                            React.createElement(FlatList, Object.assign({ ref: (ref) => this.flatListRef = ref, data: this.getFilteredData(), keyExtractor: keyExtractor ? keyExtractor : this.keyExtractor.bind(this), renderItem: ({ item, index }) => this.renderItem(item, index), onScroll: showToTopButton && this.onScrolling.bind(this), initialNumToRender: this.numToRender, keyboardShouldPersistTaps: 'always', keyboardDismissMode: 'interactive', onEndReached: onEndReached, maxToRenderPerBatch: 20, legacyImplementation: false, updateCellsBatchingPeriod: 50, removeClippedSubviews: removeClippedSubviews, viewabilityConfig: this.viewabilityConfig, getItemLayout: (_, index) => ({
                                     length: CommonStyle.BTN_HEIGHT,
                                     offset: CommonStyle.BTN_HEIGHT * index,
                                     index,
