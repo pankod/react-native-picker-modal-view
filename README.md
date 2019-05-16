@@ -177,26 +177,34 @@ export default class Main extends React.Component<{}, { selectedItem: {} }> {
 
 ## Running example project
 
-You should have React Native CLI to be installed in order to run example.
+1. You should have React Expo CLI to be installed in order to run example. Follow this [instructions](https://facebook.github.io/react-native/docs/getting-started) if you need to install Expo CLI.
+<br/>
+   
 
-Follow this [instructions](https://facebook.github.io/react-native/docs/getting-started) if you need to install React Native CLI
+2. Install the dependencies:
 
-To run the demo app, go to ExampleApp directory then run the following commands:
-
-```
+```sh
 npm install
 ```
 
-Once the installation is done, you can run the following command:
+3. Once the installation is done, you can run the following command:
+ 
+ **npm**
+ ```
+ npm start
+ ```
+ You can also use:
 
-```
-react-native run-ios
-```
-``` 
-react-native run-android
-```
+ **expo**
+  ```
+ expo start
+ ```
 
-<br/>
+  **yarn**
+  ```
+ expo start
+ ```
+ <br/>
 
 #### Notes
 

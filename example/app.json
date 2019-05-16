@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "expo-boilerplate",
-    "slug": "expo-boilerplate",
+    "name": "react-native-picker-modal-view",
+    "slug": "react-native-picker-modal-view",
     "privacy": "public",
     "sdkVersion": "32.0.0",
     "platforms": [
@@ -22,6 +22,8 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": "An unified React Native Picker Modal component for iOS and Android.",
+    "githubUrl": "https://github.com/pankod/react-native-picker-modal-view"
   }
 }
