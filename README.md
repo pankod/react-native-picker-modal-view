@@ -59,6 +59,10 @@ $ yarn add react-native-picker-modal-view
 <!-- ## Usage -->
 
 
+## Live Demo
+<div data-snack-id="@pankod/github.com-pankod-react-native-picker-modal-view:example" data-snack-platform="ios" data-snack-preview="true" data-snack-theme="dark" style="overflow:hidden;background:#212733;border:1px solid rgba(0,0,0,.08);border-radius:4px;height:505px;width:100%"></div>
+<script async src="https://snack.expo.io/embed.js"></script>
+
 ## Example
 ```javascript
 import * as React from 'react';
@@ -88,7 +92,6 @@ export default class Main extends React.Component<{}, { selectedItem: {} }> {
 
 		return (
 			<SafeAreaView style={{ flex: 1, justifyContent: 'center', marginHorizontal: 20 }}>
-
 				<PickerModal
 					renderSelectView={(disabled, selected, showModal) =>
 						<Button disabled={disabled} title={'Show me!'} onPress={showModal} />
@@ -128,7 +131,6 @@ export default class Main extends React.Component<{}, { selectedItem: {} }> {
 	private onBackButtonPressed(): void {
 		console.log('back key pressed');
 	}
-}
 }
 
 ```
