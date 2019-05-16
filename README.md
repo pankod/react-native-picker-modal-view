@@ -76,18 +76,13 @@ import PickerModal from 'react-native-picker-modal-view';
 import data from '../../../top20.json';
 
 export default class Main extends React.Component<{}, { selectedItem: {} }> {
+
 	constructor(props: {}) {
 		super(props);
 
 		this.state = {
 			selectedItem: {}
 		};
-	}
-
-	public componentDidMount(): void {
-		setTimeout(() => {
-			this.setState({ intro: false });
-		}, 2000);
 	}
 
 	public render(): JSX.Element {
