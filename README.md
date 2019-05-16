@@ -58,9 +58,15 @@ $ yarn add react-native-picker-modal-view
 
 
 ## Live Demo with Expo
-<iframe src="https://snack.expo.io/@pankod/github.com-pankod-react-native-picker-modal-view:example" height="800px" width="100%" />
+
+<div align="center">
+
+[![Explore with Expo Snack](screenshots/expo_preview.png)](https://snack.expo.io/@pankod/github.com-pankod-react-native-picker-modal-view:example)
+
+</div>
 
 ## Example
+
 ```javascript
 import * as React from 'react';
 import { Button, SafeAreaView, Text, View } from 'react-native';
