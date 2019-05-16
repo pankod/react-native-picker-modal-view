@@ -43,8 +43,6 @@ An alternative to [Picker](https://facebook.github.io/react-native/docs/picker) 
 
 
 
-
-
 ## Getting started
 ```
 $ npm install react-native-picker-modal-view --save
@@ -59,9 +57,8 @@ $ yarn add react-native-picker-modal-view
 <!-- ## Usage -->
 
 
-## Live Demo
-<div data-snack-id="@pankod/github.com-pankod-react-native-picker-modal-view:example" data-snack-platform="ios" data-snack-preview="true" data-snack-theme="dark" style="overflow:hidden;background:#212733;border:1px solid rgba(0,0,0,.08);border-radius:4px;height:505px;width:100%"></div>
-<script async src="https://snack.expo.io/embed.js"></script>
+## Live Demo with Expo
+<iframe src="https://snack.expo.io/@pankod/github.com-pankod-react-native-picker-modal-view:example" height="800px" width="100%" />
 
 ## Example
 ```javascript
@@ -206,7 +203,7 @@ react-native run-android
 
 #### Releases
 
-- 1.2.1 - Fixed <a href="https://github.com/pankod/react-native-picker-modal-view/issues/5">#5</a>
+- 1.2.2 - Fixed <a href="https://github.com/pankod/react-native-picker-modal-view/issues/5">#5</a>
 - 1.2.0 - Added renderSelectView and renderListItem properties.
 - 1.0.0 - Initial release
 
