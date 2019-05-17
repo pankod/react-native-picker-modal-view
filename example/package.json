@@ -27,12 +27,12 @@
 	"license": "MIT",
 	"dependencies": {
 		"@pankod/project-splash": "git+https://github.com/pankod/project-splash.git",
-		"react-native-picker-modal-view": "git+https://github.com/pankod/react-native-picker-modal-view.git#develop",
 		"@types/enzyme": "^3.9.2",
 		"@types/jest": "^24.0.13",
 		"expo": "^32.0.0",
 		"react": "16.5.0",
-		"react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz"
+		"react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
+		"react-native-picker-modal-view": "^1.2.2"
 	},
 	"devDependencies": {
 		"@types/expo": "^32.0.13",
