@@ -12,5 +12,3 @@ cache:
     - ~/.npm
 notifications:
   email: true
-after_success:
-  - npm run build

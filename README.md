@@ -16,6 +16,7 @@
 <div align="center">
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/516712bad4032cba5439/maintainability)](https://codeclimate.com/github/pankod/react-native-picker-modal-view/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/516712bad4032cba5439/test_coverage)](https://codeclimate.com/github/pankod/react-native-picker-modal-view/test_coverage)
 [![npm version](https://img.shields.io/npm/v/react-native-picker-modal-view.svg)](https://www.npmjs.com/package/react-native-picker-modal-view)
 [![npm downloads per month](https://img.shields.io/npm/dm/react-native-picker-modal-view.svg)](https://www.npmjs.com/package/react-native-picker-modal-view)
 [![dependencies Status](https://david-dm.org/pankod/react-native-picker-modal-view/status.svg)](https://david-dm.org/pankod/react-native-picker-modal-view)
