@@ -40,22 +40,11 @@ export declare class ModalComponent extends React.PureComponent<IModalProps, IMo
     private _onScrolling;
     onScrolling(e: NativeSyntheticEvent<NativeScrollEvent>): void;
     private _renderItem;
-    private renderItem;
-    private _generateAlphabet;
-    generateAlphabet(): void;
-    private _keyExtractor;
-    keyExtractor(item: IModalListInDto, index: number): string;
+    renderItem(item: IModalListInDto, index: number): JSX.Element;
     private _setText;
     setText(text: string): void;
-    private _trCompare;
-    trCompare(a: any, b: any): number;
-    private compare;
-    private _getFilteredData;
-    getFilteredData(): IModalListInDto[];
     private _onSelectMethod;
     onSelectMethod(key: IModalListInDto): IModalListInDto | void;
-    private _getIndex;
-    getIndex(alphabet: string): number;
     private _setAlphabet;
     setAlphabet(alphabet: string): void;
 }

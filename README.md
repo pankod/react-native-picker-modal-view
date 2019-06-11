@@ -101,6 +101,7 @@ export default class Main extends React.Component<{}, { selectedItem: {} }> {
 					sortingLanguage={'tr'}
 					showToTopButton={true}
 					selected={selectedItem}
+					showAlphabeticalIndex={true}
 					autoGenerateAlphabeticalIndex={true}
 					selectPlaceholderText={'Choose one...'}
 					onEndReached={() => console.log('list ended...')}
@@ -141,7 +142,7 @@ export default class Main extends React.Component<{}, { selectedItem: {} }> {
 | Properties                        | Type       | Description                                            | Default                                     |
 | --------------------------------- | ---------- | ------------------------------------------------------ | ------------------------------------------- |
 | **modalAnimationType**            | `string`   | The RN Modal show/hide animation type                  | `"slide"`                                   |
-| **showAlphabeticalIndex**         | `string`   | Hides alphabetical index                               | `"true"`                                    |
+| **showAlphabeticalIndex**         | `boolean`  | Hides alphabetical index                               | `"true"`                                    |
 | **onClosed**                      | `Function` | Fired when the modal is closed                         |                                             |
 | **onBackButtonPressed**           | `Function` | Fired when the back key is pressed                     |                                             |
 | **onSelected** <br> **required*   | `Function` | Returns selected item object                           | `"{Id, Name, Value, [key: string]: any}"`   |
@@ -212,6 +213,7 @@ npm install
 
 #### Releases
 
+- 1.2.3 - Refactor and code coverage
 - 1.2.2 - Fixed <a href="https://github.com/pankod/react-native-picker-modal-view/issues/5">#5</a>
 - 1.2.0 - Added renderSelectView and renderListItem properties.
 - 1.0.0 - Initial release

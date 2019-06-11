@@ -12,7 +12,7 @@ describe('ScrollToTopComponent', () => {
 		let props: Object;
 		const spyOn = jest.fn();
 		const component = (
-			<ScrollToTopComponent {...props} goToUp={spyOn} />
+			<ScrollToTopComponent {...props} stickyBottomButton={true} goToUp={spyOn} />
 		)
 		beforeEach(() => {
 			wrapper = shallow(component);

@@ -8,11 +8,15 @@ import { IScrollToTop } from '@Interfaces';
 
 export class ScrollToTopComponent extends React.PureComponent<IScrollToTop, {}> {
 	public render(): JSX.Element {
-		const { goToUp } = this.props;
-		return (
-			<TouchableOpacity onPress={() => goToUp()} activeOpacity={0.8} style={ScrollToTopStyle.container}>
-				<Image source={require('../Assets/Images/up.png')} style={ScrollToTopStyle.upBtn} />
-			</TouchableOpacity>
-		);
+		const { goToUp, stickyBottomButton } = this.props;
+		if (stickyBottomButton) {
+			return (
+				<TouchableOpacity onPress={() => goToUp()} activeOpacity={0.8} style={ScrollToTopStyle.container}>
+					<Image source={require('../Assets/Images/up.png')} style={ScrollToTopStyle.upBtn} />
+				</TouchableOpacity>
+			);
+		}
+		return null
+
 	}
 }

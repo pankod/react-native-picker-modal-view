@@ -1,14 +1,15 @@
 import * as React from 'react';
-import { Button } from 'react-native';
+import { Button, Text } from 'react-native';
 import { shallow, ShallowWrapper, mount } from 'enzyme';
 import renderer from 'react-test-renderer';
 
 import { ModalComponent } from '../src/Components/Modal';
-import { any } from 'prop-types';
 
 describe('ModalComponent', () => {
 	describe('rendering', () => {
+		let Platform;
 		let wrapper: ShallowWrapper;
+		let wrapperV2: ShallowWrapper;
 		let mounting;
 		const data = {
 			Id: 1,
@@ -64,16 +65,222 @@ describe('ModalComponent', () => {
 			onEndReached={onEndReached}
 			removeClippedSubviews={false}
 			selectPlaceholderText={'Choose one...'}
-			selected={data}
 			searchPlaceholderText={'Search...'}
 			autoSort={false}
 			disabled={false}
+			selected={data}
 			requireSelection={false}
 		/>);
 
 		beforeEach(() => {
 			wrapper = shallow(component);
 			mounting = mount(component);
+
+			Platform = require('react-native').Platform;
+		});
+		test('should call when unmount', () => {
+			const componentWillUnmount = jest.spyOn(wrapper.instance(), 'componentWillUnmount');
+			wrapper.unmount();
+			expect(componentWillUnmount).toHaveBeenCalled();
+		})
+
+		test('should  call componentWillReceiveProps when fired', () => {
+
+			const componentWillReceiveProps = jest.spyOn(wrapper.instance(), 'componentWillReceiveProps');
+			wrapper.setProps({ selected: data });
+			const data2 = {
+				Id: 2,
+				Name: 'John Doe2',
+				Value: 'John Doe',
+			};
+			wrapper.setProps({ selected: data2 });
+			expect(componentWillReceiveProps).toHaveBeenCalled();
+			expect(wrapper.state('selectedObject')).toEqual({});
+
+
+
+		})
+
+		test('should  call setState when mounted', () => {
+
+			const _wrapper = shallow(<ModalComponent
+				showAlphabeticalIndex={false}
+				onClosed={onRequestClosed}
+				onBackButtonPressed={onBackRequest}
+				onSelected={onSelected}
+				items={list}
+				alphabeticalIndexChars={['A', 'B', 'C', 'D', 'E']}
+				searchInputTextColor={'#ddd'}
+				autoGenerateAlphabeticalIndex={false}
+				showToTopButton={true}
+				onEndReached={onEndReached}
+				removeClippedSubviews={false}
+				selectPlaceholderText={'Choose one...'}
+				searchPlaceholderText={'Search...'}
+				autoSort={false}
+				disabled={false}
+				requireSelection={false}
+			/>);
+			expect(_wrapper.state('alphabeticalIndexChars')).toEqual(['A', 'B', 'C', 'D', 'E']);
+
+		})
+
+		test('should call Flatlist keyExtractor with keyExtractor property', () => {
+			const _keyExtractor = jest.fn();
+
+			mounting.setProps({ keyExtractor: _keyExtractor })
+
+			mounting.update();
+			mounting.find('FlatList').instance().props.keyExtractor();
+
+			expect(_keyExtractor).toHaveBeenCalled();
+		})
+
+		test('should call Flatlist keyExtractor without keyExtractor property', () => {
+			expect(mounting.find('FlatList').instance().props.keyExtractor({}, 1)).toBe("1")
+		})
+
+		test('should call Modal onRequestClose', () => {
+			const _onclose = jest.fn();
+
+			mounting.setProps({ onClosed: _onclose })
+
+			mounting.update();
+			mounting.find('Modal').instance().props.onRequestClose()();
+
+			expect(_onclose).toHaveBeenCalled();
+		})
+
+		test('should call SearchComponent setText', () => {
+			const spy = spyOn(ModalComponent.prototype, 'setText').and.callThrough();
+			mounting.find('SearchComponent').instance().props.setText('Pankod');
+
+			expect(spy).toHaveBeenCalledTimes(1);
+		})
+
+		test('should call FlatList onScrolling contentOffset > 100', () => {
+			mounting.setProps({ showToTopButton: true })
+			const e = {
+				nativeEvent: {
+					contentOffset: {
+						y: 101
+					}
+				}
+			}
+
+			mounting.update();
+			const spy = spyOn(ModalComponent.prototype, 'onScrolling').and.callThrough();
+			const instance = mounting.instance() as any;
+
+			instance.onScrolling(e);
+
+			expect(spy).toHaveBeenCalledTimes(1);
+			expect(mounting.state('stickyBottomButton')).toBeTruthy();
+
+		})
+
+		test('should call FlatList onScrolling contentOffset < 100', () => {
+			mounting.setProps({ showToTopButton: true })
+			const e = {
+				nativeEvent: {
+					contentOffset: {
+						y: 99
+					}
+				}
+			}
+
+			mounting.update();
+			const spy = spyOn(ModalComponent.prototype, 'onScrolling').and.callThrough();
+			const instance = mounting.instance() as any;
+
+			instance.onScrolling(e);
+
+			expect(spy).toHaveBeenCalledTimes(1);
+			expect(mounting.state('stickyBottomButton')).not.toBeTruthy();
+
+		})
+
+		test('should call FlatList onViewableItemsChanged prop', () => {
+			const instance = wrapper.instance() as any;
+			const viewableItems = [
+				{
+					"index": 165,
+					"isViewable": true,
+					"item": {
+						"Code": "PW",
+						"Id": 166,
+						"Name": "Palau",
+						"Value": "Palau",
+					},
+					"key": "165",
+				},
+				{
+					"index": 166,
+					"isViewable": true,
+					"item": {
+						"Code": "PS",
+						"Id": 167,
+						"Name": "Palestinian Territory, Occupied",
+						"Value": "Palestinian Territory, Occupied",
+					},
+					"key": "166",
+				},
+			]
+
+			instance._onViewableItemsChanged({ viewableItems });
+
+			mounting.setState({
+				selectedAlpha: viewableItems[0].item.Name.charAt(0)
+			});
+
+			expect(viewableItems[0].item.Name.charAt(0)).toEqual('P');
+			expect(mounting.state('selectedAlpha')).toEqual('P');
+		})
+
+		test('should call FlatList renderItem prop', () => {
+			const onSelectMethodSpy = spyOn(ModalComponent.prototype, 'onSelectMethod').and.callFake(jest.fn());
+
+			let _renderListItem = (selectedItem, listItem) => <Text key={listItem.Id}>{listItem.Name}</Text>;
+
+			mounting.setProps({ renderListItem: _renderListItem });
+			mounting.update();
+
+			mounting.find('FlatList').find('TouchableOpacity').first().props().onPress();
+
+			expect(onSelectMethodSpy).toHaveBeenCalledTimes(1);
+		});
+
+
+		test('should call AlphabetComponent setAlphabet prop', () => {
+			const spy = spyOn(ModalComponent.prototype, 'setAlphabet').and.callThrough();
+			mounting.find('AlphabetComponent').instance().props.setAlphabet('P');
+
+			expect(spy).toHaveBeenCalledTimes(1);
+
+		});
+
+		test('should call AlphabetComponent setAlphabet if', () => {
+			const spy = spyOn(ModalComponent.prototype, 'setAlphabet').and.callThrough();
+
+			mounting.instance().setAlphabet('P');
+			jest.runAllTimers();
+
+			mounting.update(); // <--- force re-render of the component
+
+			expect(spy).toHaveBeenCalledTimes(1);
+
+		});
+
+
+		describe('android tests should  call KeyboardAvoidingView ', () => {
+			beforeEach(() => {
+				Platform.OS = 'android';
+				wrapper = shallow(component);
+			});
+
+			test('should behavior props null on Android', () => {
+				expect(wrapper.find('KeyboardAvoidingView').prop('behavior')).toEqual(null);
+			});
 		});
 
 		test('should render a Modal Component', () => {
@@ -87,9 +294,10 @@ describe('ModalComponent', () => {
 		});
 
 
-		test('should (showAlphabeticalIndex,autoGenerateAlphabeticalIndex,autoCorrect,autoSort,disabledforceSelect) type is boolean ', () => {
+		test('should (showAlphabeticalIndex,autoGenerateAlphabeticalIndex,alphabeticalIndexChars,autoCorrect,autoSort,disabledforceSelect) type is boolean ', () => {
 			expect(typeof mounting.props().showAlphabeticalIndex).toBe('boolean');
 			expect(typeof mounting.props().autoGenerateAlphabeticalIndex).toBe('boolean');
+			expect(typeof mounting.props().alphabeticalIndexChars).toBe('object');
 			expect(typeof mounting.props().autoSort).toBe('boolean');
 			expect(typeof mounting.props().requireSelection).toBe('boolean');
 		});
@@ -138,12 +346,18 @@ describe('ModalComponent', () => {
 		test('should onclose fired modal close', () => {
 			const spy = spyOn(ModalComponent.prototype, 'onClose').and.callThrough();
 			const instance = mounting.instance() as any;
+			instance.openModal();
+
 			instance.onClose();
+
 			expect(spy).toHaveBeenCalledTimes(1);
+			mounting.update();
+
 			setTimeout(() => {
 				expect(wrapper.state()).toMatchObject({
+					...wrapper.state(),
 					selectedObject: {},
-					modalVisible: false
+					modalVisible: false,
 				})
 			}, 0);
 		});
@@ -168,22 +382,6 @@ describe('ModalComponent', () => {
 			}, 0);
 		});
 
-		test('should auto generate alphabets array with list', () => {
-			const spy = spyOn(ModalComponent.prototype, 'generateAlphabet').and.callThrough();
-			const instance = mounting.instance() as any;
-			mounting.setProps({
-				list
-			});
-
-			const stateLength: string[] = mounting.state('alphabeticalIndexChars').length;
-			const propsLength: string[] = mounting.props().list.length;
-
-			expect(stateLength).toEqual(propsLength);
-
-			instance.generateAlphabet();
-			expect(spy).toHaveBeenCalledTimes(1);
-		});
-
 		test('should text set to state', () => {
 			const spy = spyOn(ModalComponent.prototype, 'setText').and.callThrough();
 			const instance = mounting.instance() as any;
@@ -197,27 +395,6 @@ describe('ModalComponent', () => {
 
 			instance.setText(text);
 			expect(spy).toHaveBeenCalled();
-		});
-
-		test('should get filtered list data', () => {
-			const spy = spyOn(ModalComponent.prototype, 'getFilteredData').and.callThrough();
-			const instance = wrapper.instance() as any;
-
-			// get all list
-			expect(instance.getFilteredData()).toMatchObject(list);
-
-			wrapper.setState({
-				searchText: 'Şule'
-			});
-
-			expect(spy).toHaveBeenCalled();
-
-			// get filtered list
-			expect(instance.getFilteredData()).toMatchObject([{
-				Id: 4,
-				Name: 'Şule Doe',
-				Value: 'Şule Doe',
-			}]);
 		});
 
 		test('should get selected', () => {
@@ -238,18 +415,6 @@ describe('ModalComponent', () => {
 			});
 			expect(instance.onSelectMethod()).toBeUndefined();
 			expect(spy).toBeCalled()
-		});
-
-		test('should get index in list array', () => {
-			const spy = spyOn(ModalComponent.prototype, 'getIndex').and.callThrough();
-			const instance = mounting.instance() as any;
-
-			// A defined in the prefined list
-			expect(instance.getIndex('A')).toEqual(1);
-
-			// Z not defined in the predefined list
-			expect(instance.getIndex('Z')).toEqual(-1);
-			expect(spy).toHaveBeenCalled();
 		});
 
 		test('should press and set alphabet, scroll offset for flatlist', () => {
@@ -286,6 +451,5 @@ describe('ModalComponent', () => {
 
 			expect(mounting.find({ title: "renderSelectView" })).toHaveLength(1);
 		});
-
 	});
 });

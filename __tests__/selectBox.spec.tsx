@@ -8,24 +8,43 @@ import { SelectBoxComponent } from '../src/Components/SelectBox';
 describe('SelectBoxComponent', () => {
 	describe('rendering', () => {
 		let wrapper: ShallowWrapper;
-		let mounting;
 		const spyOn = jest.fn(() => { });
 		const data = {
 			Id: 1,
 			Name: 'John Doe',
 			Value: 'John Doe',
 		}
+		const items = [
+			{
+				"Name": "Åland Islands",
+				"Value": "Åland Islands",
+				"Code": "AX",
+				"Id": 1
+			},
+			{
+				"Name": "Albania",
+				"Value": "Albania",
+				"Code": "AL",
+				"Id": 2
+			},
+			{
+				"Name": "Algeria",
+				"Value": "Algeria",
+				"Code": "DZ",
+				"Id": 3
+			}]
 		let component = (
 			<SelectBoxComponent
 				selectedObject={data}
 				openModal={spyOn}
 				chooseText='Choose one'
 				disabled={false}
+				items={items}
+
 			/>
 		);
 		beforeEach(() => {
 			wrapper = shallow(component);
-			mounting = mount(component);
 		});
 
 		test('should render a SelectBoxComponent', () => {

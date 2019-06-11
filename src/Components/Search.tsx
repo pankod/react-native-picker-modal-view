@@ -8,21 +8,15 @@ import { ISearch } from '@Interfaces';
 
 export class SearchComponent extends React.PureComponent<ISearch, {}> {
 	public render(): JSX.Element {
-		const {
-			SearchInputProps,
-			placeholderTextColor,
-			onClose,
-			setText,
-			forceSelect,
-			searchText,
-			onBackRequest,
-		} = this.props;
+		const { SearchInputProps, placeholderTextColor, onClose, setText, forceSelect, searchText, onBackRequest } = this.props;
 		return (
 			<View style={SearchStyle.searchArea}>
-
-				<TouchableOpacity onPress={() => onBackRequest()} style={SearchStyle.leftBtn}>
+				{
+					this.touchableOpacityButton(onBackRequest, require('../Assets/Images/left-arrow.png'), SearchStyle.leftBtn, SearchStyle.backButton)
+				}
+				{/* <TouchableOpacity onPress={() => onBackRequest()} style={SearchStyle.leftBtn}>
 					<Image source={require('../Assets/Images/left-arrow.png')} style={SearchStyle.backButton} />
-				</TouchableOpacity>
+				</TouchableOpacity> */}
 
 				<TextInput
 					placeholder={searchText}
@@ -33,11 +27,20 @@ export class SearchComponent extends React.PureComponent<ISearch, {}> {
 					{...SearchInputProps}
 				/>
 				{!forceSelect &&
-					<TouchableOpacity onPress={() => onClose()} style={SearchStyle.leftBtn}>
-						<Image source={require('../Assets/Images/close.png')} style={SearchStyle.closeButton} />
-					</TouchableOpacity>
+					this.touchableOpacityButton(onClose, require('../Assets/Images/close.png'), SearchStyle.leftBtn, SearchStyle.closeButton)
+
 				}
+				{/* <TouchableOpacity onPress={() => onClose()} style={SearchStyle.leftBtn}>
+						<Image source={require('../Assets/Images/close.png')} style={SearchStyle.closeButton} />
+					</TouchableOpacity> */}
 			</View>
 		);
+	}
+	public touchableOpacityButton(onPress, imgSrc, buttonStyle, imgStyle): JSX.Element {
+		return (
+			<TouchableOpacity onPress={() => onPress()} style={buttonStyle}>
+				<Image source={imgSrc} style={imgStyle} />
+			</TouchableOpacity>
+		)
 	}
 }

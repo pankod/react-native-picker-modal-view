@@ -1,0 +1,718 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Code Climate Report for code</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-core.min.js" data-manual></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-clike.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-tsx.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-typescript.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/themes/prism.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/plugins/line-numbers/prism-line-numbers.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/plugins/line-highlight/prism-line-highlight.min.css" />
+    <script>
+      /**
+       * Report JS
+       */
+
+      (function(){
+        Prism.hooks.add('complete', function(env) {
+          var pre = env.element.parentNode;
+          var lines = pre && pre.dataset.line;
+
+          if (!pre || !lines || !/pre/i.test(pre.nodeName)) {
+            console.log('nope');
+            return;
+          }
+
+          var container = pre.parentElement;
+
+          if (!container || !container.classList.contains('code')) {
+            return;
+          }
+
+          console.log('collapsing', container);
+          container.style.height = 'auto';
+        });
+      })();
+
+      jQuery(function(){
+        function isVisible(element) {
+          return !!(
+            element.offsetWidth ||
+            element.offsetHeight ||
+            element.getClientRects().length
+          );
+        };
+
+        var pendingElements = [];
+        // Convert node list to arrays
+        pendingElements.push.apply(
+          pendingElements,
+          document.querySelectorAll('#smells .code')
+        );
+
+        var waypoints = [];
+
+        function updateInView() {
+          if (!pendingElements.length) {
+            return;
+          }
+
+          var visibleElements = pendingElements.filter(isVisible);
+          waypoints = visibleElements.map(function(element){
+            var $e = $(element),
+            elementTop = $e.offset().top;
+            return [
+              elementTop,
+              elementTop + $e.outerHeight(),
+              element
+            ];
+          });
+        };
+
+        function inView() {
+          var yTop = window.scrollY,
+          yBottom = window.scrollY + window.innerHeight;
+
+          return waypoints.filter(function(entry){
+            return (entry[0] <= yTop && entry[1] >= yTop) ||
+              (entry[0] > yTop && entry[1] < yBottom) ||
+              (entry[0] <= yBottom && entry[1] >= yBottom);
+          });
+        }
+
+        var inViewHandler = function(){
+          var entries = inView();
+          if (entries.length) {
+            entries.forEach(function(entry){
+              var containerElement = entry[2];
+
+              if (pendingElements.indexOf(containerElement) === -1) {
+                return;
+              }
+
+              element = containerElement.querySelector('pre code');
+
+              element.parentElement.style.visibility = 'visible';
+              Prism.highlightElement(element);
+
+              pendingElements.splice(
+                pendingElements.indexOf(containerElement),
+                1
+              );
+            });
+            updateInView();
+          }
+        };
+
+        function enableInView() {
+          window.addEventListener('scroll', inViewHandler);
+          window.addEventListener('resize', inViewHandler);
+          inViewHandler();
+        }
+
+        function disableInView() {
+          window.removeEventListener('scroll', inViewHandler);
+          window.removeEventListener('resize', inViewHandler);
+        }
+
+        updateInView();
+
+        function applyFilters() {
+          disableInView();
+          var category = $('#category-filter').val();
+          var engine = $('#engine-filter').val();
+          var list = document.getElementById('smells');
+          list.className = '';
+
+          var selector = '#smells li';
+
+          var suffix = '';
+          if (category !== '') {
+            list.classList.add('filter-category-' + category);
+          }
+          else {
+            list.classList.add('filter-category-all');
+          }
+          if (engine !== '') {
+            list.classList.add('filter-engine-' + engine);
+          }
+          else {
+            list.classList.add('filter-engine-all');
+          }
+
+          if (list.offsetHeight) {
+            $('#filtered-out-message').hide();
+
+            updateInView();
+            enableInView();
+          }
+          else {
+            $('#filtered-out-message').show();
+          }
+        }
+
+        $('#category-filter, #engine-filter').on('change', applyFilters);
+        applyFilters();
+
+        $('summary').on('click', function() {
+          setTimeout(function(){
+            updateInView();
+            inViewHandler();
+          },
+          1);
+        });
+      });
+    </script>
+    <style>
+      .filter-category-complexity > li,
+      .filter-engine-structure > li,
+      .filter-none > li {
+        display: none;
+      }
+
+      .filter-category-all.filter-engine-structure > li[data-engine="structure"],
+      .filter-category-complexity.filter-engine-all > li[data-categories~="complexity"],
+      .filter-category-all.filter-engine-all > li[data-categories~="all"][data-engine="all"],
+      .filter-category-all.filter-engine-structure > li[data-categories~="all"][data-engine="structure"],
+      .filter-category-complexity.filter-engine-all > li[data-categories~="complexity"][data-engine="all"],
+      .filter-category-complexity.filter-engine-structure > li[data-categories~="complexity"][data-engine="structure"],
+      .filter-category-all.filter-engine-all > li {
+        display: block;
+      }
+    </style>
+    <style>
+      /**
+      * prism.js Code Climate theme based on Coy theme
+      */
+
+      code[class*="language-"],
+      pre[class*="language-"] {
+        color: black;
+        font-family: Consolas, 'Bitstream Vera Sans Mono', Monaco, Courier, monospace;
+        direction: ltr;
+        text-align: left;
+        white-space: pre;
+        word-spacing: normal;
+        word-break: normal;
+        tab-size: 4;
+        hyphens: none;
+        font-size: 12px;
+      }
+
+      pre[class*="language-"] {
+        position:relative;
+        background-color: #fdfdfd;
+        background-image: linear-gradient(rgba(69, 142, 209, 0.0) 50%, rgba(69, 142, 209, 0.04) 50%);
+        background-size: 3em 3em;
+        background-origin: content-box;
+        overflow: hidden;
+        /*border: 1px solid #dde8ef;*/
+        margin-top: 1em;
+      }
+
+      pre > code[class*="language-"] {
+        display: block;
+        z-index: 100;
+      }
+
+      /* Inline code */
+      :not(pre) > code[class*="language-"] {
+        position:relative;
+        padding: .2em;
+        -webkit-border-radius: 0.3em;
+        -moz-border-radius: 0.3em;
+        -ms-border-radius: 0.3em;
+        -o-border-radius: 0.3em;
+        border-radius: 0.3em;
+      }
+
+      .token.comment,
+      .token.block-comment,
+      .token.prolog,
+      .token.doctype,
+      .token.cdata {
+        color: #999988;
+      }
+
+      .token.punctuation {
+        font-weight: bold;
+      }
+
+      .token.constant {
+        color: #555555
+      }
+
+      .token.symbol {
+        color: #990073;
+      }
+
+      .token.number {
+        color: #009999;
+      }
+
+      .token.property,
+      .token.tag,
+      .token.boolean,
+      .token.function-name,
+      .token.deleted {
+        color: #c92c2c;
+      }
+
+      .token.string {
+        color: #D14
+      }
+      .token.selector,
+      .token.attr-name,
+      .token.builtin,
+      .token.inserted {
+        color: #2f9c0a;
+      }
+
+      .token.variable {
+        color: #008080;
+      }
+
+      .token.operator {
+        font-weight: bold;
+      }
+
+      .token.entity,
+      .token.url {
+        color: #a67f59;
+      }
+
+      .token.keyword {
+        font-weight: bold;
+      }
+
+      .token.class-name {
+        color: #445588;
+        font-weight: bold;
+      }
+
+      .token.atrule,
+      .token.attr-value {
+        color: #1990b8;
+      }
+
+      .token.regex {
+        color: #808000;
+      }
+
+      .token.important {
+        color: #e90;
+      }
+
+      .style .token.string {
+        color: #a67f59;
+        background: rgba(255, 255, 255, 0.5);
+      }
+
+      .token.important {
+        font-weight: normal;
+      }
+
+      .token.entity {
+        cursor: help;
+      }
+
+      .namespace {
+        opacity: .7;
+      }
+
+      pre.line-numbers {
+        position: relative;
+        padding-left: 40px;
+        counter-reset: linenumber;
+      }
+
+      pre.line-numbers > code {
+        position: relative;
+        padding-left: 4px;
+      }
+
+      .line-numbers .line-numbers-rows {
+        position: absolute;
+        pointer-events: none;
+        top: 0;
+        font-size: 100%;
+        left: -3.8em;
+        width: 3.8em; /* works for line-numbers below 1000 lines */
+        letter-spacing: -1px;
+        padding-top: 1px;
+        user-select: none;
+        background-color: #f1f1f1;
+        color: #757575;
+      }
+
+      .line-numbers-rows > span {
+        pointer-events: none;
+        display: block;
+        counter-increment: linenumber;
+      }
+
+      .line-numbers-rows > span:before {
+        content: counter(linenumber);
+        color: #999;
+        display: block;
+        padding-right: 0.8em;
+        text-align: right;
+      }
+    </style>
+    <style>
+      /**
+       * Report styles
+       */
+
+      html, body {
+        font-size: 15px;
+        line-height: 1.333;
+        background: #f6f6f5;
+        color: #323543;
+        font-family: "BentonSans", helvetica, arial, sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        min-width: 960px;
+        margin: 0;
+        padding: 0;
+      }
+      a {
+        color:#007dce;
+        text-decoration: none;
+      }
+      a:hover {
+        color:#005e9b;
+        text-decoration: underline;
+      }
+      .container {
+        width: 960px;
+        margin: 0 auto;
+      }
+      #top {
+        color: #fff;
+        background: #323543;
+          padding: 5px 0;
+      }
+      #logo {
+        background: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22144%22%20height%3D%22144%22%20viewBox%3D%220%200%20144%20144%22%3E%3Cg%20fill%3D%22%23FFF%22%3E%3Cpath%20d%3D%22M93.548%2037.327L69.856%2061.02l14.09%2014.09%209.602-9.6%2027.243%2027.243%2014.09-14.092M65.483%2065.393l-14.03-14.03-35.78%2035.783-5.554%205.552%2014.09%2014.09%205.553-5.552%2018.14-18.138%203.55-3.552%2014.03%2014.028%2013.214%2013.216%2014.09-14.093-13.215-13.213%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E') center center no-repeat;
+        background-size: 35px 40px;
+        height: 40px;
+        width: 40px;
+        display: inline-block;
+        overflow: hidden;
+        text-indent: -99999px;
+        color: #fff;
+        vertical-align: middle;
+      }
+      #top h1 {
+        display: inline-block;
+        font-size: 16px;
+        font-weight: normal;
+        margin: 0;
+        vertical-align: middle;
+      }
+      #top h1::before {
+        content: '/ ';
+      }
+      nav ul, #smells {
+        margin: 0;
+        padding: 0;
+      }
+      nav li {
+        list-style: none;
+        padding: 10px 20px;
+        color: #5e637d;
+        position: relative;
+        display: inline-block;
+      }
+      nav li::after {
+        content: '';
+        position: absolute;
+        border-bottom: 8px solid #fff;
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        bottom: 0px;
+        left: 50%;
+        margin-left: -8px;
+      }
+      #main-container {
+        background: #fff;
+        padding: 20px;
+        overflow: hidden;
+        position: relative;
+      }
+      .issue-filters {
+        float: right;
+        width: 200px;
+      }
+      .issue-filters label,
+      .issue-filters select {
+        display: block;
+        width: 100%;
+      }
+      .issue-filters label {
+        margin-top: 10px;
+      }
+      #smells {
+        max-width: 680px;
+      }
+      #smells > li {
+        list-style: none;
+        border-bottom: 1px solid #f6f6f5;
+        padding-top: 10px;
+        padding-bottom: 20px;
+      }
+      #smells > li:last-of-type {
+        border-bottom: 0px none;
+        padding-bottom: 0;
+      }
+      #smells > li > h2 {
+        font-weight: bold;
+        margin-top: 0;
+        font-size: inherit;
+      }
+
+      #smells .code {
+        position: relative;
+        overflow: hidden;
+        border-radius: 3px;
+        border: 1px solid #dde8ef;
+        height: 6em;
+        margin: 10px 0;
+      }
+      #smells .code > pre {
+        visibility: hidden;
+      }
+      #smells .code > pre,
+      #smells .code > pre .line-highlight {
+        margin-bottom: 0;
+        margin-top: 0;
+        padding-bottom: 0;
+        padding-top: 0;
+      }
+
+      .found-in {
+        font-size: 12px;
+        line-height: 20px;
+        color: #9999a1;
+        margin-top: 10px;
+        margin-bottom: 15px;
+      }
+      .found-in a {
+        color: #35b0ff;
+      }
+      ::-webkit-details-marker {display: none;}
+      details summary {
+        display: block;
+      }
+      details summary::before {
+        content: "► ";
+
+      }
+      details[open] summary::before {
+        content: "▼ ";
+      }
+
+      #filtered-out-message {
+        display: none;
+        text-align: center;
+        position: absolute;
+        left: 0;
+        width: 720px;
+        text-align: center;
+        top: 50%;
+        margin-top: -1em;
+        line-height: 2em;
+      }
+
+      #no-issues-message {
+        text-align: center;
+      }
+      #no-issues-message::before {
+        content: "🎉";
+        font-size: 3em;
+          display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <header id="top">
+      <div class="container">
+        <a id="logo" href="https://codeclimate.com/">Code Climate</a>
+        <h1>code</h1>
+      </div>
+    </header>
+    <div class="container">
+      <nav>
+        <ul>
+          <li>
+            Issues
+          </li>
+        </ul>
+      </nav>
+      <div id="main-container">
+
+          <div class="issue-filters">
+            <label for="category-filter">Category</label>
+            <select id="category-filter">
+              <option value="">All Categories</option>
+              <option value="complexity">Complexity</option>
+            </select>
+            <label for="engine-filter">Engine</label>
+            <select id="engine-filter">
+              <option value="">All Engines</option>
+              <option value="structure">structure</option>
+            </select>
+          </div>
+          <ul id="smells">
+            <li
+              data-categories="complexity"
+              data-engine="structure">
+              <h2>Function `trCompare` has a Cognitive Complexity of 6 (exceeds 5 allowed). Consider refactoring.</h2>
+              <div class="code">
+                <pre class="line-numbers language-typescript"
+                     data-line="19-33"
+                     data-start="17"
+                     data-line-offset="16"><code>
+// source https://gist.github.com/ugurozpinar/9682734
+export const trCompare = (a: any, b: any): number =&gt; {
+	const alphabets = &#39;AaBbCcÇçDdEeFfGgĞğHhIıİiJjKkLlMmNnOoÖöPpQqRrSsŞşTtUuÜüVvWwXxYyZz0123456789&#39;;
+	if (a.length === 0 || b.length === 0) {
+		return a.length - b.length;
+	}
+	for (let i = 0; i &lt; a.length &amp;&amp; i &lt; b.length; i++) {
+		const ai = alphabets.indexOf(a[i]);
+		const bi = alphabets.indexOf(b[i]);
+		if (ai !== bi) {
+			return ai - bi;
+		}
+	}
+
+</code></pre>
+              </div>
+                <details>
+                  <summary>Details</summary>
+                  <h1>Cognitive Complexity</h1>
+
+<p>Cognitive Complexity is a measure of how difficult a unit of code is to intuitively understand. Unlike Cyclomatic Complexity, which determines how difficult your code will be to test, Cognitive Complexity tells you how difficult your code will be to read and comprehend.</p>
+
+<h3>A method&#39;s cognitive complexity is based on a few simple rules:</h3>
+
+<ul>
+<li>Code is not considered more complex when it uses shorthand that the language provides for collapsing multiple statements into one</li>
+<li>Code is considered more complex for each &quot;break in the linear flow of the code&quot;</li>
+<li>Code is considered more complex when &quot;flow breaking structures are nested&quot;</li>
+</ul>
+
+<h3>Further reading</h3>
+
+<ul>
+<li><a href="https://docs.codeclimate.com/v1.0/docs/cognitive-complexity" target="_blank">Cognitive Complexity docs</a></li>
+<li><a href="https://www.sonarsource.com/docs/CognitiveComplexity.pdf" target="_blank">Cognitive Complexity: A new way of measuring understandability</a></li>
+</ul>
+                </details>
+              <div class="found-in">
+                Found in src/Helpers/index.ts by
+                <a href="https://docs.codeclimate.com/docs/structure">structure</a>
+              </div>
+            </li>
+            <li
+              data-categories="complexity"
+              data-engine="structure">
+              <h2>File `Modal.tsx` has 271 lines of code (exceeds 250 allowed). Consider refactoring.</h2>
+              <div class="code">
+                <pre class="line-numbers language-tsx"
+                     data-line="1-315"
+                     data-start="1"
+                     data-line-offset="0"><code>// Global Imports
+import * as React from &#39;react&#39;;
+import { Modal, View, FlatList, KeyboardAvoidingView, NativeSyntheticEvent, NativeScrollEvent, Platform, SafeAreaView, TouchableOpacity } from &#39;react-native&#39;;
+// Local Imports
+import { AlphabetComponent, ListItemComponent, SearchComponent, ScrollToTopComponent, SelectBoxComponent } from &#39;@Components&#39;;
+import { IModalProps, IModalListInDto, IModalState } from &#39;@Interfaces&#39;;
+import { ModalStyles, CommonStyle } from &#39;@Styles&#39;;
+import { generateAlphabet, getFilteredData, getIndex } from &#39;@Helpers&#39;;
+export class ModalComponent extends React.PureComponent&lt;IModalProps, IModalState&gt; {
+
+	private flatListRef = null;
+	private numToRender: number = 1;
+
+</code></pre>
+              </div>
+              <div class="found-in">
+                Found in src/Components/Modal.tsx by
+                <a href="https://docs.codeclimate.com/docs/structure">structure</a>
+              </div>
+            </li>
+            <li
+              data-categories="complexity"
+              data-engine="structure">
+              <h2>`ModalComponent` has 26 functions (exceeds 20 allowed). Consider refactoring.</h2>
+              <div class="code">
+                <pre class="line-numbers language-tsx"
+                     data-line="9-314"
+                     data-start="7"
+                     data-line-offset="6"><code>import { ModalStyles, CommonStyle } from &#39;@Styles&#39;;
+import { generateAlphabet, getFilteredData, getIndex } from &#39;@Helpers&#39;;
+export class ModalComponent extends React.PureComponent&lt;IModalProps, IModalState&gt; {
+
+	private flatListRef = null;
+	private numToRender: number = 1;
+
+	public state: IModalState = {
+		modalVisible: false,
+		searchText: &#39;&#39;,
+		stickyBottomButton: false,
+		selectedAlpha: null,
+		selectedObject: {} as IModalListInDto,
+	};
+
+</code></pre>
+              </div>
+              <div class="found-in">
+                Found in src/Components/Modal.tsx by
+                <a href="https://docs.codeclimate.com/docs/structure">structure</a>
+              </div>
+            </li>
+            <li
+              data-categories="complexity"
+              data-engine="structure">
+              <h2>Function `render` has 66 lines of code (exceeds 25 allowed). Consider refactoring.</h2>
+              <div class="code">
+                <pre class="line-numbers language-tsx"
+                     data-line="88-157"
+                     data-start="86"
+                     data-line-offset="85"><code>	}
+
+	public render(): JSX.Element {
+		const { autoSort, modalAnimationType, onClosed, showAlphabeticalIndex, searchInputTextColor, keyExtractor, showToTopButton, onEndReached, removeClippedSubviews, FlatListProps, selectPlaceholderText, searchPlaceholderText, SearchInputProps, selected, disabled, items, requireSelection, renderSelectView } = this.props;
+
+		const { modalVisible, alphabeticalIndexChars, stickyBottomButton, selectedAlpha, selectedObject, searchText } = this.state;
+
+		return (
+			&lt;React.Fragment&gt;
+				&lt;SelectBoxComponent
+					renderSelectView={renderSelectView}
+					items={items}
+					disabled={disabled}
+					selectedObject={selectedObject}
+					chooseText={(selected &amp;&amp; selected.Name) ? selected.Name : selectPlaceholderText}
+</code></pre>
+              </div>
+              <div class="found-in">
+                Found in src/Components/Modal.tsx by
+                <a href="https://docs.codeclimate.com/docs/structure">structure</a>
+              </div>
+            </li>
+          </ul>
+          <div id="filtered-out-message">All issues have been filtered out</div>
+      </div>
+    </div>
+  </div>
+  </body>
+</html>
