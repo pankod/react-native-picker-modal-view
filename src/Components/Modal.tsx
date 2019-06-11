@@ -1,29 +1,11 @@
 // Global Imports
 import * as React from 'react';
-import {
-	Modal,
-	View,
-	FlatList,
-	KeyboardAvoidingView,
-	NativeSyntheticEvent,
-	NativeScrollEvent,
-	Platform,
-	SafeAreaView,
-	TouchableOpacity
-} from 'react-native';
-
+import { Modal, View, FlatList, KeyboardAvoidingView, NativeSyntheticEvent, NativeScrollEvent, Platform, SafeAreaView, TouchableOpacity } from 'react-native';
 // Local Imports
-import {
-	AlphabetComponent,
-	ListItemComponent,
-	SearchComponent,
-	ScrollToTopComponent,
-	SelectBoxComponent,
-} from '@Components';
+import { AlphabetComponent, ListItemComponent, SearchComponent, ScrollToTopComponent, SelectBoxComponent } from '@Components';
 import { IModalProps, IModalListInDto, IModalState } from '@Interfaces';
 import { ModalStyles, CommonStyle } from '@Styles';
 import { generateAlphabet, getFilteredData, getIndex } from '@Helpers';
-
 export class ModalComponent extends React.PureComponent<IModalProps, IModalState> {
 
 	private flatListRef = null;
@@ -37,21 +19,7 @@ export class ModalComponent extends React.PureComponent<IModalProps, IModalState
 		selectedObject: {} as IModalListInDto,
 	};
 
-	public static defaultProps = {
-		showToTopButton: true,
-		modalAnimationType: 'slide',
-		showAlphabeticalIndex: false,
-		searchInputTextColor: '#252525',
-		autoGenerateAlphabeticalIndex: false,
-		sortingLanguage: 'tr',
-		removeClippedSubviews: false,
-		selectPlaceholderText: 'Choose one...',
-		searchPlaceholderText: 'Search...',
-		autoSort: false,
-		items: [],
-		disabled: false,
-		requireSelection: false,
-	};
+	public static defaultProps = { showToTopButton: true, modalAnimationType: 'slide', showAlphabeticalIndex: false, searchInputTextColor: '#252525', autoGenerateAlphabeticalIndex: false, sortingLanguage: 'tr', removeClippedSubviews: false, selectPlaceholderText: 'Choose one...', searchPlaceholderText: 'Search...', autoSort: false, items: [], disabled: false, requireSelection: false, };
 	private viewabilityConfig: { minimumViewTime: number; waitForInteraction: boolean; viewAreaCoveragePercentThreshold: number; };
 
 	constructor(props: IModalProps) {
@@ -64,17 +32,12 @@ export class ModalComponent extends React.PureComponent<IModalProps, IModalState
 		}
 	}
 
-
 	public componentWillUnmount(): void {
 		this.clearComponent();
 	}
 
 	public componentWillReceiveProps(nextProps, nextState): void {
-		if (
-			// tslint:disable-next-line: max-line-length
-			(this.props.selected && nextProps.selected) && this.props.selected.Name !== nextProps.selected.Name &&
-			[this.props.selected.Id] !== [nextProps.selected.Id]
-		) {
+		if ((this.props.selected && nextProps.selected) && this.props.selected.Name !== nextProps.selected.Name && [this.props.selected.Id] !== [nextProps.selected.Id]) {
 			this.setState({
 				selectedObject: {} as IModalListInDto,
 			});
@@ -123,26 +86,7 @@ export class ModalComponent extends React.PureComponent<IModalProps, IModalState
 	}
 
 	public render(): JSX.Element {
-		const {
-			autoSort,
-			modalAnimationType,
-			onClosed,
-			showAlphabeticalIndex,
-			searchInputTextColor,
-			keyExtractor,
-			showToTopButton,
-			onEndReached,
-			removeClippedSubviews,
-			FlatListProps,
-			selectPlaceholderText,
-			searchPlaceholderText,
-			SearchInputProps,
-			selected,
-			disabled,
-			items,
-			requireSelection,
-			renderSelectView
-		} = this.props;
+		const { autoSort, modalAnimationType, onClosed, showAlphabeticalIndex, searchInputTextColor, keyExtractor, showToTopButton, onEndReached, removeClippedSubviews, FlatListProps, selectPlaceholderText, searchPlaceholderText, SearchInputProps, selected, disabled, items, requireSelection, renderSelectView } = this.props;
 
 		const { modalVisible, alphabeticalIndexChars, stickyBottomButton, selectedAlpha, selectedObject, searchText } = this.state;
 
@@ -225,14 +169,7 @@ export class ModalComponent extends React.PureComponent<IModalProps, IModalState
 		const { onClosed, onSelected, requireSelection, selected } = this.props;
 		const { modalVisible, selectedObject } = this.state;
 
-		if (
-			requireSelection &&
-			(selectedObject && ![selectedObject.Id]) &&
-			(selected && ![selected.Id])
-		) {
-
-			return;
-		}
+		if (requireSelection && (selectedObject && ![selectedObject.Id]) && (selected && ![selected.Id])) return;
 
 		if (!requireSelection) {
 			onSelected({} as IModalListInDto);
@@ -283,7 +220,6 @@ export class ModalComponent extends React.PureComponent<IModalProps, IModalState
 	}
 
 	private _onScrolling(e: NativeSyntheticEvent<NativeScrollEvent>): void {
-
 		const { contentOffset } = e.nativeEvent;
 
 		if (contentOffset.y > 100) {
@@ -319,7 +255,6 @@ export class ModalComponent extends React.PureComponent<IModalProps, IModalState
 				list={item}
 				onSelectMethod={this.onSelectMethod.bind(this)}
 			/>
-
 		)
 	}
 

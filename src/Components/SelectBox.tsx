@@ -10,9 +10,10 @@ export class SelectBoxComponent extends React.PureComponent<ISelectBoxProps, {}>
 	public render(): JSX.Element {
 		const { openModal, selectedObject, chooseText, disabled, renderSelectView, items } = this.props;
 		const selectViewIsDisabled = (disabled || !items || items.length === 0);
-
+		if (renderSelectView) {
+			return (renderSelectView(selectViewIsDisabled, selectedObject, openModal.bind(this)))
+		}
 		return (
-			(renderSelectView && renderSelectView(selectViewIsDisabled, selectedObject, openModal.bind(this))) ||
 			<TouchableOpacity
 				activeOpacity={0.7}
 				onPress={() => openModal()}

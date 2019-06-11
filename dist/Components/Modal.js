@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Modal, View, FlatList, KeyboardAvoidingView, Platform, SafeAreaView, TouchableOpacity } from 'react-native';
-import { AlphabetComponent, ListItemComponent, SearchComponent, ScrollToTopComponent, SelectBoxComponent, } from './';
+import { AlphabetComponent, ListItemComponent, SearchComponent, ScrollToTopComponent, SelectBoxComponent } from './';
 import { ModalStyles, CommonStyle } from '../Assets/Styles';
 import { generateAlphabet, getFilteredData, getIndex } from '../Helpers';
 export class ModalComponent extends React.PureComponent {
@@ -26,8 +26,7 @@ export class ModalComponent extends React.PureComponent {
         this.clearComponent();
     }
     componentWillReceiveProps(nextProps, nextState) {
-        if ((this.props.selected && nextProps.selected) && this.props.selected.Name !== nextProps.selected.Name &&
-            [this.props.selected.Id] !== [nextProps.selected.Id]) {
+        if ((this.props.selected && nextProps.selected) && this.props.selected.Name !== nextProps.selected.Name && [this.props.selected.Id] !== [nextProps.selected.Id]) {
             this.setState({
                 selectedObject: {},
             });
@@ -97,11 +96,8 @@ export class ModalComponent extends React.PureComponent {
     _onClose() {
         const { onClosed, onSelected, requireSelection, selected } = this.props;
         const { modalVisible, selectedObject } = this.state;
-        if (requireSelection &&
-            (selectedObject && ![selectedObject.Id]) &&
-            (selected && ![selected.Id])) {
+        if (requireSelection && (selectedObject && ![selectedObject.Id]) && (selected && ![selected.Id]))
             return;
-        }
         if (!requireSelection) {
             onSelected({});
         }
@@ -212,19 +208,5 @@ export class ModalComponent extends React.PureComponent {
         this._setAlphabet(alphabet);
     }
 }
-ModalComponent.defaultProps = {
-    showToTopButton: true,
-    modalAnimationType: 'slide',
-    showAlphabeticalIndex: false,
-    searchInputTextColor: '#252525',
-    autoGenerateAlphabeticalIndex: false,
-    sortingLanguage: 'tr',
-    removeClippedSubviews: false,
-    selectPlaceholderText: 'Choose one...',
-    searchPlaceholderText: 'Search...',
-    autoSort: false,
-    items: [],
-    disabled: false,
-    requireSelection: false,
-};
+ModalComponent.defaultProps = { showToTopButton: true, modalAnimationType: 'slide', showAlphabeticalIndex: false, searchInputTextColor: '#252525', autoGenerateAlphabeticalIndex: false, sortingLanguage: 'tr', removeClippedSubviews: false, selectPlaceholderText: 'Choose one...', searchPlaceholderText: 'Search...', autoSort: false, items: [], disabled: false, requireSelection: false, };
 //# sourceMappingURL=Modal.js.map
