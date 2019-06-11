@@ -8,7 +8,7 @@
 		"travis-deploy-once": "travis-deploy-once",
 		"semantic-release": "semantic-release",
 		"watch": "tsc -- --watch",
-		"test": "jest",
+		"test": "jest --coverage",
 		"lint": "tslint -c tslint.json 'src/**/*.ts*'"
 	},
 	"repository": {
