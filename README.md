@@ -15,6 +15,7 @@
 
 <div align="center">
 
+[![Maintainability](https://api.codeclimate.com/v1/badges/516712bad4032cba5439/maintainability)](https://codeclimate.com/github/pankod/react-native-picker-modal-view/maintainability)
 [![npm version](https://img.shields.io/npm/v/react-native-picker-modal-view.svg)](https://www.npmjs.com/package/react-native-picker-modal-view)
 [![npm downloads per month](https://img.shields.io/npm/dm/react-native-picker-modal-view.svg)](https://www.npmjs.com/package/react-native-picker-modal-view)
 [![dependencies Status](https://david-dm.org/pankod/react-native-picker-modal-view/status.svg)](https://david-dm.org/pankod/react-native-picker-modal-view)
@@ -31,16 +32,6 @@
 <br/>
 
 An alternative to [Picker](https://facebook.github.io/react-native/docs/picker) and [PickerIOS](https://facebook.github.io/react-native/docs/pickerios) components with an unified API and consistent look & feel on both plaforms. It's fully configurable and includes built-in support for text search and alphabetical index. Ideal for longer lists not suitable for "wheel-pickers".
-
-
-
-## Stores Supported:
-|                                              **Apple App Store**                                              |                                                            **Google Play**                                                             |
-| :-----------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------: |
-|                                                     **✓**                                                     |                                                                 **✓**                                                                  |
-| <img src="https://developer.apple.com/assets/elements/icons/app-store/app-store-128x128_2x.png" height="60" > | <img src="https://elegal.ph/site/wp-content/uploads/2017/08/google-play-icon-logo-favicon-1632434.svg_.jpg" height="60" float="right"> |
-
-
 
 
 ## Getting started
