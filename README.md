@@ -213,6 +213,7 @@ npm install
 
 #### Releases
 
+- 1.2.3 - Refactor and code coverage
 - 1.2.2 - Fixed <a href="https://github.com/pankod/react-native-picker-modal-view/issues/5">#5</a>
 - 1.2.0 - Added renderSelectView and renderListItem properties.
 - 1.0.0 - Initial release
