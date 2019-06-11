@@ -35,6 +35,12 @@
 			],
 			"@Enum/*": [
 				"src/Enum/*"
+			],
+			"@Helpers": [
+				"src/Helpers"
+			],
+			"@Helpers/*": [
+				"src/Helpers/*"
 			]
 		},
 		"lib": [
@@ -69,7 +75,6 @@
 	"exclude": [
 		"node_modules",
 		"dist",
-		"__tests__",
 		"src/Example/**"
 	],
 	"include": [

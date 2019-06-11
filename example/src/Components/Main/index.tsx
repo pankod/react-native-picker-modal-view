@@ -45,6 +45,7 @@ export default class Main extends React.Component<{}, { selectedItem: {}, intro:
 					sortingLanguage={'tr'}
 					showToTopButton={true}
 					selected={selectedItem}
+					showAlphabeticalIndex={true}
 					autoGenerateAlphabeticalIndex={true}
 					selectPlaceholderText={'Choose one...'}
 					onEndReached={() => console.log('list ended...')}

@@ -15,6 +15,7 @@ describe('AlphabetComponent', () => {
 				selectedAlpha={'A'}
 				alphabets={['A', 'B']}
 				setAlphabet={spyOn}
+				showAlphabeticalIndex
 			/>
 		);
 		beforeEach(() => {
