@@ -9,7 +9,7 @@ import { generateAlphabet, getFilteredData, getIndex } from '@Helpers';
 export class ModalComponent extends React.PureComponent<IModalProps, IModalState> {
 
 	private flatListRef = null;
-	private numToRender: number = 1;
+	private numToRender: number = 20;
 
 	public state: IModalState = {
 		modalVisible: false,
