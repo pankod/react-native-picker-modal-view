@@ -7,7 +7,7 @@ export class ModalComponent extends React.PureComponent {
     constructor(props) {
         super(props);
         this.flatListRef = null;
-        this.numToRender = 1;
+        this.numToRender = 20;
         this.state = {
             modalVisible: false,
             searchText: '',
