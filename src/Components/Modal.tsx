@@ -19,7 +19,10 @@ export class ModalComponent extends React.PureComponent<IModalProps, IModalState
 		selectedObject: {} as IModalListInDto,
 	};
 
-	public static defaultProps = { showToTopButton: true, modalAnimationType: 'slide', showAlphabeticalIndex: false, searchInputTextColor: '#252525', autoGenerateAlphabeticalIndex: false, sortingLanguage: 'tr', removeClippedSubviews: false, selectPlaceholderText: 'Choose one...', searchPlaceholderText: 'Search...', autoSort: false, items: [], disabled: false, requireSelection: false, };
+	public static defaultProps = {
+		showToTopButton: true, modalAnimationType: 'slide', showAlphabeticalIndex: true, searchInputTextColor: '#252525', autoGenerateAlphabeticalIndex: false,
+		sortingLanguage: 'tr', removeClippedSubviews: false, selectPlaceholderText: 'Choose one...', searchPlaceholderText: 'Search...', autoSort: false, items: [], disabled: false, requireSelection: false
+	};
 	private viewabilityConfig: { minimumViewTime: number; waitForInteraction: boolean; viewAreaCoveragePercentThreshold: number; };
 
 	constructor(props: IModalProps) {
@@ -166,10 +169,8 @@ export class ModalComponent extends React.PureComponent<IModalProps, IModalState
 	}
 
 	private _onClose(): void {
-		const { onClosed, onSelected, requireSelection, selected } = this.props;
-		const { modalVisible, selectedObject } = this.state;
-
-		if (requireSelection && (selectedObject && ![selectedObject.Id]) && (selected && ![selected.Id])) return;
+		const { onClosed, onSelected, requireSelection } = this.props;
+		const { modalVisible } = this.state;
 
 		if (!requireSelection) {
 			onSelected({} as IModalListInDto);
@@ -279,10 +280,6 @@ export class ModalComponent extends React.PureComponent<IModalProps, IModalState
 			selectedObject: key as IModalListInDto,
 		});
 		this.clearComponent();
-
-		if (key && ![key.Id]) {
-			return onSelected({} as IModalListInDto);
-		}
 
 		return onSelected(key);
 	}
