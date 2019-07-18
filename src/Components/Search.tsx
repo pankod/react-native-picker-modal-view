@@ -14,10 +14,6 @@ export class SearchComponent extends React.PureComponent<ISearch, {}> {
 				{
 					this.touchableOpacityButton(onBackRequest, require('../Assets/Images/left-arrow.png'), SearchStyle.leftBtn, SearchStyle.backButton)
 				}
-				{/* <TouchableOpacity onPress={() => onBackRequest()} style={SearchStyle.leftBtn}>
-					<Image source={require('../Assets/Images/left-arrow.png')} style={SearchStyle.backButton} />
-				</TouchableOpacity> */}
-
 				<TextInput
 					placeholder={searchText}
 					placeholderTextColor={placeholderTextColor}
@@ -30,9 +26,6 @@ export class SearchComponent extends React.PureComponent<ISearch, {}> {
 					this.touchableOpacityButton(onClose, require('../Assets/Images/close.png'), SearchStyle.leftBtn, SearchStyle.closeButton)
 
 				}
-				{/* <TouchableOpacity onPress={() => onClose()} style={SearchStyle.leftBtn}>
-						<Image source={require('../Assets/Images/close.png')} style={SearchStyle.closeButton} />
-					</TouchableOpacity> */}
 			</View>
 		);
 	}
