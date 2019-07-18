@@ -31,19 +31,6 @@ export class ModalComponent extends React.PureComponent<IModalProps, IModalState
 			viewAreaCoveragePercentThreshold: 95
 		}
 	}
-
-	public componentWillUnmount(): void {
-		this.clearComponent();
-	}
-
-	public componentWillReceiveProps(nextProps, nextState): void {
-		if ((this.props.selected && nextProps.selected) && this.props.selected.Name !== nextProps.selected.Name && [this.props.selected.Id] !== [nextProps.selected.Id]) {
-			this.setState({
-				selectedObject: {} as IModalListInDto,
-			});
-		}
-	}
-
 	private _clearComponent(): void {
 		this.setState({
 			stickyBottomButton: false,
@@ -56,9 +43,8 @@ export class ModalComponent extends React.PureComponent<IModalProps, IModalState
 		this._clearComponent();
 	}
 
-	public componentWillMount(): void {
+	public componentDidMount(): void {
 		const { autoGenerateAlphabeticalIndex, alphabeticalIndexChars, items, sortingLanguage } = this.props;
-
 		if (autoGenerateAlphabeticalIndex) {
 			this.setState({ alphabeticalIndexChars: generateAlphabet(items, sortingLanguage) });
 		} else if (alphabeticalIndexChars) {
@@ -195,6 +181,7 @@ export class ModalComponent extends React.PureComponent<IModalProps, IModalState
 		this.setState({
 			modalVisible: !modalVisible,
 		});
+
 		this.clearComponent();
 		if (onBackButtonPressed) {
 			onBackButtonPressed();
