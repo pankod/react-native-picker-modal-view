@@ -22,16 +22,6 @@ export class ModalComponent extends React.PureComponent {
             viewAreaCoveragePercentThreshold: 95
         };
     }
-    componentWillUnmount() {
-        this.clearComponent();
-    }
-    componentWillReceiveProps(nextProps, nextState) {
-        if ((this.props.selected && nextProps.selected) && this.props.selected.Name !== nextProps.selected.Name && [this.props.selected.Id] !== [nextProps.selected.Id]) {
-            this.setState({
-                selectedObject: {},
-            });
-        }
-    }
     _clearComponent() {
         this.setState({
             stickyBottomButton: false,
@@ -42,7 +32,7 @@ export class ModalComponent extends React.PureComponent {
     clearComponent() {
         this._clearComponent();
     }
-    componentWillMount() {
+    componentDidMount() {
         const { autoGenerateAlphabeticalIndex, alphabeticalIndexChars, items, sortingLanguage } = this.props;
         if (autoGenerateAlphabeticalIndex) {
             this.setState({ alphabeticalIndexChars: generateAlphabet(items, sortingLanguage) });
