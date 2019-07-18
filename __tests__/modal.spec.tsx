@@ -78,28 +78,6 @@ describe('ModalComponent', () => {
 
 			Platform = require('react-native').Platform;
 		});
-		test('should call when unmount', () => {
-			const componentWillUnmount = jest.spyOn(wrapper.instance(), 'componentWillUnmount');
-			wrapper.unmount();
-			expect(componentWillUnmount).toHaveBeenCalled();
-		})
-
-		test('should  call componentWillReceiveProps when fired', () => {
-
-			const componentWillReceiveProps = jest.spyOn(wrapper.instance(), 'componentWillReceiveProps');
-			wrapper.setProps({ selected: data });
-			const data2 = {
-				Id: 2,
-				Name: 'John Doe2',
-				Value: 'John Doe',
-			};
-			wrapper.setProps({ selected: data2 });
-			expect(componentWillReceiveProps).toHaveBeenCalled();
-			expect(wrapper.state('selectedObject')).toEqual({});
-
-
-
-		})
 
 		test('should  call setState when mounted', () => {
 
