@@ -205,6 +205,7 @@ npm install
 
 #### Releases
 
+- 1.2.8 - Fixed <a href="https://github.com/pankod/react-native-picker-modal-view/issues/37">#37</a>
 - 1.2.6 - Deprecated lifecycle methods fix
 - 1.2.5 - Flatlist initialNumToRender property hotfix
 - 1.2.3 - Refactor and code coverage
