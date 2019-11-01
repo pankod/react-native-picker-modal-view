@@ -20,6 +20,7 @@ export const SearchStyle = StyleSheet.create({
         borderColor: '#ccc',
         borderWidth: 0.5,
         borderRadius: 5,
+        color: '#000',
         padding: 10,
     },
     nonCloseButton: {
