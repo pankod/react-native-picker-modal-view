@@ -20,6 +20,7 @@ export interface IModalProps {
 	showAlphabeticalIndex: boolean;
 	onClosed: () => void;
 	onBackButtonPressed?: () => void;
+	updateItems: (text: any) => void;
 	onSelected: (selected: IModalListInDto) => IModalListInDto;
 	items: ListType;
 	alphabeticalIndexChars?: string[];

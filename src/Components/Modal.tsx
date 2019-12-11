@@ -260,7 +260,9 @@ export class ModalComponent extends React.PureComponent<IModalProps, IModalState
 	public setText(text: string): void {
 		const { updateItems } = this.props;
 		this._setText(text);
-		updateItems(text);
+		if (updateItems) {
+			updateItems(text);
+		}
 	}
 
 	private _onSelectMethod(key: IModalListInDto): IModalListInDto | void {

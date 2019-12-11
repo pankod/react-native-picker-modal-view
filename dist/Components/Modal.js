@@ -161,7 +161,11 @@ export class ModalComponent extends React.PureComponent {
         });
     }
     setText(text) {
+        const { updateItems } = this.props;
         this._setText(text);
+        if (updateItems) {
+            updateItems(text);
+        }
     }
     _onSelectMethod(key) {
         const { onSelected } = this.props;
