@@ -58,10 +58,10 @@ export class ModalComponent extends React.PureComponent {
         this._openModal();
     }
     render() {
-        const { autoSort, modalAnimationType, onClosed, showAlphabeticalIndex, searchInputTextColor, keyExtractor, showToTopButton, onEndReached, removeClippedSubviews, FlatListProps, selectPlaceholderText, searchPlaceholderText, SearchInputProps, selected, disabled, items, requireSelection, renderSelectView, ModalProps } = this.props;
+        const { autoSort, modalAnimationType, onClosed, showAlphabeticalIndex, searchInputTextColor, keyExtractor, showToTopButton, onEndReached, removeClippedSubviews, FlatListProps, selectPlaceholderText, searchPlaceholderText, SearchInputProps, selected, disabled, items, requireSelection, renderSelectView, ModalProps, isSource, isDestination } = this.props;
         const { modalVisible, alphabeticalIndexChars, stickyBottomButton, selectedAlpha, selectedObject, searchText } = this.state;
         return (React.createElement(React.Fragment, null,
-            React.createElement(SelectBoxComponent, { renderSelectView: renderSelectView, items: items, disabled: disabled, selectedObject: selectedObject, chooseText: (selected && selected.Name) ? selected.Name : selectPlaceholderText, openModal: this.openModal.bind(this) }),
+            React.createElement(SelectBoxComponent, { renderSelectView: renderSelectView, isSource: isSource, isDestination: isDestination, items: items, disabled: disabled, selectedObject: selectedObject, chooseText: (selected && selected.Name) ? selected.Name : selectPlaceholderText, openModal: this.openModal.bind(this) }),
             React.createElement(Modal, Object.assign({ animationType: modalAnimationType, visible: modalVisible, onRequestClose: () => onClosed }, ModalProps),
                 React.createElement(SafeAreaView, { style: ModalStyles.container },
                     React.createElement(SearchComponent, Object.assign({ searchText: searchPlaceholderText, placeholderTextColor: searchInputTextColor, onClose: this.onClose.bind(this), onBackRequest: this.onBackRequest.bind(this), forceSelect: requireSelection, setText: (text) => this.setText(text) }, SearchInputProps)),
