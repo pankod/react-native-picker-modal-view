@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { SelectBoxStyle } from '../Assets/Styles';
 export class SelectBoxComponent extends React.PureComponent {
     render() {
-        const { openModal, selectedObject, chooseText, disabled, renderSelectView, items } = this.props;
+        const { openModal, selectedObject, chooseText, disabled, renderSelectView, items, isSource, isDestination } = this.props;
         const selectViewIsDisabled = (disabled || !items || items.length === 0);
         if (renderSelectView) {
             return (renderSelectView(selectViewIsDisabled, selectedObject, openModal.bind(this)));
@@ -11,7 +11,7 @@ export class SelectBoxComponent extends React.PureComponent {
             return (React.createElement(TouchableOpacity, { activeOpacity: 0.7, onPress: () => openModal(), style: [SelectBoxStyle.pressBtn, selectViewIsDisabled && SelectBoxStyle.disabledBtn, { flex: 1 }] },
                 React.createElement(View, { style: SelectBoxStyle.container, style: [styles.selectBoxContainerStyle]},
                     React.createElement(View, { style: [ isSource ? styles.sourceBulletStyle : styles.destinationBulletStyle]}),
-                        React.createElement(Text, { style: [selectViewIsDisabled ? SelectBoxStyle.disabledTxt : SelectBoxStyle.chooseText] }, (selectedObject && selectedObject.Name) ? selectedObject.Name : chooseText),
+                        React.createElement(Text, { style: [selectViewIsDisabled ? styles.disabledTxt : styles.chooseText] }, (selectedObject && selectedObject.Name) ? selectedObject.Name : chooseText),
                 )));
         } else {
             return (React.createElement(TouchableOpacity, { activeOpacity: 0.7, onPress: () => openModal(), style: [SelectBoxStyle.pressBtn, selectViewIsDisabled && SelectBoxStyle.disabledBtn] },
@@ -24,10 +24,22 @@ export class SelectBoxComponent extends React.PureComponent {
 
 const colors = {
     clr_primary: '#D90429',
-    clr_white: '#FFFFFF',
+    clr_white: '#FFFFFF',   
 };
 
 const styles = {
+    chooseText: { 
+        color: '#3EE3E',
+        fontFamily: 'roboto-regular',
+        fontWeight: '400',
+        fontSize: 14,
+    }, 
+    disabledTxt: { 
+        color: '#9f9f9f',
+        fontFamily: 'roboto-regular',
+        fontWeight: '400',
+        fontSize: 14,
+    }, 
     selectBoxContainerStyle: {
         flexDirection: 'row',
         justifyContent: 'flex-start',
