@@ -29,13 +29,13 @@ const colors = {
 
 const styles = {
     chooseText: { 
-        color: '#3EE3E',
+        color: '#3E3E3E',
         fontFamily: 'roboto-regular',
         fontWeight: '400',
         fontSize: 14,
     }, 
     disabledTxt: { 
-        color: '#9f9f9f',
+        color: '#9F9F9F',
         fontFamily: 'roboto-regular',
         fontWeight: '400',
         fontSize: 14,
