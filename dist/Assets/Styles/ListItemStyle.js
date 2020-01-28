@@ -15,6 +15,7 @@ export const ListItemStyle = StyleSheet.create({
         borderBottomColor: 'rgba(0,0,0,.05)',
     },
     selected: {
+        color: '#000',
         fontWeight: 'bold',
     },
 });
