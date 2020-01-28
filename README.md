@@ -206,6 +206,7 @@ npm install
 
 #### Releases
 
+- 1.3.1 - Fixed <a href="https://github.com/pankod/react-native-picker-modal-view/issues/44">#44</a> Thanks to @fnando
 - 1.3.0 - No back button support <a href="https://github.com/pankod/react-native-picker-modal-view/issues/42">#42</a> Thanks to @ChildishForces
 - 1.2.8 - Fixed <a href="https://github.com/pankod/react-native-picker-modal-view/issues/37">#37</a>
 - 1.2.6 - Deprecated lifecycle methods fix
