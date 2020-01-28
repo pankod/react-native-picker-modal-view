@@ -154,6 +154,7 @@ export default class Main extends React.Component<{}, { selectedItem: {} }> {
 | **autoSort**                      | `boolean`  | Auto-sort data list                                    | `"false"`                                   |
 | **disabled**                      | `boolean`  | Disable Select box                                     |                                             |
 | **requireSelection**              | `boolean`  | Require at least one list item is selected             | `"false"`                                   |
+| **backButtonDisabled**            | `boolean`  | Hide to back button             						  | `"false"`                                   |
 
 # Core Props of React Native
 <br/>
@@ -205,6 +206,7 @@ npm install
 
 #### Releases
 
+- 1.3.0 - No back button support <a href="https://github.com/pankod/react-native-picker-modal-view/issues/42">#42</a> Thanks to @ChildishForces
 - 1.2.8 - Fixed <a href="https://github.com/pankod/react-native-picker-modal-view/issues/37">#37</a>
 - 1.2.6 - Deprecated lifecycle methods fix
 - 1.2.5 - Flatlist initialNumToRender property hotfix

@@ -5,6 +5,7 @@ export declare const SearchStyle: {
     searchArea: ViewStyle;
     textInput: ViewStyle;
     nonCloseButton: ViewStyle;
+    nonBackButton: ViewStyle;
     leftBtn: ViewStyle;
     rightBtn: ViewStyle;
 };
