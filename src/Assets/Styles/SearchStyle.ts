@@ -29,6 +29,9 @@ export const SearchStyle = StyleSheet.create({
 	nonCloseButton: {
 		marginRight: 20,
 	} as ViewStyle,
+	nonBackButton: {
+		marginLeft: 20,
+	} as ViewStyle,
 	leftBtn: {
 		paddingVertical: 20,
 		paddingHorizontal: 20,

@@ -70,6 +70,7 @@ describe('ModalComponent', () => {
 			disabled={false}
 			selected={data}
 			requireSelection={false}
+			backButtonDisabled={false}
 		/>);
 
 		beforeEach(() => {
@@ -79,7 +80,7 @@ describe('ModalComponent', () => {
 			Platform = require('react-native').Platform;
 		});
 
-		test('should  call setState when mounted', () => {
+		test('should call setState when mounted', () => {
 
 			const _wrapper = shallow(<ModalComponent
 				showAlphabeticalIndex={false}
@@ -98,6 +99,7 @@ describe('ModalComponent', () => {
 				autoSort={false}
 				disabled={false}
 				requireSelection={false}
+				backButtonDisabled={false}
 			/>);
 			expect(_wrapper.state('alphabeticalIndexChars')).toEqual(['A', 'B', 'C', 'D', 'E']);
 
