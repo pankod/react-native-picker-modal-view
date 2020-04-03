@@ -72,7 +72,7 @@ export class ModalComponent extends React.PureComponent<IModalProps, IModalState
 	}
 
 	public render(): JSX.Element {
-		const { autoSort, modalAnimationType, onClosed, showAlphabeticalIndex, searchInputTextColor, keyExtractor, showToTopButton, onEndReached, removeClippedSubviews, FlatListProps, selectPlaceholderText, searchPlaceholderText, SearchInputProps, selected, disabled, items, requireSelection, renderSelectView, ModalProps, backButtonDisabled} = this.props;
+		const { autoSort, modalAnimationType, onClosed, showAlphabeticalIndex, searchInputTextColor, keyExtractor, showToTopButton, onEndReached, removeClippedSubviews, FlatListProps, selectPlaceholderText, searchPlaceholderText, SearchInputProps, selected, disabled, items, requireSelection, renderSelectView, ModalProps, backButtonDisabled, renderSearch } = this.props;
 
 		const { modalVisible, alphabeticalIndexChars, stickyBottomButton, selectedAlpha, selectedObject, searchText } = this.state;
 
@@ -93,16 +93,23 @@ export class ModalComponent extends React.PureComponent<IModalProps, IModalState
 					{...ModalProps}
 				>
 					<SafeAreaView style={ModalStyles.container}>
-						<SearchComponent
-							searchText={searchPlaceholderText}
-							placeholderTextColor={searchInputTextColor}
-							onClose={this.onClose.bind(this)}
-							onBackRequest={this.onBackRequest.bind(this)}
-							forceSelect={requireSelection}
-							setText={(text: string) => this.setText(text)}
-							backButtonDisabled={backButtonDisabled}
-							{...SearchInputProps}
-						/>
+						{
+							renderSearch ? renderSearch(
+									this.onClose.bind(this), 
+									this.onBackRequest.bind(this)
+								) : (
+								<SearchComponent
+									searchText={searchPlaceholderText}
+									placeholderTextColor={searchInputTextColor}
+									onClose={this.onClose.bind(this)}
+									onBackRequest={this.onBackRequest.bind(this)}
+									forceSelect={requireSelection}
+									setText={(text: string) => this.setText(text)}
+									backButtonDisabled={backButtonDisabled}
+									{...SearchInputProps}
+								/>
+							)
+						}
 						<KeyboardAvoidingView style={ModalStyles.keyboardContainer}
 							behavior={Platform.OS === 'ios' ? 'padding' : null}
 							enabled>
