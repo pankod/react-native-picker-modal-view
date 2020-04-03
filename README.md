@@ -155,6 +155,7 @@ export default class Main extends React.Component<{}, { selectedItem: {} }> {
 | **disabled**                      | `boolean`  | Disable Select box                                     |                                             |
 | **requireSelection**              | `boolean`  | Require at least one list item is selected             | `"false"`                                   |
 | **backButtonDisabled**            | `boolean`  | Hide to back button             						  | `"false"`                                   |
+| **renderSearch**            | `Function`  | Render custom search input             						  | ``                                   |
 
 # Core Props of React Native
 <br/>
@@ -206,6 +207,7 @@ npm install
 
 #### Releases
 
+- 1.3.2 - Added renderSearch feature <a href="https://github.com/pankod/react-native-picker-modal-view/pull/54">#54</a> Thanks to @murilo-campaner
 - 1.3.1 - Fixed <a href="https://github.com/pankod/react-native-picker-modal-view/issues/44">#44</a> Thanks to @fnando
 - 1.3.0 - No back button support <a href="https://github.com/pankod/react-native-picker-modal-view/issues/42">#42</a> Thanks to @ChildishForces
 - 1.2.8 - Fixed <a href="https://github.com/pankod/react-native-picker-modal-view/issues/37">#37</a>
