@@ -33,17 +33,7 @@
 		"modal",
 		"selectbox"
 	],
-	"author": "Pankod",
-	"contributors": [
-		{
-			"name": "pankodsarikoz",
-			"email": "pankod@pankod.com"
-		},
-		{
-			"name": "aydinakyol",
-			"email": "aydinakyol11@gmail.com"
-		}
-	],
+	"author": "Pankod <info@pankod.com>",
 	"license": "MIT",
 	"dependencies": {},
 	"devDependencies": {
