@@ -14,7 +14,7 @@ export class AlphabetComponent extends React.PureComponent<IAlphabetsInDto, {}> 
 	};
 
 	public render(): JSX.Element {
-		const { alphabets, setAlphabet, selectedAlpha, showAlphabeticalIndex } = this.props;
+		const { alphabets, setAlphabet, selectedAlpha, showAlphabeticalIndex, alphabetTextStyle = {} } = this.props;
 
 		if (showAlphabeticalIndex) {
 			return (
@@ -27,7 +27,7 @@ export class AlphabetComponent extends React.PureComponent<IAlphabetsInDto, {}> 
 								<TouchableOpacity onPress={() => setAlphabet(a)} key={index}
 									style={AlphabetStyle.alphabetButton}>
 									<Text
-										style={[AlphabetStyle.alphabetText, selectedAlpha === a && AlphabetStyle.selected]}
+										style={[alphabetTextStyle, AlphabetStyle.alphabetText, selectedAlpha === a && AlphabetStyle.selected]}
 									>
 										{a}
 									</Text>
