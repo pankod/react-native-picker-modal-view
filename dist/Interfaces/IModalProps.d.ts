@@ -1,7 +1,7 @@
+/// <reference types="react" />
 import { FlatListProps, TextInputProps, ModalBaseProps, ModalPropsIOS, ModalPropsAndroid, TextStyle } from 'react-native';
 import { AnimationTypeEnum } from '../Enum';
 import { IModalListInDto } from './';
-import React from "react";
 declare type ModalProps = ModalBaseProps | ModalPropsIOS | ModalPropsAndroid;
 declare type ListType = IModalListInDto[];
 export interface IModalProps {

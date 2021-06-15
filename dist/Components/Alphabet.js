@@ -7,7 +7,7 @@ export class AlphabetComponent extends React.PureComponent {
         if (showAlphabeticalIndex) {
             return (React.createElement(View, { style: AlphabetStyle.container },
                 React.createElement(ScrollView, { showsVerticalScrollIndicator: false, keyboardShouldPersistTaps: "always" }, alphabets.map((a, index) => React.createElement(TouchableOpacity, { onPress: () => setAlphabet(a), key: index, style: AlphabetStyle.alphabetButton },
-                    React.createElement(Text, { style: [alphabetTextStyle, AlphabetStyle.alphabetText, selectedAlpha === a && AlphabetStyle.selected] }, a))))));
+                    React.createElement(Text, { style: [AlphabetStyle.alphabetText, selectedAlpha === a && AlphabetStyle.selected, alphabetTextStyle] }, a))))));
         }
         return null;
     }

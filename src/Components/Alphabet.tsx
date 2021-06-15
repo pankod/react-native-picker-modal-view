@@ -27,7 +27,7 @@ export class AlphabetComponent extends React.PureComponent<IAlphabetsInDto, {}> 
 								<TouchableOpacity onPress={() => setAlphabet(a)} key={index}
 									style={AlphabetStyle.alphabetButton}>
 									<Text
-										style={[alphabetTextStyle, AlphabetStyle.alphabetText, selectedAlpha === a && AlphabetStyle.selected]}
+										style={[AlphabetStyle.alphabetText, selectedAlpha === a && AlphabetStyle.selected, alphabetTextStyle]}
 									>
 										{a}
 									</Text>

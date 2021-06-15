@@ -11,7 +11,6 @@ import {
 // Local Imports
 import { AnimationTypeEnum } from '@Enum';
 import { IModalListInDto } from '@Interfaces';
-import React from "react";
 
 type ModalProps = ModalBaseProps | ModalPropsIOS | ModalPropsAndroid;
 
