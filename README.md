@@ -155,7 +155,8 @@ export default class Main extends React.Component<{}, { selectedItem: {} }> {
 | **disabled**                      | `boolean`  | Disable Select box                                     |                                             |
 | **requireSelection**              | `boolean`  | Require at least one list item is selected             | `"false"`                                   |
 | **backButtonDisabled**            | `boolean`  | Hide to back button             						  | `"false"`                                   |
-| **renderSearch**            | `Function`  | Render custom search input             						  | ``                                   |
+| **renderSearch**            | `Function`  | Render custom search input              						  | `"false"`                                   |
+| **alphabetTextStyle**            | `object`  | Render custom text for the alphabetical index          						  | `{}`                                   |
 
 # Core Props of React Native
 <br/>

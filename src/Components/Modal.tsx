@@ -72,7 +72,7 @@ export class ModalComponent extends React.PureComponent<IModalProps, IModalState
 	}
 
 	public render(): JSX.Element {
-		const { autoSort, modalAnimationType, onClosed, showAlphabeticalIndex, searchInputTextColor, keyExtractor, showToTopButton, onEndReached, removeClippedSubviews, FlatListProps, selectPlaceholderText, searchPlaceholderText, SearchInputProps, selected, disabled, items, requireSelection, renderSelectView, ModalProps, backButtonDisabled, renderSearch } = this.props;
+		const { autoSort, modalAnimationType, onClosed, showAlphabeticalIndex, searchInputTextColor, keyExtractor, showToTopButton, onEndReached, removeClippedSubviews, FlatListProps, selectPlaceholderText, searchPlaceholderText, SearchInputProps, selected, disabled, items, requireSelection, renderSelectView, ModalProps, backButtonDisabled, renderSearch, alphabetTextStyle = {} } = this.props;
 
 		const { modalVisible, alphabeticalIndexChars, stickyBottomButton, selectedAlpha, selectedObject, searchText } = this.state;
 
@@ -95,7 +95,7 @@ export class ModalComponent extends React.PureComponent<IModalProps, IModalState
 					<SafeAreaView style={ModalStyles.container}>
 						{
 							renderSearch ? renderSearch(
-									this.onClose.bind(this), 
+									this.onClose.bind(this),
 									this.onBackRequest.bind(this)
 								) : (
 								<SearchComponent
@@ -142,6 +142,7 @@ export class ModalComponent extends React.PureComponent<IModalProps, IModalState
 									setAlphabet={(alphabet: string) => this.setAlphabet(alphabet)}
 									alphabets={alphabeticalIndexChars}
 									selectedAlpha={selectedAlpha}
+									alphabetTextStyle={alphabetTextStyle}
 								/>
 							</View>
 						</KeyboardAvoidingView>

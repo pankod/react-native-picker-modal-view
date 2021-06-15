@@ -3,11 +3,11 @@ import { Text, View, ScrollView, TouchableOpacity } from 'react-native';
 import { AlphabetStyle } from '../Assets/Styles';
 export class AlphabetComponent extends React.PureComponent {
     render() {
-        const { alphabets, setAlphabet, selectedAlpha, showAlphabeticalIndex } = this.props;
+        const { alphabets, setAlphabet, selectedAlpha, showAlphabeticalIndex, alphabetTextStyle = {} } = this.props;
         if (showAlphabeticalIndex) {
             return (React.createElement(View, { style: AlphabetStyle.container },
                 React.createElement(ScrollView, { showsVerticalScrollIndicator: false, keyboardShouldPersistTaps: "always" }, alphabets.map((a, index) => React.createElement(TouchableOpacity, { onPress: () => setAlphabet(a), key: index, style: AlphabetStyle.alphabetButton },
-                    React.createElement(Text, { style: [AlphabetStyle.alphabetText, selectedAlpha === a && AlphabetStyle.selected] }, a))))));
+                    React.createElement(Text, { style: [AlphabetStyle.alphabetText, selectedAlpha === a && AlphabetStyle.selected, alphabetTextStyle] }, a))))));
         }
         return null;
     }
