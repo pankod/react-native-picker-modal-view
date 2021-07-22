@@ -141,7 +141,7 @@ export default class Main extends React.Component<{}, { selectedItem: {} }> {
 | **items** <br> **required*        | `array`    | Array of list items                                    | `"[{Id, Name, Value, [key: string]: any}]"` |
 | **renderSelectView**              | `Element`  | Render Select Component                                | `<SelectBoxComponent (built-in)>`           |
 | **renderListItem**                | `Element`  | Render List item                                       | `<ListItemComponent (built-in)/>`           |
-| **alphabeticalIndexChars**        | `array`    | Chracters array for the alphabetical index             | `<Turkish alphabet chracters>`              |
+| **alphabeticalIndexChars**        | `array`    | Characters array for the alphabetical index             | `<Turkish alphabet characters>`              |
 | **searchInputTextColor**          | `string`   | Search input placeholder text color                    | `"#252525"`                                 |
 | **keyExtractor**                  | `Function` | Flatlist defined {key} function                        | `<Predefined return map index>`             |
 | **autoGenerateAlphabeticalIndex** | `boolean`  | Auto-generates alphabetical index from list items data | `"false"`                                   |
