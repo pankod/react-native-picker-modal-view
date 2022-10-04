@@ -29,7 +29,7 @@
 		"@pankod/project-splash": "git+https://github.com/pankod/project-splash.git",
 		"@types/enzyme": "^3.9.2",
 		"@types/jest": "^24.0.13",
-		"expo": "^32.0.0",
+		"expo": "^46.0.14",
 		"react": "16.5.0",
 		"react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
 		"react-native-picker-modal-view": "^1.2.2"
